@@ -103,9 +103,9 @@ return [
 
     // How is your API authenticated? This information will be used in the displayed docs, generated examples and response calls.
     'auth' => [
-        'enabled' => true,      // <--- Was false. This turns on the "Auth" badge.
-        'default' => true,      // <--- Was false. Marks endpoints as protected by default.
-        'in' => 'bearer',       // <--- Simplified.
+        'enabled' => true,
+        'default' => false,
+        'in' => 'bearer',
         'name' => 'Authorization',
         'use_value' => env('SCRIBE_AUTH_KEY'),
         'placeholder' => '{YOUR_AUTH_TOKEN}',
