@@ -1,19 +1,19 @@
-name: 'Admin Management'
-description: 'Endpoints for store administrators'
+name: 'User Orders'
+description: ''
 endpoints:
   -
     custom: []
     httpMethods:
       - GET
-    uri: api/admin/orders
+    uri: api/orders
     metadata:
       custom: []
-      groupName: 'Admin Management'
-      groupDescription: 'Endpoints for store administrators'
+      groupName: 'User Orders'
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'List all orders'
-      description: 'Filter by user, product, or date. Sort by price or date.'
+      title: 'List my orders'
+      description: 'Returns a paginated list of orders belonging to the authenticated user.'
       authenticated: true
       deprecated: false
     headers:
@@ -23,55 +23,31 @@ endpoints:
     urlParameters: []
     cleanUrlParameters: []
     queryParameters:
-      user_id:
+      per_page:
         custom: []
-        name: user_id
-        description: 'Filter by Customer ID.'
-        required: false
-        example: 16
+        name: per_page
+        description: 'Items per page (Max 50).'
+        required: true
+        example: 10
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      product_id:
+      page:
         custom: []
-        name: product_id
-        description: 'Filter by Product ID inside the order.'
-        required: false
-        example: 16
+        name: page
+        description: 'The page number.'
+        required: true
+        example: 1
         type: integer
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      sort_by:
-        custom: []
-        name: sort_by
-        description: "Sort by 'total_price' or 'created_at'."
-        required: true
-        example: created_at
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      sort_dir:
-        custom: []
-        name: sort_dir
-        description: "Sort direction 'asc' or 'desc'."
-        required: true
-        example: desc
-        type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanQueryParameters:
-      user_id: 16
-      product_id: 16
-      sort_by: created_at
-      sort_dir: desc
+      per_page: 10
+      page: 1
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
@@ -96,52 +72,80 @@ endpoints:
   -
     custom: []
     httpMethods:
-      - PATCH
-    uri: 'api/admin/orders/{order_id}/status'
+      - POST
+    uri: api/orders
     metadata:
       custom: []
-      groupName: 'Admin Management'
-      groupDescription: 'Endpoints for store administrators'
+      groupName: 'User Orders'
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Update Order Status'
-      description: 'Transition the order to a new status (e.g. pending -> paid).'
+      title: 'Create a new order (Checkout)'
+      description: 'Validates products, calculates totals on the server, and creates the order.'
       authenticated: true
       deprecated: false
     headers:
       Authorization: 'Bearer {YOUR_AUTH_TOKEN}'
       Content-Type: application/json
       Accept: application/json
-    urlParameters:
-      order_id:
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      payment_method_id:
         custom: []
-        name: order_id
-        description: 'The ID of the order.'
+        name: payment_method_id
+        description: 'ID of the payment method (e.g. 1 for COD).'
         required: true
-        example: 2
+        example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-    cleanUrlParameters:
-      order_id: 2
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      status:
+      items:
         custom: []
-        name: status
-        description: 'The new status (paid, shipped, completed, cancelled).'
+        name: items
+        description: 'Array of products to purchase.'
         required: true
-        example: paid
-        type: string
+        example:
+          -
+            product_id: 1
+            quantity: 2
+        type: 'string[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      'items[].product_id':
+        custom: []
+        name: 'items[].product_id'
+        description: 'The <code>id</code> of an existing record in the products table.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      'items[].quantity':
+        custom: []
+        name: 'items[].quantity'
+        description: 'Must be at least 1.'
+        required: true
+        example: 22
+        type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      status: paid
+      payment_method_id: 1
+      items:
+        -
+          product_id: 1
+          quantity: 2
     fileParameters: []
     responses: []
     responseFields: []

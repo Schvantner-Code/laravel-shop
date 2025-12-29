@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\OrderController;
@@ -16,6 +17,12 @@ Route::get('/products/{id}', [ProductController::class, 'show']);
 
 // Protected Routes (Token Required)
 Route::middleware('auth:sanctum')->group(function () {
+    // Admin Routes
+    Route::prefix('admin')->group(function () {
+        Route::get('/orders', [AdminOrderController::class, 'index']);
+        Route::patch('/orders/{order}/status', [AdminOrderController::class, 'updateStatus']);
+    });
+
     Route::post('/auth/logout', [AuthController::class, 'logout']);
 
     Route::get('/orders', [OrderController::class, 'index']);

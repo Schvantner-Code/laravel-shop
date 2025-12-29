@@ -6,6 +6,8 @@ use App\Actions\CreateOrder;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Resources\OrderResource;
+use App\Models\Order;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\QueryParam;
@@ -16,6 +18,8 @@ use Knuckles\Scribe\Attributes\QueryParam;
 #[Authenticated]
 class OrderController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * List my orders
      *
@@ -47,6 +51,8 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request, CreateOrder $createOrder)
     {
+        $this->authorize('create', Order::class);
+
         $order = $createOrder->execute($request->user(), $request->validated());
 
         return new OrderResource($order);
