@@ -28,4 +28,9 @@ class Order extends Model
         return $this->belongsToMany(Product::class)
             ->withPivot(['quantity', 'unit_price']);
     }
+
+    public function paymentMethod(): BelongsTo
+    {
+        return $this->belongsTo(PaymentMethod::class);
+    }
 }
