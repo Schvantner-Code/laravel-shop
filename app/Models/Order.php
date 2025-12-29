@@ -16,7 +16,7 @@ class Order extends Model
         ];
     }
 
-    protected $fillable = ['user_id', 'status', 'total_price'];
+    protected $fillable = ['user_id', 'status', 'payment_method_id', 'total_price'];
 
     public function user(): BelongsTo
     {

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\CreateOrder;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreOrderRequest;
 use App\Http\Resources\OrderResource;
 use Illuminate\Http\Request;
 use Knuckles\Scribe\Attributes\Authenticated;
@@ -36,5 +38,17 @@ class OrderController extends Controller
             ->paginate($perPage);
 
         return OrderResource::collection($orders);
+    }
+
+    /**
+     * Create a new order (Checkout)
+     *
+     * Validates products, calculates totals on the server, and creates the order.
+     */
+    public function store(StoreOrderRequest $request, CreateOrder $createOrder)
+    {
+        $order = $createOrder->execute($request->user(), $request->validated());
+
+        return new OrderResource($order);
     }
 }
