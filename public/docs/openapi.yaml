@@ -1,0 +1,1074 @@
+openapi: 3.0.3
+info:
+  title: 'Laravel Shop API Documentation'
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+tags:
+  -
+    name: 'Admin Management'
+    description: 'Endpoints for store administrators'
+  -
+    name: Authentication
+    description: "\nAPIs for managing user registration and login."
+  -
+    name: 'Products & Categories (Public)'
+    description: ''
+  -
+    name: 'User Orders'
+    description: ''
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: 'You can retrieve your token by using the Login endpoint.'
+security:
+  -
+    default: []
+paths:
+  /api/admin/orders:
+    get:
+      summary: 'List all orders'
+      operationId: listAllOrders
+      description: 'Filter by user, product, or date. Sort by price or date.'
+      parameters:
+        -
+          in: query
+          name: user_id
+          description: 'Filter by Customer ID.'
+          example: 16
+          required: false
+          schema:
+            type: integer
+            description: 'Filter by Customer ID.'
+            example: 16
+        -
+          in: query
+          name: product_id
+          description: 'Filter by Product ID inside the order.'
+          example: 16
+          required: false
+          schema:
+            type: integer
+            description: 'Filter by Product ID inside the order.'
+            example: 16
+        -
+          in: query
+          name: sort_by
+          description: "Sort by 'total_price' or 'created_at'."
+          example: created_at
+          required: true
+          schema:
+            type: string
+            description: "Sort by 'total_price' or 'created_at'."
+            example: created_at
+        -
+          in: query
+          name: sort_dir
+          description: "Sort direction 'asc' or 'desc'."
+          example: desc
+          required: true
+          schema:
+            type: string
+            description: "Sort direction 'asc' or 'desc'."
+            example: desc
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - 'Admin Management'
+  '/api/admin/orders/{order_id}/status':
+    patch:
+      summary: 'Update Order Status'
+      operationId: updateOrderStatus
+      description: 'Transition the order to a new status (e.g. pending -> paid).'
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Admin Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'The new status (paid, shipped, completed, cancelled).'
+                  example: paid
+              required:
+                - status
+    parameters:
+      -
+        in: path
+        name: order_id
+        description: 'The ID of the order.'
+        example: 2
+        required: true
+        schema:
+          type: integer
+  /api/admin/categories:
+    get:
+      summary: ''
+      operationId: getApiAdminCategories
+      description: ''
+      parameters:
+        -
+          in: query
+          name: scope
+          description: "Filter list: 'active' (default), 'trashed', or 'all'."
+          example: all
+          required: true
+          schema:
+            type: string
+            description: "Filter list: 'active' (default), 'trashed', or 'all'."
+            example: all
+        -
+          in: query
+          name: per_page
+          description: 'Items per page (Max 50).'
+          example: 10
+          required: true
+          schema:
+            type: integer
+            description: 'Items per page (Max 50).'
+            example: 10
+        -
+          in: query
+          name: page
+          description: 'The page number.'
+          example: 1
+          required: true
+          schema:
+            type: integer
+            description: 'The page number.'
+            example: 1
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - 'Admin Management'
+    post:
+      summary: ''
+      operationId: postApiAdminCategories
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Admin Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: object
+                  description: 'Translatable name.'
+                  example:
+                    en: Notebooks
+                    sk: Zošity
+                  properties:
+                    en:
+                      type: string
+                      description: 'Must not be greater than 255 characters.'
+                      example: b
+                    sk:
+                      type: string
+                      description: 'Must not be greater than 255 characters.'
+                      example: 'n'
+                      nullable: true
+                  required:
+                    - en
+                slug:
+                  type: string
+                  description: 'Unique URL identifier.'
+                  example: notebooks
+              required:
+                - name
+                - slug
+  '/api/admin/categories/{category_id}':
+    put:
+      summary: ''
+      operationId: putApiAdminCategoriesCategory_id
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Admin Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: object
+                  description: 'Translatable name.'
+                  example:
+                    en: 'Notebooks v2'
+                    sk: 'Zošity v2'
+                  properties:
+                    en:
+                      type: string
+                      description: 'Must not be greater than 255 characters.'
+                      example: b
+                    sk:
+                      type: string
+                      description: 'Must not be greater than 255 characters.'
+                      example: 'n'
+                      nullable: true
+                  required:
+                    - en
+                slug:
+                  type: string
+                  description: ''
+                  example: null
+              required:
+                - name
+    delete:
+      summary: ''
+      operationId: deleteApiAdminCategoriesCategory_id
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Admin Management'
+    parameters:
+      -
+        in: path
+        name: category_id
+        description: 'The ID of the category.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  '/api/admin/categories/{id}/restore':
+    post:
+      summary: 'Restore a deleted category'
+      operationId: restoreADeletedCategory
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Admin Management'
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the category.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/admin/products:
+    get:
+      summary: 'List Products (Admin)'
+      operationId: listProductsAdmin
+      description: 'View all products, including inactive or deleted ones.'
+      parameters:
+        -
+          in: query
+          name: scope
+          description: "Filter list: 'active' (default), 'trashed', or 'all'."
+          example: all
+          required: true
+          schema:
+            type: string
+            description: "Filter list: 'active' (default), 'trashed', or 'all'."
+            example: all
+        -
+          in: query
+          name: per_page
+          description: 'Items per page (Max 50).'
+          example: 10
+          required: true
+          schema:
+            type: integer
+            description: 'Items per page (Max 50).'
+            example: 10
+        -
+          in: query
+          name: page
+          description: 'The page number.'
+          example: 1
+          required: true
+          schema:
+            type: integer
+            description: 'The page number.'
+            example: 1
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - 'Admin Management'
+    post:
+      summary: ''
+      operationId: postApiAdminProducts
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Admin Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category_id:
+                  type: integer
+                  description: ''
+                  example: 1
+                name:
+                  type: object
+                  description: ''
+                  example:
+                    en: 'Pro Pen'
+                    sk: 'Pro Pero'
+                  properties:
+                    en:
+                      type: string
+                      description: 'Must not be greater than 255 characters.'
+                      example: b
+                    sk:
+                      type: string
+                      description: 'Must not be greater than 255 characters.'
+                      example: 'n'
+                      nullable: true
+                  required:
+                    - en
+                description:
+                  type: object
+                  description: ''
+                  example: null
+                  properties:
+                    en:
+                      type: string
+                      description: ''
+                      example: architecto
+                      nullable: true
+                    sk:
+                      type: string
+                      description: ''
+                      example: architecto
+                      nullable: true
+                  nullable: true
+                price:
+                  type: integer
+                  description: 'Price in cents.'
+                  example: 1250
+                is_active:
+                  type: boolean
+                  description: ''
+                  example: true
+              required:
+                - category_id
+                - name
+                - price
+  '/api/admin/products/{product_id}':
+    put:
+      summary: ''
+      operationId: putApiAdminProductsProduct_id
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Admin Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category_id:
+                  type: integer
+                  description: ''
+                  example: 1
+                name:
+                  type: object
+                  description: ''
+                  example:
+                    en: 'Pro Pen'
+                    sk: 'Pro Pero'
+                  properties:
+                    en:
+                      type: string
+                      description: 'Must not be greater than 255 characters.'
+                      example: b
+                    sk:
+                      type: string
+                      description: 'Must not be greater than 255 characters.'
+                      example: 'n'
+                      nullable: true
+                  required:
+                    - en
+                description:
+                  type: object
+                  description: ''
+                  example: null
+                  properties:
+                    en:
+                      type: string
+                      description: ''
+                      example: architecto
+                      nullable: true
+                    sk:
+                      type: string
+                      description: ''
+                      example: architecto
+                      nullable: true
+                  nullable: true
+                price:
+                  type: integer
+                  description: 'Price in cents.'
+                  example: 1250
+                is_active:
+                  type: boolean
+                  description: ''
+                  example: true
+              required:
+                - category_id
+                - name
+                - price
+    delete:
+      summary: ''
+      operationId: deleteApiAdminProductsProduct_id
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Admin Management'
+    parameters:
+      -
+        in: path
+        name: product_id
+        description: 'The ID of the product.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  '/api/admin/products/{id}/restore':
+    post:
+      summary: 'Restore a deleted product'
+      operationId: restoreADeletedProduct
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Admin Management'
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the product.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/auth/register:
+    post:
+      summary: 'Register a new user'
+      operationId: registerANewUser
+      description: 'Creates a new customer account and returns an access token.'
+      parameters: []
+      responses: {  }
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'The full name of the user.'
+                  example: 'John Smith'
+                email:
+                  type: string
+                  description: 'A unique email address.'
+                  example: johnsmith@example.com
+                password:
+                  type: string
+                  description: 'Must be at least 8 characters long'
+                  example: secret123
+                password_confirmation:
+                  type: string
+                  description: 'Must match the password.'
+                  example: secret123
+              required:
+                - name
+                - email
+                - password
+                - password_confirmation
+      security: []
+  /api/auth/login:
+    post:
+      summary: Login
+      operationId: login
+      description: 'Authenticates a user and returns an access token.'
+      parameters: []
+      responses: {  }
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: ''
+                  example: admin@example.com
+                password:
+                  type: string
+                  description: ''
+                  example: password
+              required:
+                - email
+                - password
+      security: []
+  /api/auth/logout:
+    post:
+      summary: Logout
+      operationId: logout
+      description: 'Revokes the current access token.'
+      parameters: []
+      responses: {  }
+      tags:
+        - Authentication
+      security: []
+  /api/categories:
+    get:
+      summary: 'List all categories'
+      operationId: listAllCategories
+      description: 'Returns a paginated list of categories. Supports searching by name.'
+      parameters:
+        -
+          in: query
+          name: search
+          description: 'Search category name.'
+          example: notebooks
+          required: false
+          schema:
+            type: string
+            description: 'Search category name.'
+            example: notebooks
+        -
+          in: query
+          name: per_page
+          description: 'Items per page (Max 50).'
+          example: 10
+          required: true
+          schema:
+            type: integer
+            description: 'Items per page (Max 50).'
+            example: 10
+        -
+          in: query
+          name: page
+          description: 'The page number.'
+          example: 1
+          required: true
+          schema:
+            type: integer
+            description: 'The page number.'
+            example: 1
+        -
+          in: header
+          name: Accept-Language
+          description: ''
+          example: en
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      name: Notebooks
+                      slug: notebooks
+                  links:
+                    first: 'http://localhost/api/categories?page=1'
+                    last: 'http://localhost/api/categories?page=1'
+                    prev: null
+                    next: null
+                  meta:
+                    current_page: 1
+                    from: 1
+                    last_page: 1
+                    links:
+                      -
+                        url: null
+                        label: '&laquo; Previous'
+                        page: null
+                        active: false
+                      -
+                        url: 'http://localhost/api/categories?page=1'
+                        label: '1'
+                        page: 1
+                        active: true
+                      -
+                        url: null
+                        label: 'Next &raquo;'
+                        page: null
+                        active: false
+                    path: 'http://localhost/api/categories'
+                    per_page: 10
+                    to: 1
+                    total: 1
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        name: Notebooks
+                        slug: notebooks
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        name:
+                          type: string
+                          example: Notebooks
+                        slug:
+                          type: string
+                          example: notebooks
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: 'http://localhost/api/categories?page=1'
+                      last:
+                        type: string
+                        example: 'http://localhost/api/categories?page=1'
+                      prev:
+                        type: string
+                        example: null
+                      next:
+                        type: string
+                        example: null
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      from:
+                        type: integer
+                        example: 1
+                      last_page:
+                        type: integer
+                        example: 1
+                      links:
+                        type: array
+                        example:
+                          -
+                            url: null
+                            label: '&laquo; Previous'
+                            page: null
+                            active: false
+                          -
+                            url: 'http://localhost/api/categories?page=1'
+                            label: '1'
+                            page: 1
+                            active: true
+                          -
+                            url: null
+                            label: 'Next &raquo;'
+                            page: null
+                            active: false
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type: string
+                              example: null
+                            label:
+                              type: string
+                              example: '&laquo; Previous'
+                            page:
+                              type: string
+                              example: null
+                            active:
+                              type: boolean
+                              example: false
+                      path:
+                        type: string
+                        example: 'http://localhost/api/categories'
+                      per_page:
+                        type: integer
+                        example: 10
+                      to:
+                        type: integer
+                        example: 1
+                      total:
+                        type: integer
+                        example: 1
+      tags:
+        - 'Products & Categories (Public)'
+      security: []
+  /api/products:
+    get:
+      summary: 'List all products'
+      operationId: listAllProducts
+      description: 'Returns a paginated list of products. Supports filtering by category and searching by text.'
+      parameters:
+        -
+          in: query
+          name: category
+          description: "Filter by category slug (e.g. 'notebooks')."
+          example: notebooks
+          required: false
+          schema:
+            type: string
+            description: "Filter by category slug (e.g. 'notebooks')."
+            example: notebooks
+        -
+          in: query
+          name: search
+          description: 'Search name or description.'
+          example: pencil
+          required: false
+          schema:
+            type: string
+            description: 'Search name or description.'
+            example: pencil
+        -
+          in: query
+          name: per_page
+          description: 'Items per page (Max 50).'
+          example: 10
+          required: true
+          schema:
+            type: integer
+            description: 'Items per page (Max 50).'
+            example: 10
+        -
+          in: query
+          name: page
+          description: 'The page number.'
+          example: 1
+          required: true
+          schema:
+            type: integer
+            description: 'The page number.'
+            example: 1
+        -
+          in: header
+          name: Accept-Language
+          description: ''
+          example: en
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data: []
+                  links:
+                    first: 'http://localhost/api/products?page=1'
+                    last: 'http://localhost/api/products?page=1'
+                    prev: null
+                    next: null
+                  meta:
+                    current_page: 1
+                    from: null
+                    last_page: 1
+                    links:
+                      -
+                        url: null
+                        label: '&laquo; Previous'
+                        page: null
+                        active: false
+                      -
+                        url: 'http://localhost/api/products?page=1'
+                        label: '1'
+                        page: 1
+                        active: true
+                      -
+                        url: null
+                        label: 'Next &raquo;'
+                        page: null
+                        active: false
+                    path: 'http://localhost/api/products'
+                    per_page: 10
+                    to: null
+                    total: 0
+                properties:
+                  data:
+                    type: array
+                    example: []
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: 'http://localhost/api/products?page=1'
+                      last:
+                        type: string
+                        example: 'http://localhost/api/products?page=1'
+                      prev:
+                        type: string
+                        example: null
+                      next:
+                        type: string
+                        example: null
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      from:
+                        type: string
+                        example: null
+                      last_page:
+                        type: integer
+                        example: 1
+                      links:
+                        type: array
+                        example:
+                          -
+                            url: null
+                            label: '&laquo; Previous'
+                            page: null
+                            active: false
+                          -
+                            url: 'http://localhost/api/products?page=1'
+                            label: '1'
+                            page: 1
+                            active: true
+                          -
+                            url: null
+                            label: 'Next &raquo;'
+                            page: null
+                            active: false
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type: string
+                              example: null
+                            label:
+                              type: string
+                              example: '&laquo; Previous'
+                            page:
+                              type: string
+                              example: null
+                            active:
+                              type: boolean
+                              example: false
+                      path:
+                        type: string
+                        example: 'http://localhost/api/products'
+                      per_page:
+                        type: integer
+                        example: 10
+                      to:
+                        type: string
+                        example: null
+                      total:
+                        type: integer
+                        example: 0
+      tags:
+        - 'Products & Categories (Public)'
+      security: []
+  '/api/products/{id}':
+    get:
+      summary: 'Get product details'
+      operationId: getProductDetails
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Accept-Language
+          description: ''
+          example: en
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 1
+                    name: 'Leather Journal'
+                    description: 'Premium A5 notebook.'
+                    price: '24.99'
+                    category:
+                      id: 1
+                      name: Notebooks
+                      slug: notebooks
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Leather Journal'
+                      description:
+                        type: string
+                        example: 'Premium A5 notebook.'
+                      price:
+                        type: string
+                        example: '24.99'
+                      category:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: Notebooks
+                          slug:
+                            type: string
+                            example: notebooks
+      tags:
+        - 'Products & Categories (Public)'
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the product.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/orders:
+    get:
+      summary: 'List my orders'
+      operationId: listMyOrders
+      description: 'Returns a paginated list of orders belonging to the authenticated user.'
+      parameters:
+        -
+          in: query
+          name: per_page
+          description: 'Items per page (Max 50).'
+          example: 10
+          required: true
+          schema:
+            type: integer
+            description: 'Items per page (Max 50).'
+            example: 10
+        -
+          in: query
+          name: page
+          description: 'The page number.'
+          example: 1
+          required: true
+          schema:
+            type: integer
+            description: 'The page number.'
+            example: 1
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - 'User Orders'
+    post:
+      summary: 'Create a new order (Checkout)'
+      operationId: createANewOrderCheckout
+      description: 'Validates products, calculates totals on the server, and creates the order.'
+      parameters: []
+      responses: {  }
+      tags:
+        - 'User Orders'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payment_method_id:
+                  type: integer
+                  description: 'ID of the payment method (e.g. 1 for COD).'
+                  example: 1
+                items:
+                  type: array
+                  description: 'Array of products to purchase.'
+                  example:
+                    -
+                      product_id: 1
+                      quantity: 2
+                  items:
+                    type: string
+              required:
+                - payment_method_id
+                - items
