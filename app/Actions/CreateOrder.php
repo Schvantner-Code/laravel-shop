@@ -3,6 +3,7 @@
 namespace App\Actions;
 
 use App\Enums\OrderStatus;
+use App\Events\OrderPlaced;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
@@ -47,6 +48,8 @@ class CreateOrder
             ]);
 
             $order->products()->attach($pivotData);
+
+            OrderPlaced::dispatch($order);
 
             return $order;
         });
