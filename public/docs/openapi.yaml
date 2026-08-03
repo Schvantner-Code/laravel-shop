@@ -4,20 +4,15 @@ info:
   description: ''
   version: 1.0.0
 servers:
-  -
-    url: 'http://localhost'
+  - url: 'http://localhost'
 tags:
-  -
-    name: 'Admin Management'
+  - name: 'Admin Management'
     description: 'Endpoints for store administrators'
-  -
-    name: Authentication
+  - name: Authentication
     description: "\nAPIs for managing user registration and login."
-  -
-    name: 'Products & Categories (Public)'
+  - name: 'Products & Categories (Public)'
     description: ''
-  -
-    name: 'User Orders'
+  - name: 'User Orders'
     description: ''
 components:
   securitySchemes:
@@ -76,18 +71,18 @@ paths:
             description: "Sort direction 'asc' or 'desc'."
             example: desc
       responses:
-        401:
+        500:
           description: ''
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  message: Unauthenticated.
+                  message: 'Server Error'
                 properties:
                   message:
                     type: string
-                    example: Unauthenticated.
+                    example: 'Server Error'
       tags:
         - 'Admin Management'
   '/api/admin/orders/{order_id}/status':
@@ -96,7 +91,7 @@ paths:
       operationId: updateOrderStatus
       description: 'Transition the order to a new status (e.g. pending -> paid).'
       parameters: []
-      responses: {  }
+      responses: {}
       tags:
         - 'Admin Management'
       requestBody:
@@ -117,7 +112,7 @@ paths:
         in: path
         name: order_id
         description: 'The ID of the order.'
-        example: 2
+        example: 16
         required: true
         schema:
           type: integer
@@ -158,18 +153,18 @@ paths:
             description: 'The page number.'
             example: 1
       responses:
-        401:
+        500:
           description: ''
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  message: Unauthenticated.
+                  message: 'Server Error'
                 properties:
                   message:
                     type: string
-                    example: Unauthenticated.
+                    example: 'Server Error'
       tags:
         - 'Admin Management'
     post:
@@ -177,7 +172,7 @@ paths:
       operationId: postApiAdminCategories
       description: ''
       parameters: []
-      responses: {  }
+      responses: {}
       tags:
         - 'Admin Management'
       requestBody:
@@ -218,7 +213,7 @@ paths:
       operationId: putApiAdminCategoriesCategory_id
       description: ''
       parameters: []
-      responses: {  }
+      responses: {}
       tags:
         - 'Admin Management'
       requestBody:
@@ -257,7 +252,7 @@ paths:
       operationId: deleteApiAdminCategoriesCategory_id
       description: ''
       parameters: []
-      responses: {  }
+      responses: {}
       tags:
         - 'Admin Management'
     parameters:
@@ -265,7 +260,7 @@ paths:
         in: path
         name: category_id
         description: 'The ID of the category.'
-        example: 1
+        example: 16
         required: true
         schema:
           type: integer
@@ -275,7 +270,7 @@ paths:
       operationId: restoreADeletedCategory
       description: ''
       parameters: []
-      responses: {  }
+      responses: {}
       tags:
         - 'Admin Management'
     parameters:
@@ -283,7 +278,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the category.'
-        example: 1
+        example: 16
         required: true
         schema:
           type: integer
@@ -324,18 +319,18 @@ paths:
             description: 'The page number.'
             example: 1
       responses:
-        401:
+        500:
           description: ''
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  message: Unauthenticated.
+                  message: 'Server Error'
                 properties:
                   message:
                     type: string
-                    example: Unauthenticated.
+                    example: 'Server Error'
       tags:
         - 'Admin Management'
     post:
@@ -343,7 +338,7 @@ paths:
       operationId: postApiAdminProducts
       description: ''
       parameters: []
-      responses: {  }
+      responses: {}
       tags:
         - 'Admin Management'
       requestBody:
@@ -409,7 +404,7 @@ paths:
       operationId: putApiAdminProductsProduct_id
       description: ''
       parameters: []
-      responses: {  }
+      responses: {}
       tags:
         - 'Admin Management'
       requestBody:
@@ -474,7 +469,7 @@ paths:
       operationId: deleteApiAdminProductsProduct_id
       description: ''
       parameters: []
-      responses: {  }
+      responses: {}
       tags:
         - 'Admin Management'
     parameters:
@@ -482,7 +477,7 @@ paths:
         in: path
         name: product_id
         description: 'The ID of the product.'
-        example: 1
+        example: 16
         required: true
         schema:
           type: integer
@@ -492,7 +487,7 @@ paths:
       operationId: restoreADeletedProduct
       description: ''
       parameters: []
-      responses: {  }
+      responses: {}
       tags:
         - 'Admin Management'
     parameters:
@@ -500,7 +495,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the product.'
-        example: 1
+        example: 16
         required: true
         schema:
           type: integer
@@ -510,7 +505,7 @@ paths:
       operationId: registerANewUser
       description: 'Creates a new customer account and returns an access token.'
       parameters: []
-      responses: {  }
+      responses: {}
       tags:
         - Authentication
       requestBody:
@@ -548,7 +543,7 @@ paths:
       operationId: login
       description: 'Authenticates a user and returns an access token.'
       parameters: []
-      responses: {  }
+      responses: {}
       tags:
         - Authentication
       requestBody:
@@ -576,7 +571,7 @@ paths:
       operationId: logout
       description: 'Revokes the current access token.'
       parameters: []
-      responses: {  }
+      responses: {}
       tags:
         - Authentication
       security: []
@@ -624,139 +619,18 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        500:
           description: ''
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  data:
-                    -
-                      id: 1
-                      name: Notebooks
-                      slug: notebooks
-                  links:
-                    first: 'http://localhost/api/categories?page=1'
-                    last: 'http://localhost/api/categories?page=1'
-                    prev: null
-                    next: null
-                  meta:
-                    current_page: 1
-                    from: 1
-                    last_page: 1
-                    links:
-                      -
-                        url: null
-                        label: '&laquo; Previous'
-                        page: null
-                        active: false
-                      -
-                        url: 'http://localhost/api/categories?page=1'
-                        label: '1'
-                        page: 1
-                        active: true
-                      -
-                        url: null
-                        label: 'Next &raquo;'
-                        page: null
-                        active: false
-                    path: 'http://localhost/api/categories'
-                    per_page: 10
-                    to: 1
-                    total: 1
+                  message: 'Server Error'
                 properties:
-                  data:
-                    type: array
-                    example:
-                      -
-                        id: 1
-                        name: Notebooks
-                        slug: notebooks
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                          example: 1
-                        name:
-                          type: string
-                          example: Notebooks
-                        slug:
-                          type: string
-                          example: notebooks
-                  links:
-                    type: object
-                    properties:
-                      first:
-                        type: string
-                        example: 'http://localhost/api/categories?page=1'
-                      last:
-                        type: string
-                        example: 'http://localhost/api/categories?page=1'
-                      prev:
-                        type: string
-                        example: null
-                      next:
-                        type: string
-                        example: null
-                  meta:
-                    type: object
-                    properties:
-                      current_page:
-                        type: integer
-                        example: 1
-                      from:
-                        type: integer
-                        example: 1
-                      last_page:
-                        type: integer
-                        example: 1
-                      links:
-                        type: array
-                        example:
-                          -
-                            url: null
-                            label: '&laquo; Previous'
-                            page: null
-                            active: false
-                          -
-                            url: 'http://localhost/api/categories?page=1'
-                            label: '1'
-                            page: 1
-                            active: true
-                          -
-                            url: null
-                            label: 'Next &raquo;'
-                            page: null
-                            active: false
-                        items:
-                          type: object
-                          properties:
-                            url:
-                              type: string
-                              example: null
-                            label:
-                              type: string
-                              example: '&laquo; Previous'
-                            page:
-                              type: string
-                              example: null
-                            active:
-                              type: boolean
-                              example: false
-                      path:
-                        type: string
-                        example: 'http://localhost/api/categories'
-                      per_page:
-                        type: integer
-                        example: 10
-                      to:
-                        type: integer
-                        example: 1
-                      total:
-                        type: integer
-                        example: 1
+                  message:
+                    type: string
+                    example: 'Server Error'
       tags:
         - 'Products & Categories (Public)'
       security: []
@@ -814,119 +688,18 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        500:
           description: ''
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  data: []
-                  links:
-                    first: 'http://localhost/api/products?page=1'
-                    last: 'http://localhost/api/products?page=1'
-                    prev: null
-                    next: null
-                  meta:
-                    current_page: 1
-                    from: null
-                    last_page: 1
-                    links:
-                      -
-                        url: null
-                        label: '&laquo; Previous'
-                        page: null
-                        active: false
-                      -
-                        url: 'http://localhost/api/products?page=1'
-                        label: '1'
-                        page: 1
-                        active: true
-                      -
-                        url: null
-                        label: 'Next &raquo;'
-                        page: null
-                        active: false
-                    path: 'http://localhost/api/products'
-                    per_page: 10
-                    to: null
-                    total: 0
+                  message: 'Server Error'
                 properties:
-                  data:
-                    type: array
-                    example: []
-                  links:
-                    type: object
-                    properties:
-                      first:
-                        type: string
-                        example: 'http://localhost/api/products?page=1'
-                      last:
-                        type: string
-                        example: 'http://localhost/api/products?page=1'
-                      prev:
-                        type: string
-                        example: null
-                      next:
-                        type: string
-                        example: null
-                  meta:
-                    type: object
-                    properties:
-                      current_page:
-                        type: integer
-                        example: 1
-                      from:
-                        type: string
-                        example: null
-                      last_page:
-                        type: integer
-                        example: 1
-                      links:
-                        type: array
-                        example:
-                          -
-                            url: null
-                            label: '&laquo; Previous'
-                            page: null
-                            active: false
-                          -
-                            url: 'http://localhost/api/products?page=1'
-                            label: '1'
-                            page: 1
-                            active: true
-                          -
-                            url: null
-                            label: 'Next &raquo;'
-                            page: null
-                            active: false
-                        items:
-                          type: object
-                          properties:
-                            url:
-                              type: string
-                              example: null
-                            label:
-                              type: string
-                              example: '&laquo; Previous'
-                            page:
-                              type: string
-                              example: null
-                            active:
-                              type: boolean
-                              example: false
-                      path:
-                        type: string
-                        example: 'http://localhost/api/products'
-                      per_page:
-                        type: integer
-                        example: 10
-                      to:
-                        type: string
-                        example: null
-                      total:
-                        type: integer
-                        example: 0
+                  message:
+                    type: string
+                    example: 'Server Error'
       tags:
         - 'Products & Categories (Public)'
       security: []
@@ -944,50 +717,18 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        500:
           description: ''
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  data:
-                    id: 1
-                    name: 'Leather Journal'
-                    description: 'Premium A5 notebook.'
-                    price: '24.99'
-                    category:
-                      id: 1
-                      name: Notebooks
-                      slug: notebooks
+                  message: 'Server Error'
                 properties:
-                  data:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                        example: 1
-                      name:
-                        type: string
-                        example: 'Leather Journal'
-                      description:
-                        type: string
-                        example: 'Premium A5 notebook.'
-                      price:
-                        type: string
-                        example: '24.99'
-                      category:
-                        type: object
-                        properties:
-                          id:
-                            type: integer
-                            example: 1
-                          name:
-                            type: string
-                            example: Notebooks
-                          slug:
-                            type: string
-                            example: notebooks
+                  message:
+                    type: string
+                    example: 'Server Error'
       tags:
         - 'Products & Categories (Public)'
       security: []
@@ -996,7 +737,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the product.'
-        example: 1
+        example: 16
         required: true
         schema:
           type: integer
@@ -1027,18 +768,18 @@ paths:
             description: 'The page number.'
             example: 1
       responses:
-        401:
+        500:
           description: ''
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  message: Unauthenticated.
+                  message: 'Server Error'
                 properties:
                   message:
                     type: string
-                    example: Unauthenticated.
+                    example: 'Server Error'
       tags:
         - 'User Orders'
     post:
@@ -1046,7 +787,7 @@ paths:
       operationId: createANewOrderCheckout
       description: 'Validates products, calculates totals on the server, and creates the order.'
       parameters: []
-      responses: {  }
+      responses: {}
       tags:
         - 'User Orders'
       requestBody:
@@ -1064,8 +805,7 @@ paths:
                   type: array
                   description: 'Array of products to purchase.'
                   example:
-                    -
-                      product_id: 1
+                    - product_id: 1
                       quantity: 2
                   items:
                     type: string

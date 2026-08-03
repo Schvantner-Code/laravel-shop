@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel Shop API Documentation",
-        "_postman_id": "090d2898-cabe-4b81-a129-94a46b9c8505",
+        "_postman_id": "d768294a-344f-478d-b225-583341d852b9",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -83,8 +83,8 @@
                                     "value": "*"
                                 }
                             ],
-                            "code": 401,
-                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "code": 500,
+                            "body": "{\n    \"message\": \"Server Error\"\n}",
                             "name": ""
                         }
                     ]
@@ -101,7 +101,7 @@
                                 {
                                     "id": "order_id",
                                     "key": "order_id",
-                                    "value": "2",
+                                    "value": 16,
                                     "description": "The ID of the order."
                                 }
                             ]
@@ -183,8 +183,8 @@
                                     "value": "*"
                                 }
                             ],
-                            "code": 401,
-                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "code": 500,
+                            "body": "{\n    \"message\": \"Server Error\"\n}",
                             "name": ""
                         }
                     ]
@@ -229,7 +229,7 @@
                                 {
                                     "id": "category_id",
                                     "key": "category_id",
-                                    "value": "1",
+                                    "value": 16,
                                     "description": "The ID of the category."
                                 }
                             ]
@@ -265,7 +265,7 @@
                                 {
                                     "id": "category_id",
                                     "key": "category_id",
-                                    "value": "1",
+                                    "value": 16,
                                     "description": "The ID of the category."
                                 }
                             ]
@@ -298,7 +298,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "1",
+                                    "value": 16,
                                     "description": "The ID of the category."
                                 }
                             ]
@@ -377,8 +377,8 @@
                                     "value": "*"
                                 }
                             ],
-                            "code": 401,
-                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "code": 500,
+                            "body": "{\n    \"message\": \"Server Error\"\n}",
                             "name": ""
                         }
                     ]
@@ -423,7 +423,7 @@
                                 {
                                     "id": "product_id",
                                     "key": "product_id",
-                                    "value": "1",
+                                    "value": 16,
                                     "description": "The ID of the product."
                                 }
                             ]
@@ -459,7 +459,7 @@
                                 {
                                     "id": "product_id",
                                     "key": "product_id",
-                                    "value": "1",
+                                    "value": 16,
                                     "description": "The ID of the product."
                                 }
                             ]
@@ -492,7 +492,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "1",
+                                    "value": 16,
                                     "description": "The ID of the product."
                                 }
                             ]
@@ -680,8 +680,8 @@
                                     "value": "*"
                                 }
                             ],
-                            "code": 200,
-                            "body": "{\"data\":[{\"id\":1,\"name\":\"Notebooks\",\"slug\":\"notebooks\"}],\"links\":{\"first\":\"http:\\\/\\\/localhost\\\/api\\\/categories?page=1\",\"last\":\"http:\\\/\\\/localhost\\\/api\\\/categories?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"&laquo; Previous\",\"page\":null,\"active\":false},{\"url\":\"http:\\\/\\\/localhost\\\/api\\\/categories?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"Next &raquo;\",\"page\":null,\"active\":false}],\"path\":\"http:\\\/\\\/localhost\\\/api\\\/categories\",\"per_page\":10,\"to\":1,\"total\":1}}",
+                            "code": 500,
+                            "body": "{\n    \"message\": \"Server Error\"\n}",
                             "name": ""
                         }
                     ]
@@ -757,8 +757,8 @@
                                     "value": "*"
                                 }
                             ],
-                            "code": 200,
-                            "body": "{\"data\":[],\"links\":{\"first\":\"http:\\\/\\\/localhost\\\/api\\\/products?page=1\",\"last\":\"http:\\\/\\\/localhost\\\/api\\\/products?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":null,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"&laquo; Previous\",\"page\":null,\"active\":false},{\"url\":\"http:\\\/\\\/localhost\\\/api\\\/products?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"Next &raquo;\",\"page\":null,\"active\":false}],\"path\":\"http:\\\/\\\/localhost\\\/api\\\/products\",\"per_page\":10,\"to\":null,\"total\":0}}",
+                            "code": 500,
+                            "body": "{\n    \"message\": \"Server Error\"\n}",
                             "name": ""
                         }
                     ]
@@ -775,7 +775,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "1",
+                                    "value": 16,
                                     "description": "The ID of the product."
                                 }
                             ]
@@ -817,8 +817,8 @@
                                     "value": "*"
                                 }
                             ],
-                            "code": 200,
-                            "body": "{\"data\":{\"id\":1,\"name\":\"Leather Journal\",\"description\":\"Premium A5 notebook.\",\"price\":\"24.99\",\"category\":{\"id\":1,\"name\":\"Notebooks\",\"slug\":\"notebooks\"}}}",
+                            "code": 500,
+                            "body": "{\n    \"message\": \"Server Error\"\n}",
                             "name": ""
                         }
                     ]
@@ -881,8 +881,8 @@
                                     "value": "*"
                                 }
                             ],
-                            "code": 401,
-                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "code": 500,
+                            "body": "{\n    \"message\": \"Server Error\"\n}",
                             "name": ""
                         }
                     ]

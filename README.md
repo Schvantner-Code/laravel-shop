@@ -1,7 +1,7 @@
 
 # Laravel E-Commerce API Showcase
 
-A headless e-commerce API developed as a technical portfolio showcase. This repository demonstrates modern Laravel 12 architecture, strict type safety, and enterprise-grade patterns including Domain-Driven Design (Actions), Event-Driven Architecture, and Automated Testing.
+A headless e-commerce API developed as a technical portfolio showcase. This repository demonstrates modern Laravel 13 architecture, strict type safety, and enterprise-grade patterns including Domain-Driven Design (Actions), Event-Driven Architecture, and Automated Testing.
 
 ## Key Features & Architecture
 
@@ -15,9 +15,9 @@ A headless e-commerce API developed as a technical portfolio showcase. This repo
 
 ## Technology Stack
 
-*   **Framework**: Laravel 12
-*   **Language**: PHP 8.4
-*   **Database**: MySQL 8
+*   **Framework**: Laravel 13
+*   **Language**: PHP 8.5
+*   **Database**: MySQL 8.4
 *   **Cache/Queue**: Redis
 *   **Testing**: Pest PHP
 *   **Documentation**: Scribe (OpenAPI/Swagger)
@@ -65,3 +65,13 @@ The repository includes a GitHub Actions workflow that automatically runs tests 
 ```bash
 ./vendor/bin/sail test
 ```
+
+## Development Workflow
+
+Enable the repository's versioned Git hooks once after cloning:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+When staged API routes, controllers, requests, Scribe configuration, or Composer dependencies change, the pre-commit hook regenerates and stages the Scribe files in `public/docs`. This keeps API documentation in the same commit as the related change without modifying docs during unrelated commits. Sail must be running for those commits; the commit is stopped if documentation generation fails.

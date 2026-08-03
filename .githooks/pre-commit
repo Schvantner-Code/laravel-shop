@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+documentation_inputs_changed=false
+
+while IFS= read -r path; do
+    case "$path" in
+        app/Http/*|routes/*|config/scribe.php|composer.json|composer.lock)
+            documentation_inputs_changed=true
+            break
+            ;;
+    esac
+done < <(git diff --cached --name-only --diff-filter=ACMR)
+
+if [[ "$documentation_inputs_changed" == false ]]; then
+    exit 0
+fi
+
+if [[ ! -x ./vendor/bin/sail ]]; then
+    echo "Scribe documentation could not be generated: Laravel Sail is not installed." >&2
+    echo "Run Composer install, then retry the commit." >&2
+    exit 1
+fi
+
+if ! ./vendor/bin/sail artisan --version >/dev/null 2>&1; then
+    echo "Scribe documentation could not be generated: Laravel Sail is not running." >&2
+    echo "Start Sail with './vendor/bin/sail up -d', then retry the commit." >&2
+    exit 1
+fi
+
+echo "Generating Scribe API documentation..."
+./vendor/bin/sail artisan scribe:generate --quiet
+git add -- public/docs
+echo "Scribe API documentation generated and staged."
