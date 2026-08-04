@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\OrderStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
 
-            $table->enum('status', array_column(OrderStatus::cases(), 'value'))->default(OrderStatus::Pending->value);
+            $table->enum('status', ['pending', 'paid', 'shipped', 'cancelled'])->default('pending');
 
             $table->unsignedInteger('total_price');
             $table->timestamps();
@@ -37,6 +36,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('order_product');
         Schema::dropIfExists('orders');
     }
 };

@@ -25,7 +25,7 @@ A headless e-commerce API developed as a technical portfolio showcase. This repo
 
 ## Setup Instructions
 
-Prerequisites: Docker Desktop must be installed and running.
+Prerequisites: Docker Desktop with WSL integration, or Docker Engine on Linux, must be installed and running. The commands below should be run from Linux, macOS, or WSL.
 
 1. **Clone the repository**
    ```bash
@@ -33,17 +33,67 @@ Prerequisites: Docker Desktop must be installed and running.
    cd laravel-shop
    ```
 
-2. **Start the Docker container**
+2. **Create the local environment file**
+   ```bash
+   cp .env.example .env
+   ```
+
+3. **Bootstrap PHP dependencies using Docker**
+
+   A fresh clone does not contain `vendor/bin/sail`, so the vendor directory must be bootstrapped before Sail can start. Composer scripts are deferred because this bootstrap image uses PHP 8.4 while the application requires PHP 8.5:
+
+   ```bash
+   docker run --rm \
+       -u "$(id -u):$(id -g)" \
+       -v "$(pwd):/var/www/html" \
+       -w /var/www/html \
+       laravelsail/php84-composer:latest \
+       composer install --ignore-platform-reqs --no-scripts
+   ```
+
+4. **Start the application services**
    ```bash
    ./vendor/bin/sail up -d
    ```
 
-3. **Install dependencies and setup database**
+5. **Initialize the application and database**
    ```bash
    ./vendor/bin/sail composer install
    ./vendor/bin/sail artisan key:generate
    ./vendor/bin/sail artisan migrate --seed
    ```
+
+The seeders create two demonstration accounts:
+
+| Role | Email | Password |
+|---|---|---|
+| Administrator | `admin@example.com` | `password` |
+| Customer | `customer@example.com` | `password` |
+
+These credentials are for local development only.
+
+### Local database access
+
+Laravel connects to MySQL through the Docker service name `mysql`. A desktop database client connects through the published host port instead:
+
+| Setting | Application container | Host database client |
+|---|---|---|
+| Host | `mysql` | `127.0.0.1` |
+| Port | `3306` | `3306` |
+| Database | `laravel` | `laravel` |
+| Username | `sail` | `sail` |
+| Password | `password` | `password` |
+
+If port 3306 is already occupied, set `FORWARD_DB_PORT` in `.env` and use that value in the host database client. Do not change `DB_PORT`; container-to-container traffic still uses port 3306.
+
+To inspect migration state or open the MySQL console:
+
+```bash
+./vendor/bin/sail artisan migrate:status
+./vendor/bin/sail mysql
+```
+
+`./vendor/bin/sail down` stops and removes containers while preserving the named database volume. Avoid `sail down -v` and `migrate:fresh` when local data must be retained.
 
 ## Documentation & API Usage
 
@@ -60,7 +110,7 @@ To test the localization features, use the `Accept-Language` header in your requ
 
 ## Testing & CI
 
-The repository includes a GitHub Actions workflow that automatically runs tests on every push. To run the test suite locally:
+The repository includes a GitHub Actions workflow that automatically runs tests on every push. Sail creates a separate `testing` database for the local suite, so tests do not use the development `laravel` database. To run the test suite locally:
 
 ```bash
 ./vendor/bin/sail test
