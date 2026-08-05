@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel Shop API Documentation",
-        "_postman_id": "bdd1fcea-9498-4834-888d-c407f6b30db9",
+        "_postman_id": "0c4c79dd-7fca-4594-b098-b9a5fc3d927a",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -84,7 +84,7 @@
                                 }
                             ],
                             "code": 401,
-                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "body": "{\"error\":{\"code\":\"unauthenticated\",\"message\":\"Authentication is required.\"}}",
                             "name": ""
                         }
                     ]
@@ -184,7 +184,7 @@
                                 }
                             ],
                             "code": 401,
-                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "body": "{\"error\":{\"code\":\"unauthenticated\",\"message\":\"Authentication is required.\"}}",
                             "name": ""
                         }
                     ]
@@ -378,7 +378,7 @@
                                 }
                             ],
                             "code": 401,
-                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "body": "{\"error\":{\"code\":\"unauthenticated\",\"message\":\"Authentication is required.\"}}",
                             "name": ""
                         }
                     ]
@@ -441,7 +441,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"category_id\":1,\"name\":{\"en\":\"Pro Pen\",\"sk\":\"Pro Pero\"},\"description\":{\"en\":\"architecto\",\"sk\":\"architecto\"},\"price\":1250,\"is_active\":true}"
+                            "raw": "{\"category_id\":1,\"name\":{\"en\":\"Pro Pen\",\"sk\":\"Pro Pero\"},\"description\":{\"en\":\"architecto\",\"sk\":\"architecto\"},\"price\":1250,\"is_active\":false}"
                         },
                         "description": ""
                     },
@@ -882,7 +882,7 @@
                                 }
                             ],
                             "code": 401,
-                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "body": "{\"error\":{\"code\":\"unauthenticated\",\"message\":\"Authentication is required.\"}}",
                             "name": ""
                         }
                     ]

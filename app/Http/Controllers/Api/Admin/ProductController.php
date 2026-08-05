@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Product\StoreProductRequest;
 use App\Http\Requests\Admin\Product\UpdateProductRequest;
@@ -86,7 +87,7 @@ class ProductController extends Controller
         $product = Product::withTrashed()->findOrFail($id);
 
         if ($product->deleted_at === null) {
-            return response()->json(['message' => 'Product is not deleted.'], 400);
+            throw ApiException::resourceNotDeleted('Product');
         }
 
         $this->authorize('restore', $product);

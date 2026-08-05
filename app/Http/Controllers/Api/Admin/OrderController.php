@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Enums\OrderStatus;
+use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
@@ -72,9 +73,7 @@ class OrderController extends Controller
 
         // enforce state machine
         if (! $order->status->canTransitionTo($newStatus, $order)) {
-            return response()->json([
-                'message' => "Invalid transition from {$order->status->value} to {$newStatus->value} for this payment method.",
-            ], 422);
+            throw ApiException::invalidOrderTransition($order->status->value, $newStatus->value);
         }
 
         $order->update(['status' => $newStatus]);

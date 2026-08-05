@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Category\StoreCategoryRequest;
 use App\Http\Requests\Admin\Category\UpdateCategoryRequest;
@@ -80,7 +81,7 @@ class CategoryController extends Controller
         $category = Category::withTrashed()->findOrFail($id);
 
         if ($category->deleted_at === null) {
-            return response()->json(['message' => 'Category is not deleted.'], 400);
+            throw ApiException::resourceNotDeleted('Category');
         }
 
         $this->authorize('restore', $category);

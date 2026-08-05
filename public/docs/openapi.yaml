@@ -78,11 +78,19 @@ paths:
               schema:
                 type: object
                 example:
-                  message: Unauthenticated.
+                  error:
+                    code: unauthenticated
+                    message: 'Authentication is required.'
                 properties:
-                  message:
-                    type: string
-                    example: Unauthenticated.
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: unauthenticated
+                      message:
+                        type: string
+                        example: 'Authentication is required.'
       tags:
         - 'Admin Management'
   '/api/v1/admin/orders/{order_id}/status':
@@ -160,11 +168,19 @@ paths:
               schema:
                 type: object
                 example:
-                  message: Unauthenticated.
+                  error:
+                    code: unauthenticated
+                    message: 'Authentication is required.'
                 properties:
-                  message:
-                    type: string
-                    example: Unauthenticated.
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: unauthenticated
+                      message:
+                        type: string
+                        example: 'Authentication is required.'
       tags:
         - 'Admin Management'
     post:
@@ -326,11 +342,19 @@ paths:
               schema:
                 type: object
                 example:
-                  message: Unauthenticated.
+                  error:
+                    code: unauthenticated
+                    message: 'Authentication is required.'
                 properties:
-                  message:
-                    type: string
-                    example: Unauthenticated.
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: unauthenticated
+                      message:
+                        type: string
+                        example: 'Authentication is required.'
       tags:
         - 'Admin Management'
     post:
@@ -459,7 +483,7 @@ paths:
                 is_active:
                   type: boolean
                   description: ''
-                  example: true
+                  example: false
               required:
                 - category_id
                 - name
@@ -1032,11 +1056,19 @@ paths:
               schema:
                 type: object
                 example:
-                  message: Unauthenticated.
+                  error:
+                    code: unauthenticated
+                    message: 'Authentication is required.'
                 properties:
-                  message:
-                    type: string
-                    example: Unauthenticated.
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: unauthenticated
+                      message:
+                        type: string
+                        example: 'Authentication is required.'
       tags:
         - 'User Orders'
     post:
