@@ -24,7 +24,7 @@ security:
   -
     default: []
 paths:
-  /api/admin/orders:
+  /api/v1/admin/orders:
     get:
       summary: 'List all orders'
       operationId: listAllOrders
@@ -71,21 +71,21 @@ paths:
             description: "Sort direction 'asc' or 'desc'."
             example: desc
       responses:
-        500:
+        401:
           description: ''
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  message: 'Server Error'
+                  message: Unauthenticated.
                 properties:
                   message:
                     type: string
-                    example: 'Server Error'
+                    example: Unauthenticated.
       tags:
         - 'Admin Management'
-  '/api/admin/orders/{order_id}/status':
+  '/api/v1/admin/orders/{order_id}/status':
     patch:
       summary: 'Update Order Status'
       operationId: updateOrderStatus
@@ -116,10 +116,10 @@ paths:
         required: true
         schema:
           type: integer
-  /api/admin/categories:
+  /api/v1/admin/categories:
     get:
       summary: ''
-      operationId: getApiAdminCategories
+      operationId: getApiV1AdminCategories
       description: ''
       parameters:
         -
@@ -153,23 +153,23 @@ paths:
             description: 'The page number.'
             example: 1
       responses:
-        500:
+        401:
           description: ''
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  message: 'Server Error'
+                  message: Unauthenticated.
                 properties:
                   message:
                     type: string
-                    example: 'Server Error'
+                    example: Unauthenticated.
       tags:
         - 'Admin Management'
     post:
       summary: ''
-      operationId: postApiAdminCategories
+      operationId: postApiV1AdminCategories
       description: ''
       parameters: []
       responses: {}
@@ -207,10 +207,10 @@ paths:
               required:
                 - name
                 - slug
-  '/api/admin/categories/{category_id}':
+  '/api/v1/admin/categories/{category_id}':
     put:
       summary: ''
-      operationId: putApiAdminCategoriesCategory_id
+      operationId: putApiV1AdminCategoriesCategory_id
       description: ''
       parameters: []
       responses: {}
@@ -249,7 +249,7 @@ paths:
                 - name
     delete:
       summary: ''
-      operationId: deleteApiAdminCategoriesCategory_id
+      operationId: deleteApiV1AdminCategoriesCategory_id
       description: ''
       parameters: []
       responses: {}
@@ -260,11 +260,11 @@ paths:
         in: path
         name: category_id
         description: 'The ID of the category.'
-        example: 16
+        example: 1
         required: true
         schema:
           type: integer
-  '/api/admin/categories/{id}/restore':
+  '/api/v1/admin/categories/{id}/restore':
     post:
       summary: 'Restore a deleted category'
       operationId: restoreADeletedCategory
@@ -278,11 +278,11 @@ paths:
         in: path
         name: id
         description: 'The ID of the category.'
-        example: 16
+        example: 1
         required: true
         schema:
           type: integer
-  /api/admin/products:
+  /api/v1/admin/products:
     get:
       summary: 'List Products (Admin)'
       operationId: listProductsAdmin
@@ -319,23 +319,23 @@ paths:
             description: 'The page number.'
             example: 1
       responses:
-        500:
+        401:
           description: ''
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  message: 'Server Error'
+                  message: Unauthenticated.
                 properties:
                   message:
                     type: string
-                    example: 'Server Error'
+                    example: Unauthenticated.
       tags:
         - 'Admin Management'
     post:
       summary: ''
-      operationId: postApiAdminProducts
+      operationId: postApiV1AdminProducts
       description: ''
       parameters: []
       responses: {}
@@ -393,15 +393,15 @@ paths:
                 is_active:
                   type: boolean
                   description: ''
-                  example: true
+                  example: false
               required:
                 - category_id
                 - name
                 - price
-  '/api/admin/products/{product_id}':
+  '/api/v1/admin/products/{product_id}':
     put:
       summary: ''
-      operationId: putApiAdminProductsProduct_id
+      operationId: putApiV1AdminProductsProduct_id
       description: ''
       parameters: []
       responses: {}
@@ -466,7 +466,7 @@ paths:
                 - price
     delete:
       summary: ''
-      operationId: deleteApiAdminProductsProduct_id
+      operationId: deleteApiV1AdminProductsProduct_id
       description: ''
       parameters: []
       responses: {}
@@ -477,11 +477,11 @@ paths:
         in: path
         name: product_id
         description: 'The ID of the product.'
-        example: 16
+        example: 1
         required: true
         schema:
           type: integer
-  '/api/admin/products/{id}/restore':
+  '/api/v1/admin/products/{id}/restore':
     post:
       summary: 'Restore a deleted product'
       operationId: restoreADeletedProduct
@@ -495,11 +495,11 @@ paths:
         in: path
         name: id
         description: 'The ID of the product.'
-        example: 16
+        example: 1
         required: true
         schema:
           type: integer
-  /api/auth/register:
+  /api/v1/auth/register:
     post:
       summary: 'Register a new user'
       operationId: registerANewUser
@@ -537,7 +537,7 @@ paths:
                 - password
                 - password_confirmation
       security: []
-  /api/auth/login:
+  /api/v1/auth/login:
     post:
       summary: Login
       operationId: login
@@ -565,7 +565,7 @@ paths:
                 - email
                 - password
       security: []
-  /api/auth/logout:
+  /api/v1/auth/logout:
     post:
       summary: Logout
       operationId: logout
@@ -575,7 +575,7 @@ paths:
       tags:
         - Authentication
       security: []
-  /api/categories:
+  /api/v1/categories:
     get:
       summary: 'List all categories'
       operationId: listAllCategories
@@ -619,22 +619,143 @@ paths:
           schema:
             type: string
       responses:
-        500:
+        200:
           description: ''
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  message: 'Server Error'
+                  data:
+                    -
+                      id: 1
+                      name: Notebooks
+                      slug: notebooks
+                  links:
+                    first: 'http://localhost/api/v1/categories?page=1'
+                    last: 'http://localhost/api/v1/categories?page=1'
+                    prev: null
+                    next: null
+                  meta:
+                    current_page: 1
+                    from: 1
+                    last_page: 1
+                    links:
+                      -
+                        url: null
+                        label: '&laquo; Previous'
+                        page: null
+                        active: false
+                      -
+                        url: 'http://localhost/api/v1/categories?page=1'
+                        label: '1'
+                        page: 1
+                        active: true
+                      -
+                        url: null
+                        label: 'Next &raquo;'
+                        page: null
+                        active: false
+                    path: 'http://localhost/api/v1/categories'
+                    per_page: 10
+                    to: 1
+                    total: 1
                 properties:
-                  message:
-                    type: string
-                    example: 'Server Error'
+                  data:
+                    type: array
+                    example:
+                      - id: 1
+                        name: Notebooks
+                        slug: notebooks
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        name:
+                          type: string
+                          example: Notebooks
+                        slug:
+                          type: string
+                          example: notebooks
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: 'http://localhost/api/v1/categories?page=1'
+                      last:
+                        type: string
+                        example: 'http://localhost/api/v1/categories?page=1'
+                      prev:
+                        type: string
+                        example: null
+                        nullable: true
+                      next:
+                        type: string
+                        example: null
+                        nullable: true
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      from:
+                        type: integer
+                        example: 1
+                      last_page:
+                        type: integer
+                        example: 1
+                      links:
+                        type: array
+                        example:
+                          - url: null
+                            label: '&laquo; Previous'
+                            page: null
+                            active: false
+                          - url: 'http://localhost/api/v1/categories?page=1'
+                            label: '1'
+                            page: 1
+                            active: true
+                          - url: null
+                            label: 'Next &raquo;'
+                            page: null
+                            active: false
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type: string
+                              example: null
+                              nullable: true
+                            label:
+                              type: string
+                              example: '&laquo; Previous'
+                            page:
+                              type: string
+                              example: null
+                              nullable: true
+                            active:
+                              type: boolean
+                              example: false
+                      path:
+                        type: string
+                        example: 'http://localhost/api/v1/categories'
+                      per_page:
+                        type: integer
+                        example: 10
+                      to:
+                        type: integer
+                        example: 1
+                      total:
+                        type: integer
+                        example: 1
       tags:
         - 'Products & Categories (Public)'
       security: []
-  /api/products:
+  /api/v1/products:
     get:
       summary: 'List all products'
       operationId: listAllProducts
@@ -688,22 +809,126 @@ paths:
           schema:
             type: string
       responses:
-        500:
+        200:
           description: ''
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  message: 'Server Error'
+                  data: []
+                  links:
+                    first: 'http://localhost/api/v1/products?page=1'
+                    last: 'http://localhost/api/v1/products?page=1'
+                    prev: null
+                    next: null
+                  meta:
+                    current_page: 1
+                    from: null
+                    last_page: 1
+                    links:
+                      -
+                        url: null
+                        label: '&laquo; Previous'
+                        page: null
+                        active: false
+                      -
+                        url: 'http://localhost/api/v1/products?page=1'
+                        label: '1'
+                        page: 1
+                        active: true
+                      -
+                        url: null
+                        label: 'Next &raquo;'
+                        page: null
+                        active: false
+                    path: 'http://localhost/api/v1/products'
+                    per_page: 10
+                    to: null
+                    total: 0
                 properties:
-                  message:
-                    type: string
-                    example: 'Server Error'
+                  data:
+                    type: array
+                    example: []
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: 'http://localhost/api/v1/products?page=1'
+                      last:
+                        type: string
+                        example: 'http://localhost/api/v1/products?page=1'
+                      prev:
+                        type: string
+                        example: null
+                        nullable: true
+                      next:
+                        type: string
+                        example: null
+                        nullable: true
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      from:
+                        type: string
+                        example: null
+                        nullable: true
+                      last_page:
+                        type: integer
+                        example: 1
+                      links:
+                        type: array
+                        example:
+                          - url: null
+                            label: '&laquo; Previous'
+                            page: null
+                            active: false
+                          - url: 'http://localhost/api/v1/products?page=1'
+                            label: '1'
+                            page: 1
+                            active: true
+                          - url: null
+                            label: 'Next &raquo;'
+                            page: null
+                            active: false
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type: string
+                              example: null
+                              nullable: true
+                            label:
+                              type: string
+                              example: '&laquo; Previous'
+                            page:
+                              type: string
+                              example: null
+                              nullable: true
+                            active:
+                              type: boolean
+                              example: false
+                      path:
+                        type: string
+                        example: 'http://localhost/api/v1/products'
+                      per_page:
+                        type: integer
+                        example: 10
+                      to:
+                        type: string
+                        example: null
+                        nullable: true
+                      total:
+                        type: integer
+                        example: 0
       tags:
         - 'Products & Categories (Public)'
       security: []
-  '/api/products/{id}':
+  '/api/v1/products/{id}':
     get:
       summary: 'Get product details'
       operationId: getProductDetails
@@ -717,18 +942,50 @@ paths:
           schema:
             type: string
       responses:
-        500:
+        200:
           description: ''
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  message: 'Server Error'
+                  data:
+                    id: 1
+                    name: 'Leather Journal'
+                    description: 'Premium A5 notebook.'
+                    price: '24.99'
+                    category:
+                      id: 1
+                      name: Notebooks
+                      slug: notebooks
                 properties:
-                  message:
-                    type: string
-                    example: 'Server Error'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Leather Journal'
+                      description:
+                        type: string
+                        example: 'Premium A5 notebook.'
+                      price:
+                        type: string
+                        example: '24.99'
+                      category:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: Notebooks
+                          slug:
+                            type: string
+                            example: notebooks
       tags:
         - 'Products & Categories (Public)'
       security: []
@@ -737,11 +994,11 @@ paths:
         in: path
         name: id
         description: 'The ID of the product.'
-        example: 16
+        example: 1
         required: true
         schema:
           type: integer
-  /api/orders:
+  /api/v1/orders:
     get:
       summary: 'List my orders'
       operationId: listMyOrders
@@ -768,18 +1025,18 @@ paths:
             description: 'The page number.'
             example: 1
       responses:
-        500:
+        401:
           description: ''
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  message: 'Server Error'
+                  message: Unauthenticated.
                 properties:
                   message:
                     type: string
-                    example: 'Server Error'
+                    example: Unauthenticated.
       tags:
         - 'User Orders'
     post:

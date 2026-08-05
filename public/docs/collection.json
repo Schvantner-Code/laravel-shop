@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel Shop API Documentation",
-        "_postman_id": "d768294a-344f-478d-b225-583341d852b9",
+        "_postman_id": "bdd1fcea-9498-4834-888d-c407f6b30db9",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -24,7 +24,7 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/admin\/orders",
+                            "path": "api\/v1\/admin\/orders",
                             "query": [
                                 {
                                     "key": "user_id",
@@ -51,7 +51,7 @@
                                     "disabled": false
                                 }
                             ],
-                            "raw": "{{baseUrl}}\/api\/admin\/orders?user_id=16&product_id=16&sort_by=created_at&sort_dir=desc"
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/orders?user_id=16&product_id=16&sort_by=created_at&sort_dir=desc"
                         },
                         "method": "GET",
                         "header": [
@@ -83,8 +83,8 @@
                                     "value": "*"
                                 }
                             ],
-                            "code": 500,
-                            "body": "{\n    \"message\": \"Server Error\"\n}",
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
                             "name": ""
                         }
                     ]
@@ -94,9 +94,9 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/admin\/orders\/:order_id\/status",
+                            "path": "api\/v1\/admin\/orders\/:order_id\/status",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/admin\/orders\/:order_id\/status",
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/orders\/:order_id\/status",
                             "variable": [
                                 {
                                     "id": "order_id",
@@ -126,11 +126,11 @@
                     "response": []
                 },
                 {
-                    "name": "GET api\/admin\/categories",
+                    "name": "GET api\/v1\/admin\/categories",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/admin\/categories",
+                            "path": "api\/v1\/admin\/categories",
                             "query": [
                                 {
                                     "key": "scope",
@@ -151,7 +151,7 @@
                                     "disabled": false
                                 }
                             ],
-                            "raw": "{{baseUrl}}\/api\/admin\/categories?scope=all&per_page=10&page=1"
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/categories?scope=all&per_page=10&page=1"
                         },
                         "method": "GET",
                         "header": [
@@ -183,20 +183,20 @@
                                     "value": "*"
                                 }
                             ],
-                            "code": 500,
-                            "body": "{\n    \"message\": \"Server Error\"\n}",
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
                             "name": ""
                         }
                     ]
                 },
                 {
-                    "name": "POST api\/admin\/categories",
+                    "name": "POST api\/v1\/admin\/categories",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/admin\/categories",
+                            "path": "api\/v1\/admin\/categories",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/admin\/categories"
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/categories"
                         },
                         "method": "POST",
                         "header": [
@@ -218,18 +218,18 @@
                     "response": []
                 },
                 {
-                    "name": "PUT api\/admin\/categories\/{category_id}",
+                    "name": "PUT api\/v1\/admin\/categories\/{category_id}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/admin\/categories\/:category_id",
+                            "path": "api\/v1\/admin\/categories\/:category_id",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/admin\/categories\/:category_id",
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/categories\/:category_id",
                             "variable": [
                                 {
                                     "id": "category_id",
                                     "key": "category_id",
-                                    "value": 16,
+                                    "value": 1,
                                     "description": "The ID of the category."
                                 }
                             ]
@@ -254,18 +254,18 @@
                     "response": []
                 },
                 {
-                    "name": "DELETE api\/admin\/categories\/{category_id}",
+                    "name": "DELETE api\/v1\/admin\/categories\/{category_id}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/admin\/categories\/:category_id",
+                            "path": "api\/v1\/admin\/categories\/:category_id",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/admin\/categories\/:category_id",
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/categories\/:category_id",
                             "variable": [
                                 {
                                     "id": "category_id",
                                     "key": "category_id",
-                                    "value": 16,
+                                    "value": 1,
                                     "description": "The ID of the category."
                                 }
                             ]
@@ -291,14 +291,14 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/admin\/categories\/:id\/restore",
+                            "path": "api\/v1\/admin\/categories\/:id\/restore",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/admin\/categories\/:id\/restore",
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/categories\/:id\/restore",
                             "variable": [
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": 16,
+                                    "value": 1,
                                     "description": "The ID of the category."
                                 }
                             ]
@@ -324,7 +324,7 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/admin\/products",
+                            "path": "api\/v1\/admin\/products",
                             "query": [
                                 {
                                     "key": "scope",
@@ -345,7 +345,7 @@
                                     "disabled": false
                                 }
                             ],
-                            "raw": "{{baseUrl}}\/api\/admin\/products?scope=all&per_page=10&page=1"
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/products?scope=all&per_page=10&page=1"
                         },
                         "method": "GET",
                         "header": [
@@ -377,20 +377,20 @@
                                     "value": "*"
                                 }
                             ],
-                            "code": 500,
-                            "body": "{\n    \"message\": \"Server Error\"\n}",
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
                             "name": ""
                         }
                     ]
                 },
                 {
-                    "name": "POST api\/admin\/products",
+                    "name": "POST api\/v1\/admin\/products",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/admin\/products",
+                            "path": "api\/v1\/admin\/products",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/admin\/products"
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/products"
                         },
                         "method": "POST",
                         "header": [
@@ -405,25 +405,25 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"category_id\":1,\"name\":{\"en\":\"Pro Pen\",\"sk\":\"Pro Pero\"},\"description\":{\"en\":\"architecto\",\"sk\":\"architecto\"},\"price\":1250,\"is_active\":true}"
+                            "raw": "{\"category_id\":1,\"name\":{\"en\":\"Pro Pen\",\"sk\":\"Pro Pero\"},\"description\":{\"en\":\"architecto\",\"sk\":\"architecto\"},\"price\":1250,\"is_active\":false}"
                         },
                         "description": ""
                     },
                     "response": []
                 },
                 {
-                    "name": "PUT api\/admin\/products\/{product_id}",
+                    "name": "PUT api\/v1\/admin\/products\/{product_id}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/admin\/products\/:product_id",
+                            "path": "api\/v1\/admin\/products\/:product_id",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/admin\/products\/:product_id",
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/products\/:product_id",
                             "variable": [
                                 {
                                     "id": "product_id",
                                     "key": "product_id",
-                                    "value": 16,
+                                    "value": 1,
                                     "description": "The ID of the product."
                                 }
                             ]
@@ -448,18 +448,18 @@
                     "response": []
                 },
                 {
-                    "name": "DELETE api\/admin\/products\/{product_id}",
+                    "name": "DELETE api\/v1\/admin\/products\/{product_id}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/admin\/products\/:product_id",
+                            "path": "api\/v1\/admin\/products\/:product_id",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/admin\/products\/:product_id",
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/products\/:product_id",
                             "variable": [
                                 {
                                     "id": "product_id",
                                     "key": "product_id",
-                                    "value": 16,
+                                    "value": 1,
                                     "description": "The ID of the product."
                                 }
                             ]
@@ -485,14 +485,14 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/admin\/products\/:id\/restore",
+                            "path": "api\/v1\/admin\/products\/:id\/restore",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/admin\/products\/:id\/restore",
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/products\/:id\/restore",
                             "variable": [
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": 16,
+                                    "value": 1,
                                     "description": "The ID of the product."
                                 }
                             ]
@@ -524,9 +524,9 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/auth\/register",
+                            "path": "api\/v1\/auth\/register",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/auth\/register"
+                            "raw": "{{baseUrl}}\/api\/v1\/auth\/register"
                         },
                         "method": "POST",
                         "header": [
@@ -555,9 +555,9 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/auth\/login",
+                            "path": "api\/v1\/auth\/login",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/auth\/login"
+                            "raw": "{{baseUrl}}\/api\/v1\/auth\/login"
                         },
                         "method": "POST",
                         "header": [
@@ -586,9 +586,9 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/auth\/logout",
+                            "path": "api\/v1\/auth\/logout",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/auth\/logout"
+                            "raw": "{{baseUrl}}\/api\/v1\/auth\/logout"
                         },
                         "method": "POST",
                         "header": [
@@ -620,7 +620,7 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/categories",
+                            "path": "api\/v1\/categories",
                             "query": [
                                 {
                                     "key": "search",
@@ -641,7 +641,7 @@
                                     "disabled": false
                                 }
                             ],
-                            "raw": "{{baseUrl}}\/api\/categories?search=notebooks&per_page=10&page=1"
+                            "raw": "{{baseUrl}}\/api\/v1\/categories?search=notebooks&per_page=10&page=1"
                         },
                         "method": "GET",
                         "header": [
@@ -680,8 +680,8 @@
                                     "value": "*"
                                 }
                             ],
-                            "code": 500,
-                            "body": "{\n    \"message\": \"Server Error\"\n}",
+                            "code": 200,
+                            "body": "{\"data\":[{\"id\":1,\"name\":\"Notebooks\",\"slug\":\"notebooks\"}],\"links\":{\"first\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/categories?page=1\",\"last\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/categories?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"&laquo; Previous\",\"page\":null,\"active\":false},{\"url\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/categories?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"Next &raquo;\",\"page\":null,\"active\":false}],\"path\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/categories\",\"per_page\":10,\"to\":1,\"total\":1}}",
                             "name": ""
                         }
                     ]
@@ -691,7 +691,7 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/products",
+                            "path": "api\/v1\/products",
                             "query": [
                                 {
                                     "key": "category",
@@ -718,7 +718,7 @@
                                     "disabled": false
                                 }
                             ],
-                            "raw": "{{baseUrl}}\/api\/products?category=notebooks&search=pencil&per_page=10&page=1"
+                            "raw": "{{baseUrl}}\/api\/v1\/products?category=notebooks&search=pencil&per_page=10&page=1"
                         },
                         "method": "GET",
                         "header": [
@@ -757,8 +757,8 @@
                                     "value": "*"
                                 }
                             ],
-                            "code": 500,
-                            "body": "{\n    \"message\": \"Server Error\"\n}",
+                            "code": 200,
+                            "body": "{\"data\":[],\"links\":{\"first\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/products?page=1\",\"last\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/products?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":null,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"&laquo; Previous\",\"page\":null,\"active\":false},{\"url\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/products?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"Next &raquo;\",\"page\":null,\"active\":false}],\"path\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/products\",\"per_page\":10,\"to\":null,\"total\":0}}",
                             "name": ""
                         }
                     ]
@@ -768,14 +768,14 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/products\/:id",
+                            "path": "api\/v1\/products\/:id",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/products\/:id",
+                            "raw": "{{baseUrl}}\/api\/v1\/products\/:id",
                             "variable": [
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": 16,
+                                    "value": 1,
                                     "description": "The ID of the product."
                                 }
                             ]
@@ -817,8 +817,8 @@
                                     "value": "*"
                                 }
                             ],
-                            "code": 500,
-                            "body": "{\n    \"message\": \"Server Error\"\n}",
+                            "code": 200,
+                            "body": "{\"data\":{\"id\":1,\"name\":\"Leather Journal\",\"description\":\"Premium A5 notebook.\",\"price\":\"24.99\",\"category\":{\"id\":1,\"name\":\"Notebooks\",\"slug\":\"notebooks\"}}}",
                             "name": ""
                         }
                     ]
@@ -834,7 +834,7 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/orders",
+                            "path": "api\/v1\/orders",
                             "query": [
                                 {
                                     "key": "per_page",
@@ -849,7 +849,7 @@
                                     "disabled": false
                                 }
                             ],
-                            "raw": "{{baseUrl}}\/api\/orders?per_page=10&page=1"
+                            "raw": "{{baseUrl}}\/api\/v1\/orders?per_page=10&page=1"
                         },
                         "method": "GET",
                         "header": [
@@ -881,8 +881,8 @@
                                     "value": "*"
                                 }
                             ],
-                            "code": 500,
-                            "body": "{\n    \"message\": \"Server Error\"\n}",
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
                             "name": ""
                         }
                     ]
@@ -892,9 +892,9 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/orders",
+                            "path": "api\/v1\/orders",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/orders"
+                            "raw": "{{baseUrl}}\/api\/v1\/orders"
                         },
                         "method": "POST",
                         "header": [
