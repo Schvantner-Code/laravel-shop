@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel Shop API Documentation",
-        "_postman_id": "0c4c79dd-7fca-4594-b098-b9a5fc3d927a",
+        "_postman_id": "8e515cef-1ebc-4bbb-986f-0c4824baf0a5",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -27,15 +27,27 @@
                             "path": "api\/v1\/admin\/orders",
                             "query": [
                                 {
+                                    "key": "page",
+                                    "value": "1",
+                                    "description": "The page number. Must be at least 1.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "per_page",
+                                    "value": "20",
+                                    "description": "Items per page (maximum 50). Must be between 1 and 50.",
+                                    "disabled": false
+                                },
+                                {
                                     "key": "user_id",
-                                    "value": "16",
-                                    "description": "Filter by Customer ID.",
+                                    "value": "1",
+                                    "description": "Filter by customer ID. Must be at least 1.",
                                     "disabled": false
                                 },
                                 {
                                     "key": "product_id",
-                                    "value": "16",
-                                    "description": "Filter by Product ID inside the order.",
+                                    "value": "1",
+                                    "description": "Filter by a product contained in the order. Must be at least 1.",
                                     "disabled": false
                                 },
                                 {
@@ -47,11 +59,11 @@
                                 {
                                     "key": "sort_dir",
                                     "value": "desc",
-                                    "description": "Sort direction 'asc' or 'desc'.",
+                                    "description": "Sort direction: 'asc' or 'desc'.",
                                     "disabled": false
                                 }
                             ],
-                            "raw": "{{baseUrl}}\/api\/v1\/admin\/orders?user_id=16&product_id=16&sort_by=created_at&sort_dir=desc"
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/orders?page=1&per_page=20&user_id=1&product_id=1&sort_by=created_at&sort_dir=desc"
                         },
                         "method": "GET",
                         "header": [
@@ -133,25 +145,25 @@
                             "path": "api\/v1\/admin\/categories",
                             "query": [
                                 {
-                                    "key": "scope",
-                                    "value": "all",
-                                    "description": "Filter list: 'active' (default), 'trashed', or 'all'.",
+                                    "key": "page",
+                                    "value": "1",
+                                    "description": "The page number. Must be at least 1.",
                                     "disabled": false
                                 },
                                 {
                                     "key": "per_page",
                                     "value": "10",
-                                    "description": "Items per page (Max 50).",
+                                    "description": "Items per page (maximum 50). Must be between 1 and 50.",
                                     "disabled": false
                                 },
                                 {
-                                    "key": "page",
-                                    "value": "1",
-                                    "description": "The page number.",
+                                    "key": "scope",
+                                    "value": "all",
+                                    "description": "Filter by 'active' (default), 'trashed', or 'all'.",
                                     "disabled": false
                                 }
                             ],
-                            "raw": "{{baseUrl}}\/api\/v1\/admin\/categories?scope=all&per_page=10&page=1"
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/categories?page=1&per_page=10&scope=all"
                         },
                         "method": "GET",
                         "header": [
@@ -327,25 +339,25 @@
                             "path": "api\/v1\/admin\/products",
                             "query": [
                                 {
-                                    "key": "scope",
-                                    "value": "all",
-                                    "description": "Filter list: 'active' (default), 'trashed', or 'all'.",
+                                    "key": "page",
+                                    "value": "1",
+                                    "description": "The page number. Must be at least 1.",
                                     "disabled": false
                                 },
                                 {
                                     "key": "per_page",
                                     "value": "10",
-                                    "description": "Items per page (Max 50).",
+                                    "description": "Items per page (maximum 50). Must be between 1 and 50.",
                                     "disabled": false
                                 },
                                 {
-                                    "key": "page",
-                                    "value": "1",
-                                    "description": "The page number.",
+                                    "key": "scope",
+                                    "value": "all",
+                                    "description": "Filter by 'active' (default), 'trashed', or 'all'.",
                                     "disabled": false
                                 }
                             ],
-                            "raw": "{{baseUrl}}\/api\/v1\/admin\/products?scope=all&per_page=10&page=1"
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/products?page=1&per_page=10&scope=all"
                         },
                         "method": "GET",
                         "header": [
@@ -441,7 +453,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"category_id\":1,\"name\":{\"en\":\"Pro Pen\",\"sk\":\"Pro Pero\"},\"description\":{\"en\":\"architecto\",\"sk\":\"architecto\"},\"price\":1250,\"is_active\":false}"
+                            "raw": "{\"category_id\":1,\"name\":{\"en\":\"Pro Pen\",\"sk\":\"Pro Pero\"},\"description\":{\"en\":\"architecto\",\"sk\":\"architecto\"},\"price\":1250,\"is_active\":true}"
                         },
                         "description": ""
                     },
@@ -623,25 +635,25 @@
                             "path": "api\/v1\/categories",
                             "query": [
                                 {
-                                    "key": "search",
-                                    "value": "notebooks",
-                                    "description": "Search category name.",
+                                    "key": "page",
+                                    "value": "1",
+                                    "description": "The page number. Must be at least 1.",
                                     "disabled": false
                                 },
                                 {
                                     "key": "per_page",
                                     "value": "10",
-                                    "description": "Items per page (Max 50).",
+                                    "description": "Items per page (maximum 50). Must be between 1 and 50.",
                                     "disabled": false
                                 },
                                 {
-                                    "key": "page",
-                                    "value": "1",
-                                    "description": "The page number.",
+                                    "key": "search",
+                                    "value": "notebooks",
+                                    "description": "Search category names. Must not be greater than 100 characters.",
                                     "disabled": false
                                 }
                             ],
-                            "raw": "{{baseUrl}}\/api\/v1\/categories?search=notebooks&per_page=10&page=1"
+                            "raw": "{{baseUrl}}\/api\/v1\/categories?page=1&per_page=10&search=notebooks"
                         },
                         "method": "GET",
                         "header": [
@@ -694,31 +706,31 @@
                             "path": "api\/v1\/products",
                             "query": [
                                 {
-                                    "key": "category",
-                                    "value": "notebooks",
-                                    "description": "Filter by category slug (e.g. 'notebooks').",
-                                    "disabled": false
-                                },
-                                {
-                                    "key": "search",
-                                    "value": "pencil",
-                                    "description": "Search name or description.",
+                                    "key": "page",
+                                    "value": "1",
+                                    "description": "The page number. Must be at least 1.",
                                     "disabled": false
                                 },
                                 {
                                     "key": "per_page",
                                     "value": "10",
-                                    "description": "Items per page (Max 50).",
+                                    "description": "Items per page (maximum 50). Must be between 1 and 50.",
                                     "disabled": false
                                 },
                                 {
-                                    "key": "page",
-                                    "value": "1",
-                                    "description": "The page number.",
+                                    "key": "category",
+                                    "value": "notebooks",
+                                    "description": "Filter by category slug. Must not be greater than 255 characters.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "search",
+                                    "value": "pencil",
+                                    "description": "Search product names and descriptions. Must not be greater than 100 characters.",
                                     "disabled": false
                                 }
                             ],
-                            "raw": "{{baseUrl}}\/api\/v1\/products?category=notebooks&search=pencil&per_page=10&page=1"
+                            "raw": "{{baseUrl}}\/api\/v1\/products?page=1&per_page=10&category=notebooks&search=pencil"
                         },
                         "method": "GET",
                         "header": [
@@ -837,19 +849,19 @@
                             "path": "api\/v1\/orders",
                             "query": [
                                 {
-                                    "key": "per_page",
-                                    "value": "10",
-                                    "description": "Items per page (Max 50).",
+                                    "key": "page",
+                                    "value": "1",
+                                    "description": "The page number. Must be at least 1.",
                                     "disabled": false
                                 },
                                 {
-                                    "key": "page",
-                                    "value": "1",
-                                    "description": "The page number.",
+                                    "key": "per_page",
+                                    "value": "10",
+                                    "description": "Items per page (maximum 50). Must be between 1 and 50.",
                                     "disabled": false
                                 }
                             ],
-                            "raw": "{{baseUrl}}\/api\/v1\/orders?per_page=10&page=1"
+                            "raw": "{{baseUrl}}\/api\/v1\/orders?page=1&per_page=10"
                         },
                         "method": "GET",
                         "header": [

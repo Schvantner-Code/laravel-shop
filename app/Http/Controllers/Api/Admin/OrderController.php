@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Enums\OrderStatus;
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\OrderIndexRequest;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -13,7 +14,6 @@ use Illuminate\Validation\Rule;
 use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\BodyParam;
 use Knuckles\Scribe\Attributes\Group;
-use Knuckles\Scribe\Attributes\QueryParam;
 
 #[Group('Admin Management', 'Endpoints for store administrators')]
 #[Authenticated]
@@ -26,33 +26,26 @@ class OrderController extends Controller
      *
      * Filter by user, product, or date. Sort by price or date.
      */
-    #[QueryParam('user_id', 'integer', 'Filter by Customer ID.', required: false)]
-    #[QueryParam('product_id', 'integer', 'Filter by Product ID inside the order.', required: false)]
-    #[QueryParam('sort_by', 'string', "Sort by 'total_price' or 'created_at'.", example: 'created_at')]
-    #[QueryParam('sort_dir', 'string', "Sort direction 'asc' or 'desc'.", example: 'desc')]
-    public function index(Request $request)
+    public function index(OrderIndexRequest $request)
     {
         $this->authorize('viewAny', Order::class);
 
         $query = Order::with(['user', 'products', 'paymentMethod']);
 
         // filters
-        $query->when($request->query('user_id'), fn ($q, $id) => $q->where('user_id', $id));
+        $query->when($request->validated('user_id'), fn ($q, $id) => $q->where('user_id', $id));
 
-        $query->when($request->query('product_id'), function ($q, $id) {
+        $query->when($request->validated('product_id'), function ($q, $id) {
             $q->whereHas('products', fn ($subQ) => $subQ->where('products.id', $id));
         });
 
         // sorting
-        $sortColumn = $request->query('sort_by', 'created_at');
-        $sortDir = $request->query('sort_dir', 'desc');
+        $sortColumn = $request->validated('sort_by', 'created_at');
+        $sortDir = $request->validated('sort_dir', 'desc');
 
-        // whitelist columns to prevent SQL injection or crashing
-        if (in_array($sortColumn, ['total_price', 'created_at'])) {
-            $query->orderBy($sortColumn, $sortDir);
-        }
+        $query->orderBy($sortColumn, $sortDir);
 
-        return OrderResource::collection($query->paginate(20));
+        return OrderResource::collection($query->paginate($request->perPage(20)));
     }
 
     /**

@@ -163,7 +163,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: August 5, 2026</li>
+        <li>Last updated: August 6, 2026</li>
     </ul>
 </div>
 
@@ -202,7 +202,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/v1/admin/orders?user_id=16&amp;product_id=16&amp;sort_by=created_at&amp;sort_dir=desc" \
+    --get "http://localhost/api/v1/admin/orders?page=1&amp;per_page=20&amp;user_id=1&amp;product_id=1&amp;sort_by=created_at&amp;sort_dir=desc" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -214,8 +214,10 @@ You can switch the language used with the tabs at the top right (or from the nav
 );
 
 const params = {
-    "user_id": "16",
-    "product_id": "16",
+    "page": "1",
+    "per_page": "20",
+    "user_id": "1",
+    "product_id": "1",
     "sort_by": "created_at",
     "sort_dir": "desc",
 };
@@ -342,16 +344,40 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                             <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                                     <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>page</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="page"                data-endpoint="GETapi-v1-admin-orders"
+               value="1"
+               data-component="query">
+    <br>
+<p>The page number. Must be at least 1. Example: <code>1</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>per_page</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="per_page"                data-endpoint="GETapi-v1-admin-orders"
+               value="20"
+               data-component="query">
+    <br>
+<p>Items per page (maximum 50). Must be between 1 and 50. Example: <code>20</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>user_id</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
 <i>optional</i> &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="user_id"                data-endpoint="GETapi-v1-admin-orders"
-               value="16"
+               value="1"
                data-component="query">
     <br>
-<p>Filter by Customer ID. Example: <code>16</code></p>
+<p>Filter by customer ID. Must be at least 1. Example: <code>1</code></p>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>product_id</code></b>&nbsp;&nbsp;
@@ -360,15 +386,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="product_id"                data-endpoint="GETapi-v1-admin-orders"
-               value="16"
+               value="1"
                data-component="query">
     <br>
-<p>Filter by Product ID inside the order. Example: <code>16</code></p>
+<p>Filter by a product contained in the order. Must be at least 1. Example: <code>1</code></p>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>sort_by</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
- &nbsp;
+<i>optional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="sort_by"                data-endpoint="GETapi-v1-admin-orders"
@@ -376,18 +402,22 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="query">
     <br>
 <p>Sort by 'total_price' or 'created_at'. Example: <code>created_at</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>total_price</code></li> <li><code>created_at</code></li></ul>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>sort_dir</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
- &nbsp;
+<i>optional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="sort_dir"                data-endpoint="GETapi-v1-admin-orders"
                value="desc"
                data-component="query">
     <br>
-<p>Sort direction 'asc' or 'desc'. Example: <code>desc</code></p>
+<p>Sort direction: 'asc' or 'desc'. Example: <code>desc</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>asc</code></li> <li><code>desc</code></li></ul>
             </div>
                 </form>
 
@@ -565,7 +595,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/v1/admin/categories?scope=all&amp;per_page=10&amp;page=1" \
+    --get "http://localhost/api/v1/admin/categories?page=1&amp;per_page=10&amp;scope=all" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -577,9 +607,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
 );
 
 const params = {
-    "scope": "all",
-    "per_page": "10",
     "page": "1",
+    "per_page": "10",
+    "scope": "all",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -704,40 +734,42 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                             <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                                     <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>scope</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="scope"                data-endpoint="GETapi-v1-admin-categories"
-               value="all"
-               data-component="query">
-    <br>
-<p>Filter list: 'active' (default), 'trashed', or 'all'. Example: <code>all</code></p>
-            </div>
-                                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>per_page</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="per_page"                data-endpoint="GETapi-v1-admin-categories"
-               value="10"
-               data-component="query">
-    <br>
-<p>Items per page (Max 50). Example: <code>10</code></p>
-            </div>
-                                    <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>page</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
- &nbsp;
+<i>optional</i> &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="page"                data-endpoint="GETapi-v1-admin-categories"
                value="1"
                data-component="query">
     <br>
-<p>The page number. Example: <code>1</code></p>
+<p>The page number. Must be at least 1. Example: <code>1</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>per_page</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="per_page"                data-endpoint="GETapi-v1-admin-categories"
+               value="10"
+               data-component="query">
+    <br>
+<p>Items per page (maximum 50). Must be between 1 and 50. Example: <code>10</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>scope</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="scope"                data-endpoint="GETapi-v1-admin-categories"
+               value="all"
+               data-component="query">
+    <br>
+<p>Filter by 'active' (default), 'trashed', or 'all'. Example: <code>all</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>active</code></li> <li><code>trashed</code></li> <li><code>all</code></li></ul>
             </div>
                 </form>
 
@@ -1426,7 +1458,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/v1/admin/products?scope=all&amp;per_page=10&amp;page=1" \
+    --get "http://localhost/api/v1/admin/products?page=1&amp;per_page=10&amp;scope=all" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -1438,9 +1470,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
 );
 
 const params = {
-    "scope": "all",
-    "per_page": "10",
     "page": "1",
+    "per_page": "10",
+    "scope": "all",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -1565,40 +1597,42 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                             <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                                     <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>scope</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="scope"                data-endpoint="GETapi-v1-admin-products"
-               value="all"
-               data-component="query">
-    <br>
-<p>Filter list: 'active' (default), 'trashed', or 'all'. Example: <code>all</code></p>
-            </div>
-                                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>per_page</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="per_page"                data-endpoint="GETapi-v1-admin-products"
-               value="10"
-               data-component="query">
-    <br>
-<p>Items per page (Max 50). Example: <code>10</code></p>
-            </div>
-                                    <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>page</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
- &nbsp;
+<i>optional</i> &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="page"                data-endpoint="GETapi-v1-admin-products"
                value="1"
                data-component="query">
     <br>
-<p>The page number. Example: <code>1</code></p>
+<p>The page number. Must be at least 1. Example: <code>1</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>per_page</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="per_page"                data-endpoint="GETapi-v1-admin-products"
+               value="10"
+               data-component="query">
+    <br>
+<p>Items per page (maximum 50). Must be between 1 and 50. Example: <code>10</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>scope</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="scope"                data-endpoint="GETapi-v1-admin-products"
+               value="all"
+               data-component="query">
+    <br>
+<p>Filter by 'active' (default), 'trashed', or 'all'. Example: <code>all</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>active</code></li> <li><code>trashed</code></li> <li><code>all</code></li></ul>
             </div>
                 </form>
 
@@ -1904,7 +1938,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
         \"sk\": \"architecto\"
     },
     \"price\": 1250,
-    \"is_active\": false
+    \"is_active\": true
 }"
 </code></pre></div>
 
@@ -1931,7 +1965,7 @@ let body = {
         "sk": "architecto"
     },
     "price": 1250,
-    "is_active": false
+    "is_active": true
 };
 
 fetch(url, {
@@ -2157,7 +2191,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
         </form>
 
@@ -2891,7 +2925,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/v1/categories?search=notebooks&amp;per_page=10&amp;page=1" \
+    --get "http://localhost/api/v1/categories?page=1&amp;per_page=10&amp;search=notebooks" \
     --header "Accept-Language: en" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -2903,9 +2937,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
 );
 
 const params = {
-    "search": "notebooks",
-    "per_page": "10",
     "page": "1",
+    "per_page": "10",
+    "search": "notebooks",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -3068,6 +3102,30 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                             <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                                     <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>page</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="page"                data-endpoint="GETapi-v1-categories"
+               value="1"
+               data-component="query">
+    <br>
+<p>The page number. Must be at least 1. Example: <code>1</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>per_page</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="per_page"                data-endpoint="GETapi-v1-categories"
+               value="10"
+               data-component="query">
+    <br>
+<p>Items per page (maximum 50). Must be between 1 and 50. Example: <code>10</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>search</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
 <i>optional</i> &nbsp;
@@ -3077,31 +3135,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="notebooks"
                data-component="query">
     <br>
-<p>Search category name. Example: <code>notebooks</code></p>
-            </div>
-                                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>per_page</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="per_page"                data-endpoint="GETapi-v1-categories"
-               value="10"
-               data-component="query">
-    <br>
-<p>Items per page (Max 50). Example: <code>10</code></p>
-            </div>
-                                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>page</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="page"                data-endpoint="GETapi-v1-categories"
-               value="1"
-               data-component="query">
-    <br>
-<p>The page number. Example: <code>1</code></p>
+<p>Search category names. Must not be greater than 100 characters. Example: <code>notebooks</code></p>
             </div>
                 </form>
 
@@ -3118,7 +3152,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/v1/products?category=notebooks&amp;search=pencil&amp;per_page=10&amp;page=1" \
+    --get "http://localhost/api/v1/products?page=1&amp;per_page=10&amp;category=notebooks&amp;search=pencil" \
     --header "Accept-Language: en" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -3130,10 +3164,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 );
 
 const params = {
+    "page": "1",
+    "per_page": "10",
     "category": "notebooks",
     "search": "pencil",
-    "per_page": "10",
-    "page": "1",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -3290,6 +3324,30 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                             <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                                     <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>page</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="page"                data-endpoint="GETapi-v1-products"
+               value="1"
+               data-component="query">
+    <br>
+<p>The page number. Must be at least 1. Example: <code>1</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>per_page</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="per_page"                data-endpoint="GETapi-v1-products"
+               value="10"
+               data-component="query">
+    <br>
+<p>Items per page (maximum 50). Must be between 1 and 50. Example: <code>10</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>category</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
 <i>optional</i> &nbsp;
@@ -3299,7 +3357,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="notebooks"
                data-component="query">
     <br>
-<p>Filter by category slug (e.g. 'notebooks'). Example: <code>notebooks</code></p>
+<p>Filter by category slug. Must not be greater than 255 characters. Example: <code>notebooks</code></p>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>search</code></b>&nbsp;&nbsp;
@@ -3311,31 +3369,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="pencil"
                data-component="query">
     <br>
-<p>Search name or description. Example: <code>pencil</code></p>
-            </div>
-                                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>per_page</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="per_page"                data-endpoint="GETapi-v1-products"
-               value="10"
-               data-component="query">
-    <br>
-<p>Items per page (Max 50). Example: <code>10</code></p>
-            </div>
-                                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>page</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="page"                data-endpoint="GETapi-v1-products"
-               value="1"
-               data-component="query">
-    <br>
-<p>The page number. Example: <code>1</code></p>
+<p>Search product names and descriptions. Must not be greater than 100 characters. Example: <code>pencil</code></p>
             </div>
                 </form>
 
@@ -3521,7 +3555,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/v1/orders?per_page=10&amp;page=1" \
+    --get "http://localhost/api/v1/orders?page=1&amp;per_page=10" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -3533,8 +3567,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
 );
 
 const params = {
-    "per_page": "10",
     "page": "1",
+    "per_page": "10",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -3659,28 +3693,28 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                             <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                                     <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>per_page</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="per_page"                data-endpoint="GETapi-v1-orders"
-               value="10"
-               data-component="query">
-    <br>
-<p>Items per page (Max 50). Example: <code>10</code></p>
-            </div>
-                                    <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>page</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
- &nbsp;
+<i>optional</i> &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="page"                data-endpoint="GETapi-v1-orders"
                value="1"
                data-component="query">
     <br>
-<p>The page number. Example: <code>1</code></p>
+<p>The page number. Must be at least 1. Example: <code>1</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>per_page</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="per_page"                data-endpoint="GETapi-v1-orders"
+               value="10"
+               data-component="query">
+    <br>
+<p>Items per page (maximum 50). Must be between 1 and 50. Example: <code>10</code></p>
             </div>
                 </form>
 
