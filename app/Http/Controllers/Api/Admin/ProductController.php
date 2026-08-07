@@ -10,6 +10,9 @@ use App\Http\Requests\Admin\Product\UpdateProductRequest;
 use App\Http\Resources\Admin\AdminProductResource;
 use App\Models\Product;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\Group;
 
@@ -24,7 +27,7 @@ class ProductController extends Controller
      *
      * View all products, including inactive or deleted ones.
      */
-    public function index(CatalogIndexRequest $request)
+    public function index(CatalogIndexRequest $request): AnonymousResourceCollection
     {
         $this->authorize('viewAny', Product::class);
 
@@ -42,16 +45,18 @@ class ProductController extends Controller
         return AdminProductResource::collection($query->paginate($request->perPage()));
     }
 
-    public function store(StoreProductRequest $request)
+    public function store(StoreProductRequest $request): JsonResponse
     {
         $this->authorize('create', Product::class);
 
         $product = Product::create($request->validated());
 
-        return new AdminProductResource($product);
+        return (new AdminProductResource($product))
+            ->response()
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product): AdminProductResource
     {
         $this->authorize('update', $product);
 
@@ -60,7 +65,7 @@ class ProductController extends Controller
         return new AdminProductResource($product);
     }
 
-    public function destroy(Product $product)
+    public function destroy(Product $product): Response
     {
         $this->authorize('delete', $product);
 
@@ -72,7 +77,7 @@ class ProductController extends Controller
     /**
      * Restore a deleted product
      */
-    public function restore(int $id)
+    public function restore(int $id): AdminProductResource
     {
         $product = Product::withTrashed()->findOrFail($id);
 

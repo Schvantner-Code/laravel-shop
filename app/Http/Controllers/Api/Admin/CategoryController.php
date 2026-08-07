@@ -10,6 +10,9 @@ use App\Http\Requests\Admin\Category\UpdateCategoryRequest;
 use App\Http\Resources\Admin\AdminCategoryResource;
 use App\Models\Category;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\Group;
 
@@ -19,7 +22,7 @@ class CategoryController extends Controller
 {
     use AuthorizesRequests;
 
-    public function index(CatalogIndexRequest $request)
+    public function index(CatalogIndexRequest $request): AnonymousResourceCollection
     {
         $this->authorize('viewAny', Category::class);
 
@@ -36,16 +39,18 @@ class CategoryController extends Controller
         return AdminCategoryResource::collection($query->paginate($request->perPage()));
     }
 
-    public function store(StoreCategoryRequest $request)
+    public function store(StoreCategoryRequest $request): JsonResponse
     {
         $this->authorize('create', Category::class);
 
         $category = Category::create($request->validated());
 
-        return new AdminCategoryResource($category);
+        return (new AdminCategoryResource($category))
+            ->response()
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category): AdminCategoryResource
     {
         $this->authorize('update', $category);
 
@@ -54,7 +59,7 @@ class CategoryController extends Controller
         return new AdminCategoryResource($category);
     }
 
-    public function destroy(Category $category)
+    public function destroy(Category $category): Response
     {
         $this->authorize('delete', $category);
 
@@ -66,7 +71,7 @@ class CategoryController extends Controller
     /**
      * Restore a deleted category
      */
-    public function restore(int $id)
+    public function restore(int $id): AdminCategoryResource
     {
         $category = Category::withTrashed()->findOrFail($id);
 

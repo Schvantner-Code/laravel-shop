@@ -10,6 +10,7 @@ use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Validation\Rule;
 use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\BodyParam;
@@ -26,7 +27,7 @@ class OrderController extends Controller
      *
      * Filter by user, product, or date. Sort by price or date.
      */
-    public function index(OrderIndexRequest $request)
+    public function index(OrderIndexRequest $request): AnonymousResourceCollection
     {
         $this->authorize('viewAny', Order::class);
 
@@ -54,7 +55,7 @@ class OrderController extends Controller
      * Transition the order to a new status (e.g. pending -> paid).
      */
     #[BodyParam('status', 'string', 'The new status (paid, shipped, completed, cancelled).', example: 'paid')]
-    public function updateStatus(Request $request, Order $order)
+    public function updateStatus(Request $request, Order $order): OrderResource
     {
         $this->authorize('update', $order);
 

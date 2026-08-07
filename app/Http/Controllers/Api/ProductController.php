@@ -7,6 +7,7 @@ use App\Http\Requests\Api\ProductIndexRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Knuckles\Scribe\Attributes\Header;
 
 /**
@@ -20,7 +21,7 @@ class ProductController extends Controller
      *
      * Returns a paginated list of products. Supports filtering by category and searching by text.
      */
-    public function index(ProductIndexRequest $request)
+    public function index(ProductIndexRequest $request): AnonymousResourceCollection
     {
         $query = Product::with('category')->where('is_active', true);
 
@@ -49,7 +50,7 @@ class ProductController extends Controller
     /**
      * Get product details
      */
-    public function show(string $id)
+    public function show(string $id): ProductResource
     {
         $product = Product::with('category')->findOrFail($id);
 

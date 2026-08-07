@@ -517,7 +517,7 @@ paths:
                 is_active:
                   type: boolean
                   description: ''
-                  example: true
+                  example: false
               required:
                 - category_id
                 - name

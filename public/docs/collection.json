@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel Shop API Documentation",
-        "_postman_id": "8e515cef-1ebc-4bbb-986f-0c4824baf0a5",
+        "_postman_id": "73c410f4-72d3-414c-9a4a-bc269a1ce9b7",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -453,7 +453,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"category_id\":1,\"name\":{\"en\":\"Pro Pen\",\"sk\":\"Pro Pero\"},\"description\":{\"en\":\"architecto\",\"sk\":\"architecto\"},\"price\":1250,\"is_active\":true}"
+                            "raw": "{\"category_id\":1,\"name\":{\"en\":\"Pro Pen\",\"sk\":\"Pro Pero\"},\"description\":{\"en\":\"architecto\",\"sk\":\"architecto\"},\"price\":1250,\"is_active\":false}"
                         },
                         "description": ""
                     },

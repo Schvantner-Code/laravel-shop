@@ -9,6 +9,7 @@ use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -36,10 +37,7 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ], 201);
+        return $this->tokenResponse($token, Response::HTTP_CREATED);
     }
 
     /**
@@ -56,10 +54,7 @@ class AuthController extends Controller
         $user = User::where('email', $request->validated('email'))->firstOrFail();
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ]);
+        return $this->tokenResponse($token);
     }
 
     /**
@@ -67,10 +62,20 @@ class AuthController extends Controller
      *
      * Revokes the current access token.
      */
-    public function logout(Request $request): JsonResponse
+    public function logout(Request $request): Response
     {
         $request->user()->currentAccessToken()->delete();
 
-        return response()->json(['message' => 'Logged out successfully']);
+        return response()->noContent();
+    }
+
+    private function tokenResponse(string $token, int $status = Response::HTTP_OK): JsonResponse
+    {
+        return response()->json([
+            'data' => [
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+            ],
+        ], $status);
     }
 }

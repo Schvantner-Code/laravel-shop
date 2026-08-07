@@ -9,6 +9,9 @@ use App\Http\Requests\StoreOrderRequest;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 use Knuckles\Scribe\Attributes\Authenticated;
 
 /**
@@ -24,7 +27,7 @@ class OrderController extends Controller
      *
      * Returns a paginated list of orders belonging to the authenticated user.
      */
-    public function index(PaginationRequest $request)
+    public function index(PaginationRequest $request): AnonymousResourceCollection
     {
         $orders = $request->user()
             ->orders()
@@ -40,12 +43,14 @@ class OrderController extends Controller
      *
      * Validates products, calculates totals on the server, and creates the order.
      */
-    public function store(StoreOrderRequest $request, CreateOrder $createOrder)
+    public function store(StoreOrderRequest $request, CreateOrder $createOrder): JsonResponse
     {
         $this->authorize('create', Order::class);
 
         $order = $createOrder->execute($request->user(), $request->validated());
 
-        return new OrderResource($order);
+        return (new OrderResource($order))
+            ->response()
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 }

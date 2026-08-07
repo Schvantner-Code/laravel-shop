@@ -7,6 +7,7 @@ use App\Http\Requests\Api\CategoryIndexRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Knuckles\Scribe\Attributes\Header;
 
 /**
@@ -20,7 +21,7 @@ class CategoryController extends Controller
      *
      * Returns a paginated list of categories. Supports searching by name.
      */
-    public function index(CategoryIndexRequest $request)
+    public function index(CategoryIndexRequest $request): AnonymousResourceCollection
     {
         $query = Category::query();
 
