@@ -21,14 +21,21 @@ class StoreOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'payment_method_id' => ['required', 'exists:payment_methods,id'],
+            'payment_method_id' => [
+                'required',
+                'integer',
+                Rule::exists('payment_methods', 'id')->where('is_active', true),
+            ],
 
             'items' => ['required', 'array', 'min:1'],
 
             'items.*.product_id' => [
                 'required',
                 'integer',
-                Rule::exists('products', 'id')->where('is_active', true),
+                'distinct',
+                Rule::exists('products', 'id')
+                    ->where('is_active', true)
+                    ->whereNull('deleted_at'),
             ],
 
             'items.*.quantity' => ['required', 'integer', 'min:1'],

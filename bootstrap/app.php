@@ -41,6 +41,7 @@ return Application::configure(basePath: dirname(__DIR__))
                     $exception->errorCode,
                     $exception->getMessage(),
                     $exception->status,
+                    $exception->details,
                 ),
                 $exception instanceof ValidationException => ApiErrorResponse::make(
                     'validation_failed',

@@ -126,4 +126,14 @@ final class ApiResponseExamples
             'message' => 'Invalid transition from pending to paid for this payment method.',
         ],
     ];
+
+    public const PRODUCTS_UNAVAILABLE = [
+        'error' => [
+            'code' => 'products_unavailable',
+            'message' => 'One or more selected products are no longer available.',
+            'details' => [
+                'product_ids' => [12, 31],
+            ],
+        ],
+    ];
 }

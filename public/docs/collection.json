@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel Shop API Documentation",
-        "_postman_id": "aa7453cb-abf2-48e3-b18e-96be3b989794",
+        "_postman_id": "113814f6-23dd-4657-9a91-14e56711d653",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -225,7 +225,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":[{\"id\":54,\"name\":\"Test Cat\",\"slug\":\"deserunt-aut-ab-provident-perspiciatis-quo-omnis-nostrum\",\"name_translations\":{\"en\":\"Test Cat\",\"sk\":\"Test Kat\"},\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T11:52:52+00:00\",\"updated_at\":\"2026-08-07T11:52:52+00:00\"},{\"id\":55,\"name\":\"Test Cat\",\"slug\":\"adipisci-quidem-nostrum-qui-commodi-incidunt-iure\",\"name_translations\":{\"en\":\"Test Cat\",\"sk\":\"Test Kat\"},\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T11:52:52+00:00\",\"updated_at\":\"2026-08-07T11:52:52+00:00\"}],\"links\":{\"first\":\"\\\/?page=1\",\"last\":\"\\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"&laquo; Previous\",\"page\":null,\"active\":false},{\"url\":\"\\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"Next &raquo;\",\"page\":null,\"active\":false}],\"path\":\"\\\/\",\"per_page\":10,\"to\":2,\"total\":2}}",
+                            "body": "{\"data\":[{\"id\":99,\"name\":\"Test Cat\",\"slug\":\"deserunt-aut-ab-provident-perspiciatis-quo-omnis-nostrum\",\"name_translations\":{\"en\":\"Test Cat\",\"sk\":\"Test Kat\"},\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T12:49:42+00:00\",\"updated_at\":\"2026-08-07T12:49:42+00:00\"},{\"id\":100,\"name\":\"Test Cat\",\"slug\":\"adipisci-quidem-nostrum-qui-commodi-incidunt-iure\",\"name_translations\":{\"en\":\"Test Cat\",\"sk\":\"Test Kat\"},\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T12:49:42+00:00\",\"updated_at\":\"2026-08-07T12:49:42+00:00\"}],\"links\":{\"first\":\"\\\/?page=1\",\"last\":\"\\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"&laquo; Previous\",\"page\":null,\"active\":false},{\"url\":\"\\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"Next &raquo;\",\"page\":null,\"active\":false}],\"path\":\"\\\/\",\"per_page\":10,\"to\":2,\"total\":2}}",
                             "name": "Categories retrieved for administration."
                         },
                         {
@@ -278,7 +278,7 @@
                         {
                             "header": [],
                             "code": 201,
-                            "body": "{\"data\":{\"id\":56,\"name\":\"Test Cat\",\"slug\":\"quos-velit-et-fugiat-sunt-nihil-accusantium-harum\",\"name_translations\":{\"en\":\"Test Cat\",\"sk\":\"Test Kat\"},\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T11:52:52+00:00\",\"updated_at\":\"2026-08-07T11:52:52+00:00\"}}",
+                            "body": "{\"data\":{\"id\":101,\"name\":\"Test Cat\",\"slug\":\"quos-velit-et-fugiat-sunt-nihil-accusantium-harum\",\"name_translations\":{\"en\":\"Test Cat\",\"sk\":\"Test Kat\"},\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T12:49:42+00:00\",\"updated_at\":\"2026-08-07T12:49:42+00:00\"}}",
                             "name": "Category created."
                         },
                         {
@@ -339,7 +339,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":{\"id\":57,\"name\":\"Test Cat\",\"slug\":\"animi-quos-velit-et-fugiat\",\"name_translations\":{\"en\":\"Test Cat\",\"sk\":\"Test Kat\"},\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T11:52:52+00:00\",\"updated_at\":\"2026-08-07T11:52:52+00:00\"}}",
+                            "body": "{\"data\":{\"id\":102,\"name\":\"Test Cat\",\"slug\":\"animi-quos-velit-et-fugiat\",\"name_translations\":{\"en\":\"Test Cat\",\"sk\":\"Test Kat\"},\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T12:49:42+00:00\",\"updated_at\":\"2026-08-07T12:49:42+00:00\"}}",
                             "name": "Category updated."
                         },
                         {
@@ -461,7 +461,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":{\"id\":58,\"name\":\"Test Cat\",\"slug\":\"et-et-modi-ipsum-nostrum\",\"name_translations\":{\"en\":\"Test Cat\",\"sk\":\"Test Kat\"},\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T11:52:52+00:00\",\"updated_at\":\"2026-08-07T11:52:52+00:00\"}}",
+                            "body": "{\"data\":{\"id\":103,\"name\":\"Test Cat\",\"slug\":\"et-et-modi-ipsum-nostrum\",\"name_translations\":{\"en\":\"Test Cat\",\"sk\":\"Test Kat\"},\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T12:49:42+00:00\",\"updated_at\":\"2026-08-07T12:49:42+00:00\"}}",
                             "name": "Category restored."
                         },
                         {
@@ -536,7 +536,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":[{\"id\":34,\"name\":\"eligendi\",\"description\":\"Beatae ullam voluptatem reiciendis facere facilis.\",\"price\":\"26.59\",\"category\":{\"id\":59,\"name\":\"Test Cat\",\"slug\":\"et-et-nemo-dolores-voluptatem-dolores-asperiores\"},\"name_translations\":{\"en\":\"eligendi\",\"sk\":\"rem\"},\"description_translations\":{\"en\":\"Beatae ullam voluptatem reiciendis facere facilis.\",\"sk\":\"Molestiae excepturi omnis nulla rerum exercitationem sit.\"},\"is_active\":1,\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T11:52:52+00:00\",\"updated_at\":\"2026-08-07T11:52:52+00:00\"},{\"id\":35,\"name\":\"vero\",\"description\":\"Autem ex animi omnis esse sint.\",\"price\":\"48.67\",\"category\":{\"id\":60,\"name\":\"Test Cat\",\"slug\":\"et-occaecati-officiis-vel-delectus-nihil-quidem\"},\"name_translations\":{\"en\":\"vero\",\"sk\":\"fugit\"},\"description_translations\":{\"en\":\"Autem ex animi omnis esse sint.\",\"sk\":\"Tenetur nam ullam tenetur numquam voluptas nisi quibusdam.\"},\"is_active\":1,\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T11:52:52+00:00\",\"updated_at\":\"2026-08-07T11:52:52+00:00\"}],\"links\":{\"first\":\"\\\/?page=1\",\"last\":\"\\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"&laquo; Previous\",\"page\":null,\"active\":false},{\"url\":\"\\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"Next &raquo;\",\"page\":null,\"active\":false}],\"path\":\"\\\/\",\"per_page\":10,\"to\":2,\"total\":2}}",
+                            "body": "{\"data\":[{\"id\":58,\"name\":\"praesentium\",\"description\":\"Et ratione assumenda aliquid praesentium.\",\"price\":\"21.76\",\"category\":{\"id\":104,\"name\":\"Test Cat\",\"slug\":\"omnis-ducimus-nostrum-sequi-dolores-blanditiis-molestiae\"},\"name_translations\":{\"en\":\"praesentium\",\"sk\":\"sit\"},\"description_translations\":{\"en\":\"Et ratione assumenda aliquid praesentium.\",\"sk\":\"Suscipit vel minima earum omnis.\"},\"is_active\":1,\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T12:49:42+00:00\",\"updated_at\":\"2026-08-07T12:49:42+00:00\"},{\"id\":59,\"name\":\"sit\",\"description\":\"Rerum mollitia et consequatur rerum.\",\"price\":\"11.21\",\"category\":{\"id\":105,\"name\":\"Test Cat\",\"slug\":\"distinctio-fuga-voluptatibus-quod-dolores\"},\"name_translations\":{\"en\":\"sit\",\"sk\":\"quas\"},\"description_translations\":{\"en\":\"Rerum mollitia et consequatur rerum.\",\"sk\":\"Et perferendis ad nam.\"},\"is_active\":1,\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T12:49:42+00:00\",\"updated_at\":\"2026-08-07T12:49:42+00:00\"}],\"links\":{\"first\":\"\\\/?page=1\",\"last\":\"\\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"&laquo; Previous\",\"page\":null,\"active\":false},{\"url\":\"\\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"Next &raquo;\",\"page\":null,\"active\":false}],\"path\":\"\\\/\",\"per_page\":10,\"to\":2,\"total\":2}}",
                             "name": "Products retrieved for administration."
                         },
                         {
@@ -581,7 +581,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"category_id\":1,\"name\":{\"en\":\"Pro Pen\",\"sk\":\"Pro Pero\"},\"description\":{\"en\":\"architecto\",\"sk\":\"architecto\"},\"price\":1250,\"is_active\":true}"
+                            "raw": "{\"category_id\":1,\"name\":{\"en\":\"Pro Pen\",\"sk\":\"Pro Pero\"},\"description\":{\"en\":\"architecto\",\"sk\":\"architecto\"},\"price\":1250,\"is_active\":false}"
                         },
                         "description": ""
                     },
@@ -589,7 +589,7 @@
                         {
                             "header": [],
                             "code": 201,
-                            "body": "{\"data\":{\"id\":36,\"name\":\"et\",\"description\":\"Velit et fugiat sunt nihil accusantium.\",\"price\":\"1.80\",\"category\":{\"id\":61,\"name\":\"Test Cat\",\"slug\":\"aut-adipisci-quidem-nostrum-qui-commodi-incidunt-iure\"},\"name_translations\":{\"en\":\"et\",\"sk\":\"animi\"},\"description_translations\":{\"en\":\"Velit et fugiat sunt nihil accusantium.\",\"sk\":\"Mollitia modi deserunt aut ab provident perspiciatis quo.\"},\"is_active\":1,\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T11:52:52+00:00\",\"updated_at\":\"2026-08-07T11:52:52+00:00\"}}",
+                            "body": "{\"data\":{\"id\":60,\"name\":\"et\",\"description\":\"Velit et fugiat sunt nihil accusantium.\",\"price\":\"1.80\",\"category\":{\"id\":106,\"name\":\"Test Cat\",\"slug\":\"aut-adipisci-quidem-nostrum-qui-commodi-incidunt-iure\"},\"name_translations\":{\"en\":\"et\",\"sk\":\"animi\"},\"description_translations\":{\"en\":\"Velit et fugiat sunt nihil accusantium.\",\"sk\":\"Mollitia modi deserunt aut ab provident perspiciatis quo.\"},\"is_active\":1,\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T12:49:42+00:00\",\"updated_at\":\"2026-08-07T12:49:42+00:00\"}}",
                             "name": "Product created."
                         },
                         {
@@ -650,7 +650,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":{\"id\":37,\"name\":\"et\",\"description\":\"Velit et fugiat sunt nihil accusantium.\",\"price\":\"1.80\",\"category\":{\"id\":62,\"name\":\"Test Cat\",\"slug\":\"autem-et-consequatur-aut-dolores-enim-non-facere-tempora\"},\"name_translations\":{\"en\":\"et\",\"sk\":\"animi\"},\"description_translations\":{\"en\":\"Velit et fugiat sunt nihil accusantium.\",\"sk\":\"Mollitia modi deserunt aut ab provident perspiciatis quo.\"},\"is_active\":1,\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T11:52:52+00:00\",\"updated_at\":\"2026-08-07T11:52:52+00:00\"}}",
+                            "body": "{\"data\":{\"id\":61,\"name\":\"et\",\"description\":\"Velit et fugiat sunt nihil accusantium.\",\"price\":\"1.80\",\"category\":{\"id\":107,\"name\":\"Test Cat\",\"slug\":\"autem-et-consequatur-aut-dolores-enim-non-facere-tempora\"},\"name_translations\":{\"en\":\"et\",\"sk\":\"animi\"},\"description_translations\":{\"en\":\"Velit et fugiat sunt nihil accusantium.\",\"sk\":\"Mollitia modi deserunt aut ab provident perspiciatis quo.\"},\"is_active\":1,\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T12:49:42+00:00\",\"updated_at\":\"2026-08-07T12:49:42+00:00\"}}",
                             "name": "Product updated."
                         },
                         {
@@ -772,7 +772,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":{\"id\":38,\"name\":\"aut\",\"description\":\"Nostrum qui commodi incidunt iure.\",\"price\":\"44.13\",\"category\":{\"id\":63,\"name\":\"Test Cat\",\"slug\":\"et-consequatur-aut-dolores-enim\"},\"name_translations\":{\"en\":\"aut\",\"sk\":\"adipisci\"},\"description_translations\":{\"en\":\"Nostrum qui commodi incidunt iure.\",\"sk\":\"Et et modi ipsum nostrum.\"},\"is_active\":1,\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T11:52:52+00:00\",\"updated_at\":\"2026-08-07T11:52:52+00:00\"}}",
+                            "body": "{\"data\":{\"id\":62,\"name\":\"aut\",\"description\":\"Nostrum qui commodi incidunt iure.\",\"price\":\"44.13\",\"category\":{\"id\":108,\"name\":\"Test Cat\",\"slug\":\"et-consequatur-aut-dolores-enim\"},\"name_translations\":{\"en\":\"aut\",\"sk\":\"adipisci\"},\"description_translations\":{\"en\":\"Nostrum qui commodi incidunt iure.\",\"sk\":\"Et et modi ipsum nostrum.\"},\"is_active\":1,\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T12:49:42+00:00\",\"updated_at\":\"2026-08-07T12:49:42+00:00\"}}",
                             "name": "Product restored."
                         },
                         {
@@ -998,7 +998,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":[{\"id\":49,\"name\":\"Test Cat\",\"slug\":\"eius-et-animi-quos-velit-et\"},{\"id\":50,\"name\":\"Test Cat\",\"slug\":\"sunt-nihil-accusantium-harum-mollitia\"}],\"links\":{\"first\":\"\\\/?page=1\",\"last\":\"\\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"&laquo; Previous\",\"page\":null,\"active\":false},{\"url\":\"\\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"Next &raquo;\",\"page\":null,\"active\":false}],\"path\":\"\\\/\",\"per_page\":10,\"to\":2,\"total\":2}}",
+                            "body": "{\"data\":[{\"id\":94,\"name\":\"Test Cat\",\"slug\":\"eius-et-animi-quos-velit-et\"},{\"id\":95,\"name\":\"Test Cat\",\"slug\":\"sunt-nihil-accusantium-harum-mollitia\"}],\"links\":{\"first\":\"\\\/?page=1\",\"last\":\"\\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"&laquo; Previous\",\"page\":null,\"active\":false},{\"url\":\"\\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"Next &raquo;\",\"page\":null,\"active\":false}],\"path\":\"\\\/\",\"per_page\":10,\"to\":2,\"total\":2}}",
                             "name": "Categories retrieved."
                         },
                         {
@@ -1068,7 +1068,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":[{\"id\":31,\"name\":\"architecto\",\"description\":\"Animi quos velit et fugiat.\",\"price\":\"56.32\",\"category\":{\"id\":51,\"name\":\"Test Cat\",\"slug\":\"provident-perspiciatis-quo-omnis-nostrum-aut-adipisci-quidem\"}},{\"id\":32,\"name\":\"nostrum\",\"description\":\"Incidunt iure odit et et modi ipsum.\",\"price\":\"35.67\",\"category\":{\"id\":52,\"name\":\"Test Cat\",\"slug\":\"enim-non-facere-tempora-ex-voluptatem-laboriosam-praesentium\"}}],\"links\":{\"first\":\"\\\/?page=1\",\"last\":\"\\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"&laquo; Previous\",\"page\":null,\"active\":false},{\"url\":\"\\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"Next &raquo;\",\"page\":null,\"active\":false}],\"path\":\"\\\/\",\"per_page\":10,\"to\":2,\"total\":2}}",
+                            "body": "{\"data\":[{\"id\":55,\"name\":\"architecto\",\"description\":\"Animi quos velit et fugiat.\",\"price\":\"56.32\",\"category\":{\"id\":96,\"name\":\"Test Cat\",\"slug\":\"provident-perspiciatis-quo-omnis-nostrum-aut-adipisci-quidem\"}},{\"id\":56,\"name\":\"nostrum\",\"description\":\"Incidunt iure odit et et modi ipsum.\",\"price\":\"35.67\",\"category\":{\"id\":97,\"name\":\"Test Cat\",\"slug\":\"enim-non-facere-tempora-ex-voluptatem-laboriosam-praesentium\"}}],\"links\":{\"first\":\"\\\/?page=1\",\"last\":\"\\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"&laquo; Previous\",\"page\":null,\"active\":false},{\"url\":\"\\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"Next &raquo;\",\"page\":null,\"active\":false}],\"path\":\"\\\/\",\"per_page\":10,\"to\":2,\"total\":2}}",
                             "name": "Products retrieved."
                         },
                         {
@@ -1121,7 +1121,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":{\"id\":33,\"name\":\"quis\",\"description\":\"Fugit deleniti distinctio eum doloremque id aut libero.\",\"price\":\"79.41\",\"category\":{\"id\":53,\"name\":\"Test Cat\",\"slug\":\"odit-quia-officia-est-dignissimos-neque-blanditiis-odio\"}}}",
+                            "body": "{\"data\":{\"id\":57,\"name\":\"quis\",\"description\":\"Fugit deleniti distinctio eum doloremque id aut libero.\",\"price\":\"79.41\",\"category\":{\"id\":98,\"name\":\"Test Cat\",\"slug\":\"odit-quia-officia-est-dignissimos-neque-blanditiis-odio\"}}}",
                             "name": "Product retrieved."
                         },
                         {
@@ -1233,6 +1233,12 @@
                             "code": 401,
                             "body": "{\"error\":{\"code\":\"unauthenticated\",\"message\":\"Authentication is required.\"}}",
                             "name": "A valid access token is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 409,
+                            "body": "{\"error\":{\"code\":\"products_unavailable\",\"message\":\"One or more selected products are no longer available.\",\"details\":{\"product_ids\":[12,31]}}}",
+                            "name": "Products or the payment method changed after validation. The error code identifies which selection is unavailable."
                         },
                         {
                             "header": [],
