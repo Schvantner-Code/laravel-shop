@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Http\Requests\Traits\HasScribeBodyParameters;
 use Illuminate\Foundation\Http\FormRequest;
 use Knuckles\Scribe\Attributes\BodyParam;
 
@@ -9,6 +10,8 @@ use Knuckles\Scribe\Attributes\BodyParam;
 #[BodyParam('password', 'string', example: 'password')]
 class LoginRequest extends FormRequest
 {
+    use HasScribeBodyParameters;
+
     public function authorize(): bool
     {
         return true;

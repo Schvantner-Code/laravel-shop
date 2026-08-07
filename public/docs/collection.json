@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel Shop API Documentation",
-        "_postman_id": "73c410f4-72d3-414c-9a4a-bc269a1ce9b7",
+        "_postman_id": "aa7453cb-abf2-48e3-b18e-96be3b989794",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -81,23 +81,28 @@
                     },
                     "response": [
                         {
-                            "header": [
-                                {
-                                    "key": "cache-control",
-                                    "value": "no-cache, private"
-                                },
-                                {
-                                    "key": "content-type",
-                                    "value": "application\/json"
-                                },
-                                {
-                                    "key": "access-control-allow-origin",
-                                    "value": "*"
-                                }
-                            ],
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":[{\"id\":1,\"status\":\"Pending\",\"status_code\":\"pending\",\"total_price\":\"25.00\",\"created_at\":\"2026-08-07T12:00:00+00:00\",\"items\":[{\"product_id\":1,\"name\":\"Notebook\",\"quantity\":2,\"unit_price\":\"12.50\",\"total\":\"25.00\"}]}],\"links\":{\"first\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/admin\\\/orders?page=1\",\"last\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/admin\\\/orders?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"path\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/admin\\\/orders\",\"per_page\":20,\"to\":1,\"total\":1}}",
+                            "name": "Orders retrieved for administration."
+                        },
+                        {
+                            "header": [],
                             "code": 401,
                             "body": "{\"error\":{\"code\":\"unauthenticated\",\"message\":\"Authentication is required.\"}}",
-                            "name": ""
+                            "name": "A valid access token is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"error\":{\"code\":\"forbidden\",\"message\":\"You are not authorized to perform this action.\"}}",
+                            "name": "Administrator access is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"error\":{\"code\":\"validation_failed\",\"message\":\"The request data is invalid.\",\"details\":{\"field\":[\"The field is required.\"]}}}",
+                            "name": "The query parameters are invalid."
                         }
                     ]
                 },
@@ -135,7 +140,44 @@
                         },
                         "description": "Transition the order to a new status (e.g. pending -> paid)."
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"id\":1,\"status\":\"Pending\",\"status_code\":\"pending\",\"total_price\":\"25.00\",\"created_at\":\"2026-08-07T12:00:00+00:00\",\"items\":[{\"product_id\":1,\"name\":\"Notebook\",\"quantity\":2,\"unit_price\":\"12.50\",\"total\":\"25.00\"}]}}",
+                            "name": "Order status updated."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"error\":{\"code\":\"unauthenticated\",\"message\":\"Authentication is required.\"}}",
+                            "name": "A valid access token is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"error\":{\"code\":\"forbidden\",\"message\":\"You are not authorized to perform this action.\"}}",
+                            "name": "Administrator access is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"error\":{\"code\":\"resource_not_found\",\"message\":\"The requested resource was not found.\"}}",
+                            "name": "The order was not found."
+                        },
+                        {
+                            "header": [],
+                            "code": 409,
+                            "body": "{\"error\":{\"code\":\"invalid_order_transition\",\"message\":\"Invalid transition from pending to paid for this payment method.\"}}",
+                            "name": "The requested status transition is not allowed."
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"error\":{\"code\":\"validation_failed\",\"message\":\"The request data is invalid.\",\"details\":{\"field\":[\"The field is required.\"]}}}",
+                            "name": "The status value is invalid."
+                        }
+                    ]
                 },
                 {
                     "name": "GET api\/v1\/admin\/categories",
@@ -181,23 +223,28 @@
                     },
                     "response": [
                         {
-                            "header": [
-                                {
-                                    "key": "cache-control",
-                                    "value": "no-cache, private"
-                                },
-                                {
-                                    "key": "content-type",
-                                    "value": "application\/json"
-                                },
-                                {
-                                    "key": "access-control-allow-origin",
-                                    "value": "*"
-                                }
-                            ],
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":[{\"id\":54,\"name\":\"Test Cat\",\"slug\":\"deserunt-aut-ab-provident-perspiciatis-quo-omnis-nostrum\",\"name_translations\":{\"en\":\"Test Cat\",\"sk\":\"Test Kat\"},\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T11:52:52+00:00\",\"updated_at\":\"2026-08-07T11:52:52+00:00\"},{\"id\":55,\"name\":\"Test Cat\",\"slug\":\"adipisci-quidem-nostrum-qui-commodi-incidunt-iure\",\"name_translations\":{\"en\":\"Test Cat\",\"sk\":\"Test Kat\"},\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T11:52:52+00:00\",\"updated_at\":\"2026-08-07T11:52:52+00:00\"}],\"links\":{\"first\":\"\\\/?page=1\",\"last\":\"\\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"&laquo; Previous\",\"page\":null,\"active\":false},{\"url\":\"\\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"Next &raquo;\",\"page\":null,\"active\":false}],\"path\":\"\\\/\",\"per_page\":10,\"to\":2,\"total\":2}}",
+                            "name": "Categories retrieved for administration."
+                        },
+                        {
+                            "header": [],
                             "code": 401,
                             "body": "{\"error\":{\"code\":\"unauthenticated\",\"message\":\"Authentication is required.\"}}",
-                            "name": ""
+                            "name": "A valid access token is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"error\":{\"code\":\"forbidden\",\"message\":\"You are not authorized to perform this action.\"}}",
+                            "name": "Administrator access is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"error\":{\"code\":\"validation_failed\",\"message\":\"The request data is invalid.\",\"details\":{\"field\":[\"The field is required.\"]}}}",
+                            "name": "The query parameters are invalid."
                         }
                     ]
                 },
@@ -227,7 +274,32 @@
                         },
                         "description": ""
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\"data\":{\"id\":56,\"name\":\"Test Cat\",\"slug\":\"quos-velit-et-fugiat-sunt-nihil-accusantium-harum\",\"name_translations\":{\"en\":\"Test Cat\",\"sk\":\"Test Kat\"},\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T11:52:52+00:00\",\"updated_at\":\"2026-08-07T11:52:52+00:00\"}}",
+                            "name": "Category created."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"error\":{\"code\":\"unauthenticated\",\"message\":\"Authentication is required.\"}}",
+                            "name": "A valid access token is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"error\":{\"code\":\"forbidden\",\"message\":\"You are not authorized to perform this action.\"}}",
+                            "name": "Administrator access is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"error\":{\"code\":\"validation_failed\",\"message\":\"The request data is invalid.\",\"details\":{\"field\":[\"The field is required.\"]}}}",
+                            "name": "The category data is invalid."
+                        }
+                    ]
                 },
                 {
                     "name": "PUT api\/v1\/admin\/categories\/{category_id}",
@@ -263,7 +335,38 @@
                         },
                         "description": ""
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"id\":57,\"name\":\"Test Cat\",\"slug\":\"animi-quos-velit-et-fugiat\",\"name_translations\":{\"en\":\"Test Cat\",\"sk\":\"Test Kat\"},\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T11:52:52+00:00\",\"updated_at\":\"2026-08-07T11:52:52+00:00\"}}",
+                            "name": "Category updated."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"error\":{\"code\":\"unauthenticated\",\"message\":\"Authentication is required.\"}}",
+                            "name": "A valid access token is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"error\":{\"code\":\"forbidden\",\"message\":\"You are not authorized to perform this action.\"}}",
+                            "name": "Administrator access is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"error\":{\"code\":\"resource_not_found\",\"message\":\"The requested resource was not found.\"}}",
+                            "name": "The category was not found."
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"error\":{\"code\":\"validation_failed\",\"message\":\"The request data is invalid.\",\"details\":{\"field\":[\"The field is required.\"]}}}",
+                            "name": "The category data is invalid."
+                        }
+                    ]
                 },
                 {
                     "name": "DELETE api\/v1\/admin\/categories\/{category_id}",
@@ -296,7 +399,32 @@
                         "body": null,
                         "description": ""
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 204,
+                            "body": null,
+                            "name": "Category deleted."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"error\":{\"code\":\"unauthenticated\",\"message\":\"Authentication is required.\"}}",
+                            "name": "A valid access token is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"error\":{\"code\":\"forbidden\",\"message\":\"You are not authorized to perform this action.\"}}",
+                            "name": "Administrator access is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"error\":{\"code\":\"resource_not_found\",\"message\":\"The requested resource was not found.\"}}",
+                            "name": "The category was not found."
+                        }
+                    ]
                 },
                 {
                     "name": "Restore a deleted category",
@@ -329,7 +457,38 @@
                         "body": null,
                         "description": ""
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"id\":58,\"name\":\"Test Cat\",\"slug\":\"et-et-modi-ipsum-nostrum\",\"name_translations\":{\"en\":\"Test Cat\",\"sk\":\"Test Kat\"},\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T11:52:52+00:00\",\"updated_at\":\"2026-08-07T11:52:52+00:00\"}}",
+                            "name": "Category restored."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"error\":{\"code\":\"unauthenticated\",\"message\":\"Authentication is required.\"}}",
+                            "name": "A valid access token is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"error\":{\"code\":\"forbidden\",\"message\":\"You are not authorized to perform this action.\"}}",
+                            "name": "Administrator access is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"error\":{\"code\":\"resource_not_found\",\"message\":\"The requested resource was not found.\"}}",
+                            "name": "The category was not found."
+                        },
+                        {
+                            "header": [],
+                            "code": 409,
+                            "body": "{\"error\":{\"code\":\"resource_not_deleted\",\"message\":\"Category is not deleted.\"}}",
+                            "name": "The category is already active."
+                        }
+                    ]
                 },
                 {
                     "name": "List Products (Admin)",
@@ -375,23 +534,28 @@
                     },
                     "response": [
                         {
-                            "header": [
-                                {
-                                    "key": "cache-control",
-                                    "value": "no-cache, private"
-                                },
-                                {
-                                    "key": "content-type",
-                                    "value": "application\/json"
-                                },
-                                {
-                                    "key": "access-control-allow-origin",
-                                    "value": "*"
-                                }
-                            ],
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":[{\"id\":34,\"name\":\"eligendi\",\"description\":\"Beatae ullam voluptatem reiciendis facere facilis.\",\"price\":\"26.59\",\"category\":{\"id\":59,\"name\":\"Test Cat\",\"slug\":\"et-et-nemo-dolores-voluptatem-dolores-asperiores\"},\"name_translations\":{\"en\":\"eligendi\",\"sk\":\"rem\"},\"description_translations\":{\"en\":\"Beatae ullam voluptatem reiciendis facere facilis.\",\"sk\":\"Molestiae excepturi omnis nulla rerum exercitationem sit.\"},\"is_active\":1,\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T11:52:52+00:00\",\"updated_at\":\"2026-08-07T11:52:52+00:00\"},{\"id\":35,\"name\":\"vero\",\"description\":\"Autem ex animi omnis esse sint.\",\"price\":\"48.67\",\"category\":{\"id\":60,\"name\":\"Test Cat\",\"slug\":\"et-occaecati-officiis-vel-delectus-nihil-quidem\"},\"name_translations\":{\"en\":\"vero\",\"sk\":\"fugit\"},\"description_translations\":{\"en\":\"Autem ex animi omnis esse sint.\",\"sk\":\"Tenetur nam ullam tenetur numquam voluptas nisi quibusdam.\"},\"is_active\":1,\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T11:52:52+00:00\",\"updated_at\":\"2026-08-07T11:52:52+00:00\"}],\"links\":{\"first\":\"\\\/?page=1\",\"last\":\"\\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"&laquo; Previous\",\"page\":null,\"active\":false},{\"url\":\"\\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"Next &raquo;\",\"page\":null,\"active\":false}],\"path\":\"\\\/\",\"per_page\":10,\"to\":2,\"total\":2}}",
+                            "name": "Products retrieved for administration."
+                        },
+                        {
+                            "header": [],
                             "code": 401,
                             "body": "{\"error\":{\"code\":\"unauthenticated\",\"message\":\"Authentication is required.\"}}",
-                            "name": ""
+                            "name": "A valid access token is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"error\":{\"code\":\"forbidden\",\"message\":\"You are not authorized to perform this action.\"}}",
+                            "name": "Administrator access is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"error\":{\"code\":\"validation_failed\",\"message\":\"The request data is invalid.\",\"details\":{\"field\":[\"The field is required.\"]}}}",
+                            "name": "The query parameters are invalid."
                         }
                     ]
                 },
@@ -417,11 +581,36 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"category_id\":1,\"name\":{\"en\":\"Pro Pen\",\"sk\":\"Pro Pero\"},\"description\":{\"en\":\"architecto\",\"sk\":\"architecto\"},\"price\":1250,\"is_active\":false}"
+                            "raw": "{\"category_id\":1,\"name\":{\"en\":\"Pro Pen\",\"sk\":\"Pro Pero\"},\"description\":{\"en\":\"architecto\",\"sk\":\"architecto\"},\"price\":1250,\"is_active\":true}"
                         },
                         "description": ""
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\"data\":{\"id\":36,\"name\":\"et\",\"description\":\"Velit et fugiat sunt nihil accusantium.\",\"price\":\"1.80\",\"category\":{\"id\":61,\"name\":\"Test Cat\",\"slug\":\"aut-adipisci-quidem-nostrum-qui-commodi-incidunt-iure\"},\"name_translations\":{\"en\":\"et\",\"sk\":\"animi\"},\"description_translations\":{\"en\":\"Velit et fugiat sunt nihil accusantium.\",\"sk\":\"Mollitia modi deserunt aut ab provident perspiciatis quo.\"},\"is_active\":1,\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T11:52:52+00:00\",\"updated_at\":\"2026-08-07T11:52:52+00:00\"}}",
+                            "name": "Product created."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"error\":{\"code\":\"unauthenticated\",\"message\":\"Authentication is required.\"}}",
+                            "name": "A valid access token is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"error\":{\"code\":\"forbidden\",\"message\":\"You are not authorized to perform this action.\"}}",
+                            "name": "Administrator access is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"error\":{\"code\":\"validation_failed\",\"message\":\"The request data is invalid.\",\"details\":{\"field\":[\"The field is required.\"]}}}",
+                            "name": "The product data is invalid."
+                        }
+                    ]
                 },
                 {
                     "name": "PUT api\/v1\/admin\/products\/{product_id}",
@@ -457,7 +646,38 @@
                         },
                         "description": ""
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"id\":37,\"name\":\"et\",\"description\":\"Velit et fugiat sunt nihil accusantium.\",\"price\":\"1.80\",\"category\":{\"id\":62,\"name\":\"Test Cat\",\"slug\":\"autem-et-consequatur-aut-dolores-enim-non-facere-tempora\"},\"name_translations\":{\"en\":\"et\",\"sk\":\"animi\"},\"description_translations\":{\"en\":\"Velit et fugiat sunt nihil accusantium.\",\"sk\":\"Mollitia modi deserunt aut ab provident perspiciatis quo.\"},\"is_active\":1,\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T11:52:52+00:00\",\"updated_at\":\"2026-08-07T11:52:52+00:00\"}}",
+                            "name": "Product updated."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"error\":{\"code\":\"unauthenticated\",\"message\":\"Authentication is required.\"}}",
+                            "name": "A valid access token is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"error\":{\"code\":\"forbidden\",\"message\":\"You are not authorized to perform this action.\"}}",
+                            "name": "Administrator access is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"error\":{\"code\":\"resource_not_found\",\"message\":\"The requested resource was not found.\"}}",
+                            "name": "The product was not found."
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"error\":{\"code\":\"validation_failed\",\"message\":\"The request data is invalid.\",\"details\":{\"field\":[\"The field is required.\"]}}}",
+                            "name": "The product data is invalid."
+                        }
+                    ]
                 },
                 {
                     "name": "DELETE api\/v1\/admin\/products\/{product_id}",
@@ -490,7 +710,32 @@
                         "body": null,
                         "description": ""
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 204,
+                            "body": null,
+                            "name": "Product deleted."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"error\":{\"code\":\"unauthenticated\",\"message\":\"Authentication is required.\"}}",
+                            "name": "A valid access token is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"error\":{\"code\":\"forbidden\",\"message\":\"You are not authorized to perform this action.\"}}",
+                            "name": "Administrator access is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"error\":{\"code\":\"resource_not_found\",\"message\":\"The requested resource was not found.\"}}",
+                            "name": "The product was not found."
+                        }
+                    ]
                 },
                 {
                     "name": "Restore a deleted product",
@@ -523,7 +768,38 @@
                         "body": null,
                         "description": ""
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"id\":38,\"name\":\"aut\",\"description\":\"Nostrum qui commodi incidunt iure.\",\"price\":\"44.13\",\"category\":{\"id\":63,\"name\":\"Test Cat\",\"slug\":\"et-consequatur-aut-dolores-enim\"},\"name_translations\":{\"en\":\"aut\",\"sk\":\"adipisci\"},\"description_translations\":{\"en\":\"Nostrum qui commodi incidunt iure.\",\"sk\":\"Et et modi ipsum nostrum.\"},\"is_active\":1,\"is_deleted\":false,\"deleted_at\":null,\"created_at\":\"2026-08-07T11:52:52+00:00\",\"updated_at\":\"2026-08-07T11:52:52+00:00\"}}",
+                            "name": "Product restored."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"error\":{\"code\":\"unauthenticated\",\"message\":\"Authentication is required.\"}}",
+                            "name": "A valid access token is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"error\":{\"code\":\"forbidden\",\"message\":\"You are not authorized to perform this action.\"}}",
+                            "name": "Administrator access is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"error\":{\"code\":\"resource_not_found\",\"message\":\"The requested resource was not found.\"}}",
+                            "name": "The product was not found."
+                        },
+                        {
+                            "header": [],
+                            "code": 409,
+                            "body": "{\"error\":{\"code\":\"resource_not_deleted\",\"message\":\"Product is not deleted.\"}}",
+                            "name": "The product is already active."
+                        }
+                    ]
                 }
             ]
         },
@@ -560,7 +836,20 @@
                             "type": "noauth"
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\"data\":{\"access_token\":\"1|example-token\",\"token_type\":\"Bearer\"}}",
+                            "name": "Customer registered and access token created."
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"error\":{\"code\":\"validation_failed\",\"message\":\"The request data is invalid.\",\"details\":{\"field\":[\"The field is required.\"]}}}",
+                            "name": "The registration data is invalid."
+                        }
+                    ]
                 },
                 {
                     "name": "Login",
@@ -591,7 +880,26 @@
                             "type": "noauth"
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"access_token\":\"1|example-token\",\"token_type\":\"Bearer\"}}",
+                            "name": "Credentials accepted and access token created."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"error\":{\"code\":\"invalid_credentials\",\"message\":\"The provided credentials are invalid.\"}}",
+                            "name": "The credentials are invalid."
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"error\":{\"code\":\"validation_failed\",\"message\":\"The request data is invalid.\",\"details\":{\"field\":[\"The field is required.\"]}}}",
+                            "name": "The login data is invalid."
+                        }
+                    ]
                 },
                 {
                     "name": "Logout",
@@ -614,12 +922,22 @@
                             }
                         ],
                         "body": null,
-                        "description": "Revokes the current access token.",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": "Revokes the current access token."
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 204,
+                            "body": null,
+                            "name": "The current access token was revoked."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"error\":{\"code\":\"unauthenticated\",\"message\":\"Authentication is required.\"}}",
+                            "name": "A valid access token is required."
+                        }
+                    ]
                 }
             ]
         },
@@ -678,23 +996,16 @@
                     },
                     "response": [
                         {
-                            "header": [
-                                {
-                                    "key": "cache-control",
-                                    "value": "no-cache, private"
-                                },
-                                {
-                                    "key": "content-type",
-                                    "value": "application\/json"
-                                },
-                                {
-                                    "key": "access-control-allow-origin",
-                                    "value": "*"
-                                }
-                            ],
+                            "header": [],
                             "code": 200,
-                            "body": "{\"data\":[{\"id\":1,\"name\":\"Notebooks\",\"slug\":\"notebooks\"}],\"links\":{\"first\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/categories?page=1\",\"last\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/categories?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"&laquo; Previous\",\"page\":null,\"active\":false},{\"url\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/categories?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"Next &raquo;\",\"page\":null,\"active\":false}],\"path\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/categories\",\"per_page\":10,\"to\":1,\"total\":1}}",
-                            "name": ""
+                            "body": "{\"data\":[{\"id\":49,\"name\":\"Test Cat\",\"slug\":\"eius-et-animi-quos-velit-et\"},{\"id\":50,\"name\":\"Test Cat\",\"slug\":\"sunt-nihil-accusantium-harum-mollitia\"}],\"links\":{\"first\":\"\\\/?page=1\",\"last\":\"\\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"&laquo; Previous\",\"page\":null,\"active\":false},{\"url\":\"\\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"Next &raquo;\",\"page\":null,\"active\":false}],\"path\":\"\\\/\",\"per_page\":10,\"to\":2,\"total\":2}}",
+                            "name": "Categories retrieved."
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"error\":{\"code\":\"validation_failed\",\"message\":\"The request data is invalid.\",\"details\":{\"field\":[\"The field is required.\"]}}}",
+                            "name": "The query parameters are invalid."
                         }
                     ]
                 },
@@ -755,23 +1066,16 @@
                     },
                     "response": [
                         {
-                            "header": [
-                                {
-                                    "key": "cache-control",
-                                    "value": "no-cache, private"
-                                },
-                                {
-                                    "key": "content-type",
-                                    "value": "application\/json"
-                                },
-                                {
-                                    "key": "access-control-allow-origin",
-                                    "value": "*"
-                                }
-                            ],
+                            "header": [],
                             "code": 200,
-                            "body": "{\"data\":[],\"links\":{\"first\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/products?page=1\",\"last\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/products?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":null,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"&laquo; Previous\",\"page\":null,\"active\":false},{\"url\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/products?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"Next &raquo;\",\"page\":null,\"active\":false}],\"path\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/products\",\"per_page\":10,\"to\":null,\"total\":0}}",
-                            "name": ""
+                            "body": "{\"data\":[{\"id\":31,\"name\":\"architecto\",\"description\":\"Animi quos velit et fugiat.\",\"price\":\"56.32\",\"category\":{\"id\":51,\"name\":\"Test Cat\",\"slug\":\"provident-perspiciatis-quo-omnis-nostrum-aut-adipisci-quidem\"}},{\"id\":32,\"name\":\"nostrum\",\"description\":\"Incidunt iure odit et et modi ipsum.\",\"price\":\"35.67\",\"category\":{\"id\":52,\"name\":\"Test Cat\",\"slug\":\"enim-non-facere-tempora-ex-voluptatem-laboriosam-praesentium\"}}],\"links\":{\"first\":\"\\\/?page=1\",\"last\":\"\\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"&laquo; Previous\",\"page\":null,\"active\":false},{\"url\":\"\\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"Next &raquo;\",\"page\":null,\"active\":false}],\"path\":\"\\\/\",\"per_page\":10,\"to\":2,\"total\":2}}",
+                            "name": "Products retrieved."
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"error\":{\"code\":\"validation_failed\",\"message\":\"The request data is invalid.\",\"details\":{\"field\":[\"The field is required.\"]}}}",
+                            "name": "The query parameters are invalid."
                         }
                     ]
                 },
@@ -815,23 +1119,16 @@
                     },
                     "response": [
                         {
-                            "header": [
-                                {
-                                    "key": "cache-control",
-                                    "value": "no-cache, private"
-                                },
-                                {
-                                    "key": "content-type",
-                                    "value": "application\/json"
-                                },
-                                {
-                                    "key": "access-control-allow-origin",
-                                    "value": "*"
-                                }
-                            ],
+                            "header": [],
                             "code": 200,
-                            "body": "{\"data\":{\"id\":1,\"name\":\"Leather Journal\",\"description\":\"Premium A5 notebook.\",\"price\":\"24.99\",\"category\":{\"id\":1,\"name\":\"Notebooks\",\"slug\":\"notebooks\"}}}",
-                            "name": ""
+                            "body": "{\"data\":{\"id\":33,\"name\":\"quis\",\"description\":\"Fugit deleniti distinctio eum doloremque id aut libero.\",\"price\":\"79.41\",\"category\":{\"id\":53,\"name\":\"Test Cat\",\"slug\":\"odit-quia-officia-est-dignissimos-neque-blanditiis-odio\"}}}",
+                            "name": "Product retrieved."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"error\":{\"code\":\"resource_not_found\",\"message\":\"The requested resource was not found.\"}}",
+                            "name": "The product was not found."
                         }
                     ]
                 }
@@ -879,23 +1176,22 @@
                     },
                     "response": [
                         {
-                            "header": [
-                                {
-                                    "key": "cache-control",
-                                    "value": "no-cache, private"
-                                },
-                                {
-                                    "key": "content-type",
-                                    "value": "application\/json"
-                                },
-                                {
-                                    "key": "access-control-allow-origin",
-                                    "value": "*"
-                                }
-                            ],
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":[{\"id\":1,\"status\":\"Pending\",\"status_code\":\"pending\",\"total_price\":\"25.00\",\"created_at\":\"2026-08-07T12:00:00+00:00\",\"items\":[{\"product_id\":1,\"name\":\"Notebook\",\"quantity\":2,\"unit_price\":\"12.50\",\"total\":\"25.00\"}]}],\"links\":{\"first\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/orders?page=1\",\"last\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/orders?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"path\":\"http:\\\/\\\/localhost\\\/api\\\/v1\\\/orders\",\"per_page\":10,\"to\":1,\"total\":1}}",
+                            "name": "Customer orders retrieved."
+                        },
+                        {
+                            "header": [],
                             "code": 401,
                             "body": "{\"error\":{\"code\":\"unauthenticated\",\"message\":\"Authentication is required.\"}}",
-                            "name": ""
+                            "name": "A valid access token is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"error\":{\"code\":\"validation_failed\",\"message\":\"The request data is invalid.\",\"details\":{\"field\":[\"The field is required.\"]}}}",
+                            "name": "The query parameters are invalid."
                         }
                     ]
                 },
@@ -925,7 +1221,26 @@
                         },
                         "description": "Validates products, calculates totals on the server, and creates the order."
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\"data\":{\"id\":1,\"status\":\"Pending\",\"status_code\":\"pending\",\"total_price\":\"25.00\",\"created_at\":\"2026-08-07T12:00:00+00:00\",\"items\":[{\"product_id\":1,\"name\":\"Notebook\",\"quantity\":2,\"unit_price\":\"12.50\",\"total\":\"25.00\"}]}}",
+                            "name": "Order created."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"error\":{\"code\":\"unauthenticated\",\"message\":\"Authentication is required.\"}}",
+                            "name": "A valid access token is required."
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"error\":{\"code\":\"validation_failed\",\"message\":\"The request data is invalid.\",\"details\":{\"field\":[\"The field is required.\"]}}}",
+                            "name": "The checkout data is invalid."
+                        }
+                    ]
                 }
             ]
         }

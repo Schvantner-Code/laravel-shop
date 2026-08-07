@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
+use App\Http\Documentation\ApiResponseExamples;
 use App\Http\Requests\Admin\CatalogIndexRequest;
 use App\Http\Requests\Admin\Product\StoreProductRequest;
 use App\Http\Requests\Admin\Product\UpdateProductRequest;
@@ -15,9 +16,13 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\Group;
+use Knuckles\Scribe\Attributes\Response as ScribeResponse;
+use Knuckles\Scribe\Attributes\ResponseFromApiResource;
 
 #[Group('Admin Management')]
 #[Authenticated]
+#[ScribeResponse(ApiResponseExamples::UNAUTHENTICATED, 401, 'A valid access token is required.')]
+#[ScribeResponse(ApiResponseExamples::FORBIDDEN, 403, 'Administrator access is required.')]
 class ProductController extends Controller
 {
     use AuthorizesRequests;
@@ -27,6 +32,8 @@ class ProductController extends Controller
      *
      * View all products, including inactive or deleted ones.
      */
+    #[ResponseFromApiResource(AdminProductResource::class, Product::class, collection: true, with: ['category'], paginate: 10, description: 'Products retrieved for administration.')]
+    #[ScribeResponse(ApiResponseExamples::VALIDATION_FAILED, 422, 'The query parameters are invalid.')]
     public function index(CatalogIndexRequest $request): AnonymousResourceCollection
     {
         $this->authorize('viewAny', Product::class);
@@ -45,6 +52,8 @@ class ProductController extends Controller
         return AdminProductResource::collection($query->paginate($request->perPage()));
     }
 
+    #[ResponseFromApiResource(AdminProductResource::class, Product::class, status: 201, with: ['category'], description: 'Product created.')]
+    #[ScribeResponse(ApiResponseExamples::VALIDATION_FAILED, 422, 'The product data is invalid.')]
     public function store(StoreProductRequest $request): JsonResponse
     {
         $this->authorize('create', Product::class);
@@ -56,6 +65,9 @@ class ProductController extends Controller
             ->setStatusCode(Response::HTTP_CREATED);
     }
 
+    #[ResponseFromApiResource(AdminProductResource::class, Product::class, with: ['category'], description: 'Product updated.')]
+    #[ScribeResponse(ApiResponseExamples::NOT_FOUND, 404, 'The product was not found.')]
+    #[ScribeResponse(ApiResponseExamples::VALIDATION_FAILED, 422, 'The product data is invalid.')]
     public function update(UpdateProductRequest $request, Product $product): AdminProductResource
     {
         $this->authorize('update', $product);
@@ -65,6 +77,8 @@ class ProductController extends Controller
         return new AdminProductResource($product);
     }
 
+    #[ScribeResponse(status: 204, description: 'Product deleted.')]
+    #[ScribeResponse(ApiResponseExamples::NOT_FOUND, 404, 'The product was not found.')]
     public function destroy(Product $product): Response
     {
         $this->authorize('delete', $product);
@@ -77,6 +91,9 @@ class ProductController extends Controller
     /**
      * Restore a deleted product
      */
+    #[ResponseFromApiResource(AdminProductResource::class, Product::class, with: ['category'], description: 'Product restored.')]
+    #[ScribeResponse(ApiResponseExamples::NOT_FOUND, 404, 'The product was not found.')]
+    #[ScribeResponse(ApiResponseExamples::PRODUCT_NOT_DELETED, 409, 'The product is already active.')]
     public function restore(int $id): AdminProductResource
     {
         $product = Product::withTrashed()->findOrFail($id);

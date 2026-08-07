@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Documentation\ApiResponseExamples;
 use App\Http\Requests\Api\CategoryIndexRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Knuckles\Scribe\Attributes\Header;
+use Knuckles\Scribe\Attributes\Response as ScribeResponse;
+use Knuckles\Scribe\Attributes\ResponseFromApiResource;
 
 /**
  * @group Products & Categories (Public)
@@ -21,6 +24,8 @@ class CategoryController extends Controller
      *
      * Returns a paginated list of categories. Supports searching by name.
      */
+    #[ResponseFromApiResource(CategoryResource::class, Category::class, collection: true, paginate: 10, description: 'Categories retrieved.')]
+    #[ScribeResponse(ApiResponseExamples::VALIDATION_FAILED, 422, 'The query parameters are invalid.')]
     public function index(CategoryIndexRequest $request): AnonymousResourceCollection
     {
         $query = Category::query();

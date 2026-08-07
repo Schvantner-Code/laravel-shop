@@ -19,7 +19,7 @@ components:
     default:
       type: http
       scheme: bearer
-      description: 'You can retrieve your token by using the Login endpoint.'
+      description: "    You can retrieve a token from the registration or login endpoint. The token is returned as `data.access_token`.\n\n    The logout endpoint revokes only the token used for the current request and returns HTTP 204."
 security:
   -
     default: []
@@ -97,8 +97,143 @@ paths:
               - asc
               - desc
       responses:
+        200:
+          description: 'Orders retrieved for administration.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      status: Pending
+                      status_code: pending
+                      total_price: '25.00'
+                      created_at: '2026-08-07T12:00:00+00:00'
+                      items:
+                        -
+                          product_id: 1
+                          name: Notebook
+                          quantity: 2
+                          unit_price: '12.50'
+                          total: '25.00'
+                  links:
+                    first: 'http://localhost/api/v1/admin/orders?page=1'
+                    last: 'http://localhost/api/v1/admin/orders?page=1'
+                    prev: null
+                    next: null
+                  meta:
+                    current_page: 1
+                    from: 1
+                    last_page: 1
+                    path: 'http://localhost/api/v1/admin/orders'
+                    per_page: 20
+                    to: 1
+                    total: 1
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        status: Pending
+                        status_code: pending
+                        total_price: '25.00'
+                        created_at: '2026-08-07T12:00:00+00:00'
+                        items:
+                          - product_id: 1
+                            name: Notebook
+                            quantity: 2
+                            unit_price: '12.50'
+                            total: '25.00'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        status:
+                          type: string
+                          example: Pending
+                        status_code:
+                          type: string
+                          example: pending
+                        total_price:
+                          type: string
+                          example: '25.00'
+                        created_at:
+                          type: string
+                          example: '2026-08-07T12:00:00+00:00'
+                        items:
+                          type: array
+                          example:
+                            - product_id: 1
+                              name: Notebook
+                              quantity: 2
+                              unit_price: '12.50'
+                              total: '25.00'
+                          items:
+                            type: object
+                            properties:
+                              product_id:
+                                type: integer
+                                example: 1
+                              name:
+                                type: string
+                                example: Notebook
+                              quantity:
+                                type: integer
+                                example: 2
+                              unit_price:
+                                type: string
+                                example: '12.50'
+                              total:
+                                type: string
+                                example: '25.00'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: 'http://localhost/api/v1/admin/orders?page=1'
+                      last:
+                        type: string
+                        example: 'http://localhost/api/v1/admin/orders?page=1'
+                      prev:
+                        type: string
+                        example: null
+                        nullable: true
+                      next:
+                        type: string
+                        example: null
+                        nullable: true
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      from:
+                        type: integer
+                        example: 1
+                      last_page:
+                        type: integer
+                        example: 1
+                      path:
+                        type: string
+                        example: 'http://localhost/api/v1/admin/orders'
+                      per_page:
+                        type: integer
+                        example: 20
+                      to:
+                        type: integer
+                        example: 1
+                      total:
+                        type: integer
+                        example: 1
         401:
-          description: ''
+          description: 'A valid access token is required.'
           content:
             application/json:
               schema:
@@ -117,6 +252,58 @@ paths:
                       message:
                         type: string
                         example: 'Authentication is required.'
+        403:
+          description: 'Administrator access is required.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: forbidden
+                    message: 'You are not authorized to perform this action.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: forbidden
+                      message:
+                        type: string
+                        example: 'You are not authorized to perform this action.'
+        422:
+          description: 'The query parameters are invalid.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: validation_failed
+                    message: 'The request data is invalid.'
+                    details:
+                      field:
+                        - 'The field is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: validation_failed
+                      message:
+                        type: string
+                        example: 'The request data is invalid.'
+                      details:
+                        type: object
+                        properties:
+                          field:
+                            type: array
+                            example:
+                              - 'The field is required.'
+                            items:
+                              type: string
       tags:
         - 'Admin Management'
   '/api/v1/admin/orders/{order_id}/status':
@@ -125,7 +312,184 @@ paths:
       operationId: updateOrderStatus
       description: 'Transition the order to a new status (e.g. pending -> paid).'
       parameters: []
-      responses: {}
+      responses:
+        200:
+          description: 'Order status updated.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 1
+                    status: Pending
+                    status_code: pending
+                    total_price: '25.00'
+                    created_at: '2026-08-07T12:00:00+00:00'
+                    items:
+                      -
+                        product_id: 1
+                        name: Notebook
+                        quantity: 2
+                        unit_price: '12.50'
+                        total: '25.00'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      status:
+                        type: string
+                        example: Pending
+                      status_code:
+                        type: string
+                        example: pending
+                      total_price:
+                        type: string
+                        example: '25.00'
+                      created_at:
+                        type: string
+                        example: '2026-08-07T12:00:00+00:00'
+                      items:
+                        type: array
+                        example:
+                          - product_id: 1
+                            name: Notebook
+                            quantity: 2
+                            unit_price: '12.50'
+                            total: '25.00'
+                        items:
+                          type: object
+                          properties:
+                            product_id:
+                              type: integer
+                              example: 1
+                            name:
+                              type: string
+                              example: Notebook
+                            quantity:
+                              type: integer
+                              example: 2
+                            unit_price:
+                              type: string
+                              example: '12.50'
+                            total:
+                              type: string
+                              example: '25.00'
+        401:
+          description: 'A valid access token is required.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: unauthenticated
+                    message: 'Authentication is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: unauthenticated
+                      message:
+                        type: string
+                        example: 'Authentication is required.'
+        403:
+          description: 'Administrator access is required.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: forbidden
+                    message: 'You are not authorized to perform this action.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: forbidden
+                      message:
+                        type: string
+                        example: 'You are not authorized to perform this action.'
+        404:
+          description: 'The order was not found.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: resource_not_found
+                    message: 'The requested resource was not found.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: resource_not_found
+                      message:
+                        type: string
+                        example: 'The requested resource was not found.'
+        409:
+          description: 'The requested status transition is not allowed.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: invalid_order_transition
+                    message: 'Invalid transition from pending to paid for this payment method.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_order_transition
+                      message:
+                        type: string
+                        example: 'Invalid transition from pending to paid for this payment method.'
+        422:
+          description: 'The status value is invalid.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: validation_failed
+                    message: 'The request data is invalid.'
+                    details:
+                      field:
+                        - 'The field is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: validation_failed
+                      message:
+                        type: string
+                        example: 'The request data is invalid.'
+                      details:
+                        type: object
+                        properties:
+                          field:
+                            type: array
+                            example:
+                              - 'The field is required.'
+                            items:
+                              type: string
       tags:
         - 'Admin Management'
       requestBody:
@@ -191,8 +555,200 @@ paths:
               - trashed
               - all
       responses:
+        200:
+          description: 'Categories retrieved for administration.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 54
+                      name: 'Test Cat'
+                      slug: deserunt-aut-ab-provident-perspiciatis-quo-omnis-nostrum
+                      name_translations:
+                        en: 'Test Cat'
+                        sk: 'Test Kat'
+                      is_deleted: false
+                      deleted_at: null
+                      created_at: '2026-08-07T11:52:52+00:00'
+                      updated_at: '2026-08-07T11:52:52+00:00'
+                    -
+                      id: 55
+                      name: 'Test Cat'
+                      slug: adipisci-quidem-nostrum-qui-commodi-incidunt-iure
+                      name_translations:
+                        en: 'Test Cat'
+                        sk: 'Test Kat'
+                      is_deleted: false
+                      deleted_at: null
+                      created_at: '2026-08-07T11:52:52+00:00'
+                      updated_at: '2026-08-07T11:52:52+00:00'
+                  links:
+                    first: '/?page=1'
+                    last: '/?page=1'
+                    prev: null
+                    next: null
+                  meta:
+                    current_page: 1
+                    from: 1
+                    last_page: 1
+                    links:
+                      -
+                        url: null
+                        label: '&laquo; Previous'
+                        page: null
+                        active: false
+                      -
+                        url: '/?page=1'
+                        label: '1'
+                        page: 1
+                        active: true
+                      -
+                        url: null
+                        label: 'Next &raquo;'
+                        page: null
+                        active: false
+                    path: /
+                    per_page: 10
+                    to: 2
+                    total: 2
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 54
+                        name: 'Test Cat'
+                        slug: deserunt-aut-ab-provident-perspiciatis-quo-omnis-nostrum
+                        name_translations:
+                          en: 'Test Cat'
+                          sk: 'Test Kat'
+                        is_deleted: false
+                        deleted_at: null
+                        created_at: '2026-08-07T11:52:52+00:00'
+                        updated_at: '2026-08-07T11:52:52+00:00'
+                      -
+                        id: 55
+                        name: 'Test Cat'
+                        slug: adipisci-quidem-nostrum-qui-commodi-incidunt-iure
+                        name_translations:
+                          en: 'Test Cat'
+                          sk: 'Test Kat'
+                        is_deleted: false
+                        deleted_at: null
+                        created_at: '2026-08-07T11:52:52+00:00'
+                        updated_at: '2026-08-07T11:52:52+00:00'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 54
+                        name:
+                          type: string
+                          example: 'Test Cat'
+                        slug:
+                          type: string
+                          example: deserunt-aut-ab-provident-perspiciatis-quo-omnis-nostrum
+                        name_translations:
+                          type: object
+                          properties:
+                            en:
+                              type: string
+                              example: 'Test Cat'
+                            sk:
+                              type: string
+                              example: 'Test Kat'
+                        is_deleted:
+                          type: boolean
+                          example: false
+                        deleted_at:
+                          type: string
+                          example: null
+                          nullable: true
+                        created_at:
+                          type: string
+                          example: '2026-08-07T11:52:52+00:00'
+                        updated_at:
+                          type: string
+                          example: '2026-08-07T11:52:52+00:00'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: '/?page=1'
+                      last:
+                        type: string
+                        example: '/?page=1'
+                      prev:
+                        type: string
+                        example: null
+                        nullable: true
+                      next:
+                        type: string
+                        example: null
+                        nullable: true
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      from:
+                        type: integer
+                        example: 1
+                      last_page:
+                        type: integer
+                        example: 1
+                      links:
+                        type: array
+                        example:
+                          - url: null
+                            label: '&laquo; Previous'
+                            page: null
+                            active: false
+                          - url: '/?page=1'
+                            label: '1'
+                            page: 1
+                            active: true
+                          - url: null
+                            label: 'Next &raquo;'
+                            page: null
+                            active: false
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type: string
+                              example: null
+                              nullable: true
+                            label:
+                              type: string
+                              example: '&laquo; Previous'
+                            page:
+                              type: string
+                              example: null
+                              nullable: true
+                            active:
+                              type: boolean
+                              example: false
+                      path:
+                        type: string
+                        example: /
+                      per_page:
+                        type: integer
+                        example: 10
+                      to:
+                        type: integer
+                        example: 2
+                      total:
+                        type: integer
+                        example: 2
         401:
-          description: ''
+          description: 'A valid access token is required.'
           content:
             application/json:
               schema:
@@ -211,6 +767,58 @@ paths:
                       message:
                         type: string
                         example: 'Authentication is required.'
+        403:
+          description: 'Administrator access is required.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: forbidden
+                    message: 'You are not authorized to perform this action.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: forbidden
+                      message:
+                        type: string
+                        example: 'You are not authorized to perform this action.'
+        422:
+          description: 'The query parameters are invalid.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: validation_failed
+                    message: 'The request data is invalid.'
+                    details:
+                      field:
+                        - 'The field is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: validation_failed
+                      message:
+                        type: string
+                        example: 'The request data is invalid.'
+                      details:
+                        type: object
+                        properties:
+                          field:
+                            type: array
+                            example:
+                              - 'The field is required.'
+                            items:
+                              type: string
       tags:
         - 'Admin Management'
     post:
@@ -218,7 +826,132 @@ paths:
       operationId: postApiV1AdminCategories
       description: ''
       parameters: []
-      responses: {}
+      responses:
+        201:
+          description: 'Category created.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 56
+                    name: 'Test Cat'
+                    slug: quos-velit-et-fugiat-sunt-nihil-accusantium-harum
+                    name_translations:
+                      en: 'Test Cat'
+                      sk: 'Test Kat'
+                    is_deleted: false
+                    deleted_at: null
+                    created_at: '2026-08-07T11:52:52+00:00'
+                    updated_at: '2026-08-07T11:52:52+00:00'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 56
+                      name:
+                        type: string
+                        example: 'Test Cat'
+                      slug:
+                        type: string
+                        example: quos-velit-et-fugiat-sunt-nihil-accusantium-harum
+                      name_translations:
+                        type: object
+                        properties:
+                          en:
+                            type: string
+                            example: 'Test Cat'
+                          sk:
+                            type: string
+                            example: 'Test Kat'
+                      is_deleted:
+                        type: boolean
+                        example: false
+                      deleted_at:
+                        type: string
+                        example: null
+                        nullable: true
+                      created_at:
+                        type: string
+                        example: '2026-08-07T11:52:52+00:00'
+                      updated_at:
+                        type: string
+                        example: '2026-08-07T11:52:52+00:00'
+        401:
+          description: 'A valid access token is required.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: unauthenticated
+                    message: 'Authentication is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: unauthenticated
+                      message:
+                        type: string
+                        example: 'Authentication is required.'
+        403:
+          description: 'Administrator access is required.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: forbidden
+                    message: 'You are not authorized to perform this action.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: forbidden
+                      message:
+                        type: string
+                        example: 'You are not authorized to perform this action.'
+        422:
+          description: 'The category data is invalid.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: validation_failed
+                    message: 'The request data is invalid.'
+                    details:
+                      field:
+                        - 'The field is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: validation_failed
+                      message:
+                        type: string
+                        example: 'The request data is invalid.'
+                      details:
+                        type: object
+                        properties:
+                          field:
+                            type: array
+                            example:
+                              - 'The field is required.'
+                            items:
+                              type: string
       tags:
         - 'Admin Management'
       requestBody:
@@ -259,7 +992,152 @@ paths:
       operationId: putApiV1AdminCategoriesCategory_id
       description: ''
       parameters: []
-      responses: {}
+      responses:
+        200:
+          description: 'Category updated.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 57
+                    name: 'Test Cat'
+                    slug: animi-quos-velit-et-fugiat
+                    name_translations:
+                      en: 'Test Cat'
+                      sk: 'Test Kat'
+                    is_deleted: false
+                    deleted_at: null
+                    created_at: '2026-08-07T11:52:52+00:00'
+                    updated_at: '2026-08-07T11:52:52+00:00'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 57
+                      name:
+                        type: string
+                        example: 'Test Cat'
+                      slug:
+                        type: string
+                        example: animi-quos-velit-et-fugiat
+                      name_translations:
+                        type: object
+                        properties:
+                          en:
+                            type: string
+                            example: 'Test Cat'
+                          sk:
+                            type: string
+                            example: 'Test Kat'
+                      is_deleted:
+                        type: boolean
+                        example: false
+                      deleted_at:
+                        type: string
+                        example: null
+                        nullable: true
+                      created_at:
+                        type: string
+                        example: '2026-08-07T11:52:52+00:00'
+                      updated_at:
+                        type: string
+                        example: '2026-08-07T11:52:52+00:00'
+        401:
+          description: 'A valid access token is required.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: unauthenticated
+                    message: 'Authentication is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: unauthenticated
+                      message:
+                        type: string
+                        example: 'Authentication is required.'
+        403:
+          description: 'Administrator access is required.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: forbidden
+                    message: 'You are not authorized to perform this action.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: forbidden
+                      message:
+                        type: string
+                        example: 'You are not authorized to perform this action.'
+        404:
+          description: 'The category was not found.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: resource_not_found
+                    message: 'The requested resource was not found.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: resource_not_found
+                      message:
+                        type: string
+                        example: 'The requested resource was not found.'
+        422:
+          description: 'The category data is invalid.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: validation_failed
+                    message: 'The request data is invalid.'
+                    details:
+                      field:
+                        - 'The field is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: validation_failed
+                      message:
+                        type: string
+                        example: 'The request data is invalid.'
+                      details:
+                        type: object
+                        properties:
+                          field:
+                            type: array
+                            example:
+                              - 'The field is required.'
+                            items:
+                              type: string
       tags:
         - 'Admin Management'
       requestBody:
@@ -298,7 +1176,74 @@ paths:
       operationId: deleteApiV1AdminCategoriesCategory_id
       description: ''
       parameters: []
-      responses: {}
+      responses:
+        204:
+          description: 'Category deleted.'
+          content:
+            application/json:
+              schema:
+                type: object
+                nullable: true
+        401:
+          description: 'A valid access token is required.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: unauthenticated
+                    message: 'Authentication is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: unauthenticated
+                      message:
+                        type: string
+                        example: 'Authentication is required.'
+        403:
+          description: 'Administrator access is required.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: forbidden
+                    message: 'You are not authorized to perform this action.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: forbidden
+                      message:
+                        type: string
+                        example: 'You are not authorized to perform this action.'
+        404:
+          description: 'The category was not found.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: resource_not_found
+                    message: 'The requested resource was not found.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: resource_not_found
+                      message:
+                        type: string
+                        example: 'The requested resource was not found.'
       tags:
         - 'Admin Management'
     parameters:
@@ -316,7 +1261,140 @@ paths:
       operationId: restoreADeletedCategory
       description: ''
       parameters: []
-      responses: {}
+      responses:
+        200:
+          description: 'Category restored.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 58
+                    name: 'Test Cat'
+                    slug: et-et-modi-ipsum-nostrum
+                    name_translations:
+                      en: 'Test Cat'
+                      sk: 'Test Kat'
+                    is_deleted: false
+                    deleted_at: null
+                    created_at: '2026-08-07T11:52:52+00:00'
+                    updated_at: '2026-08-07T11:52:52+00:00'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 58
+                      name:
+                        type: string
+                        example: 'Test Cat'
+                      slug:
+                        type: string
+                        example: et-et-modi-ipsum-nostrum
+                      name_translations:
+                        type: object
+                        properties:
+                          en:
+                            type: string
+                            example: 'Test Cat'
+                          sk:
+                            type: string
+                            example: 'Test Kat'
+                      is_deleted:
+                        type: boolean
+                        example: false
+                      deleted_at:
+                        type: string
+                        example: null
+                        nullable: true
+                      created_at:
+                        type: string
+                        example: '2026-08-07T11:52:52+00:00'
+                      updated_at:
+                        type: string
+                        example: '2026-08-07T11:52:52+00:00'
+        401:
+          description: 'A valid access token is required.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: unauthenticated
+                    message: 'Authentication is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: unauthenticated
+                      message:
+                        type: string
+                        example: 'Authentication is required.'
+        403:
+          description: 'Administrator access is required.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: forbidden
+                    message: 'You are not authorized to perform this action.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: forbidden
+                      message:
+                        type: string
+                        example: 'You are not authorized to perform this action.'
+        404:
+          description: 'The category was not found.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: resource_not_found
+                    message: 'The requested resource was not found.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: resource_not_found
+                      message:
+                        type: string
+                        example: 'The requested resource was not found.'
+        409:
+          description: 'The category is already active.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: resource_not_deleted
+                    message: 'Category is not deleted.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: resource_not_deleted
+                      message:
+                        type: string
+                        example: 'Category is not deleted.'
       tags:
         - 'Admin Management'
     parameters:
@@ -369,8 +1447,263 @@ paths:
               - trashed
               - all
       responses:
+        200:
+          description: 'Products retrieved for administration.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 34
+                      name: eligendi
+                      description: 'Beatae ullam voluptatem reiciendis facere facilis.'
+                      price: '26.59'
+                      category:
+                        id: 59
+                        name: 'Test Cat'
+                        slug: et-et-nemo-dolores-voluptatem-dolores-asperiores
+                      name_translations:
+                        en: eligendi
+                        sk: rem
+                      description_translations:
+                        en: 'Beatae ullam voluptatem reiciendis facere facilis.'
+                        sk: 'Molestiae excepturi omnis nulla rerum exercitationem sit.'
+                      is_active: 1
+                      is_deleted: false
+                      deleted_at: null
+                      created_at: '2026-08-07T11:52:52+00:00'
+                      updated_at: '2026-08-07T11:52:52+00:00'
+                    -
+                      id: 35
+                      name: vero
+                      description: 'Autem ex animi omnis esse sint.'
+                      price: '48.67'
+                      category:
+                        id: 60
+                        name: 'Test Cat'
+                        slug: et-occaecati-officiis-vel-delectus-nihil-quidem
+                      name_translations:
+                        en: vero
+                        sk: fugit
+                      description_translations:
+                        en: 'Autem ex animi omnis esse sint.'
+                        sk: 'Tenetur nam ullam tenetur numquam voluptas nisi quibusdam.'
+                      is_active: 1
+                      is_deleted: false
+                      deleted_at: null
+                      created_at: '2026-08-07T11:52:52+00:00'
+                      updated_at: '2026-08-07T11:52:52+00:00'
+                  links:
+                    first: '/?page=1'
+                    last: '/?page=1'
+                    prev: null
+                    next: null
+                  meta:
+                    current_page: 1
+                    from: 1
+                    last_page: 1
+                    links:
+                      -
+                        url: null
+                        label: '&laquo; Previous'
+                        page: null
+                        active: false
+                      -
+                        url: '/?page=1'
+                        label: '1'
+                        page: 1
+                        active: true
+                      -
+                        url: null
+                        label: 'Next &raquo;'
+                        page: null
+                        active: false
+                    path: /
+                    per_page: 10
+                    to: 2
+                    total: 2
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 34
+                        name: eligendi
+                        description: 'Beatae ullam voluptatem reiciendis facere facilis.'
+                        price: '26.59'
+                        category:
+                          id: 59
+                          name: 'Test Cat'
+                          slug: et-et-nemo-dolores-voluptatem-dolores-asperiores
+                        name_translations:
+                          en: eligendi
+                          sk: rem
+                        description_translations:
+                          en: 'Beatae ullam voluptatem reiciendis facere facilis.'
+                          sk: 'Molestiae excepturi omnis nulla rerum exercitationem sit.'
+                        is_active: 1
+                        is_deleted: false
+                        deleted_at: null
+                        created_at: '2026-08-07T11:52:52+00:00'
+                        updated_at: '2026-08-07T11:52:52+00:00'
+                      -
+                        id: 35
+                        name: vero
+                        description: 'Autem ex animi omnis esse sint.'
+                        price: '48.67'
+                        category:
+                          id: 60
+                          name: 'Test Cat'
+                          slug: et-occaecati-officiis-vel-delectus-nihil-quidem
+                        name_translations:
+                          en: vero
+                          sk: fugit
+                        description_translations:
+                          en: 'Autem ex animi omnis esse sint.'
+                          sk: 'Tenetur nam ullam tenetur numquam voluptas nisi quibusdam.'
+                        is_active: 1
+                        is_deleted: false
+                        deleted_at: null
+                        created_at: '2026-08-07T11:52:52+00:00'
+                        updated_at: '2026-08-07T11:52:52+00:00'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 34
+                        name:
+                          type: string
+                          example: eligendi
+                        description:
+                          type: string
+                          example: 'Beatae ullam voluptatem reiciendis facere facilis.'
+                        price:
+                          type: string
+                          example: '26.59'
+                        category:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 59
+                            name:
+                              type: string
+                              example: 'Test Cat'
+                            slug:
+                              type: string
+                              example: et-et-nemo-dolores-voluptatem-dolores-asperiores
+                        name_translations:
+                          type: object
+                          properties:
+                            en:
+                              type: string
+                              example: eligendi
+                            sk:
+                              type: string
+                              example: rem
+                        description_translations:
+                          type: object
+                          properties:
+                            en:
+                              type: string
+                              example: 'Beatae ullam voluptatem reiciendis facere facilis.'
+                            sk:
+                              type: string
+                              example: 'Molestiae excepturi omnis nulla rerum exercitationem sit.'
+                        is_active:
+                          type: integer
+                          example: 1
+                        is_deleted:
+                          type: boolean
+                          example: false
+                        deleted_at:
+                          type: string
+                          example: null
+                          nullable: true
+                        created_at:
+                          type: string
+                          example: '2026-08-07T11:52:52+00:00'
+                        updated_at:
+                          type: string
+                          example: '2026-08-07T11:52:52+00:00'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: '/?page=1'
+                      last:
+                        type: string
+                        example: '/?page=1'
+                      prev:
+                        type: string
+                        example: null
+                        nullable: true
+                      next:
+                        type: string
+                        example: null
+                        nullable: true
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      from:
+                        type: integer
+                        example: 1
+                      last_page:
+                        type: integer
+                        example: 1
+                      links:
+                        type: array
+                        example:
+                          - url: null
+                            label: '&laquo; Previous'
+                            page: null
+                            active: false
+                          - url: '/?page=1'
+                            label: '1'
+                            page: 1
+                            active: true
+                          - url: null
+                            label: 'Next &raquo;'
+                            page: null
+                            active: false
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type: string
+                              example: null
+                              nullable: true
+                            label:
+                              type: string
+                              example: '&laquo; Previous'
+                            page:
+                              type: string
+                              example: null
+                              nullable: true
+                            active:
+                              type: boolean
+                              example: false
+                      path:
+                        type: string
+                        example: /
+                      per_page:
+                        type: integer
+                        example: 10
+                      to:
+                        type: integer
+                        example: 2
+                      total:
+                        type: integer
+                        example: 2
         401:
-          description: ''
+          description: 'A valid access token is required.'
           content:
             application/json:
               schema:
@@ -389,6 +1722,58 @@ paths:
                       message:
                         type: string
                         example: 'Authentication is required.'
+        403:
+          description: 'Administrator access is required.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: forbidden
+                    message: 'You are not authorized to perform this action.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: forbidden
+                      message:
+                        type: string
+                        example: 'You are not authorized to perform this action.'
+        422:
+          description: 'The query parameters are invalid.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: validation_failed
+                    message: 'The request data is invalid.'
+                    details:
+                      field:
+                        - 'The field is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: validation_failed
+                      message:
+                        type: string
+                        example: 'The request data is invalid.'
+                      details:
+                        type: object
+                        properties:
+                          field:
+                            type: array
+                            example:
+                              - 'The field is required.'
+                            items:
+                              type: string
       tags:
         - 'Admin Management'
     post:
@@ -396,7 +1781,168 @@ paths:
       operationId: postApiV1AdminProducts
       description: ''
       parameters: []
-      responses: {}
+      responses:
+        201:
+          description: 'Product created.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 36
+                    name: et
+                    description: 'Velit et fugiat sunt nihil accusantium.'
+                    price: '1.80'
+                    category:
+                      id: 61
+                      name: 'Test Cat'
+                      slug: aut-adipisci-quidem-nostrum-qui-commodi-incidunt-iure
+                    name_translations:
+                      en: et
+                      sk: animi
+                    description_translations:
+                      en: 'Velit et fugiat sunt nihil accusantium.'
+                      sk: 'Mollitia modi deserunt aut ab provident perspiciatis quo.'
+                    is_active: 1
+                    is_deleted: false
+                    deleted_at: null
+                    created_at: '2026-08-07T11:52:52+00:00'
+                    updated_at: '2026-08-07T11:52:52+00:00'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 36
+                      name:
+                        type: string
+                        example: et
+                      description:
+                        type: string
+                        example: 'Velit et fugiat sunt nihil accusantium.'
+                      price:
+                        type: string
+                        example: '1.80'
+                      category:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 61
+                          name:
+                            type: string
+                            example: 'Test Cat'
+                          slug:
+                            type: string
+                            example: aut-adipisci-quidem-nostrum-qui-commodi-incidunt-iure
+                      name_translations:
+                        type: object
+                        properties:
+                          en:
+                            type: string
+                            example: et
+                          sk:
+                            type: string
+                            example: animi
+                      description_translations:
+                        type: object
+                        properties:
+                          en:
+                            type: string
+                            example: 'Velit et fugiat sunt nihil accusantium.'
+                          sk:
+                            type: string
+                            example: 'Mollitia modi deserunt aut ab provident perspiciatis quo.'
+                      is_active:
+                        type: integer
+                        example: 1
+                      is_deleted:
+                        type: boolean
+                        example: false
+                      deleted_at:
+                        type: string
+                        example: null
+                        nullable: true
+                      created_at:
+                        type: string
+                        example: '2026-08-07T11:52:52+00:00'
+                      updated_at:
+                        type: string
+                        example: '2026-08-07T11:52:52+00:00'
+        401:
+          description: 'A valid access token is required.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: unauthenticated
+                    message: 'Authentication is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: unauthenticated
+                      message:
+                        type: string
+                        example: 'Authentication is required.'
+        403:
+          description: 'Administrator access is required.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: forbidden
+                    message: 'You are not authorized to perform this action.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: forbidden
+                      message:
+                        type: string
+                        example: 'You are not authorized to perform this action.'
+        422:
+          description: 'The product data is invalid.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: validation_failed
+                    message: 'The request data is invalid.'
+                    details:
+                      field:
+                        - 'The field is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: validation_failed
+                      message:
+                        type: string
+                        example: 'The request data is invalid.'
+                      details:
+                        type: object
+                        properties:
+                          field:
+                            type: array
+                            example:
+                              - 'The field is required.'
+                            items:
+                              type: string
       tags:
         - 'Admin Management'
       requestBody:
@@ -451,7 +1997,7 @@ paths:
                 is_active:
                   type: boolean
                   description: ''
-                  example: false
+                  example: true
               required:
                 - category_id
                 - name
@@ -462,7 +2008,188 @@ paths:
       operationId: putApiV1AdminProductsProduct_id
       description: ''
       parameters: []
-      responses: {}
+      responses:
+        200:
+          description: 'Product updated.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 37
+                    name: et
+                    description: 'Velit et fugiat sunt nihil accusantium.'
+                    price: '1.80'
+                    category:
+                      id: 62
+                      name: 'Test Cat'
+                      slug: autem-et-consequatur-aut-dolores-enim-non-facere-tempora
+                    name_translations:
+                      en: et
+                      sk: animi
+                    description_translations:
+                      en: 'Velit et fugiat sunt nihil accusantium.'
+                      sk: 'Mollitia modi deserunt aut ab provident perspiciatis quo.'
+                    is_active: 1
+                    is_deleted: false
+                    deleted_at: null
+                    created_at: '2026-08-07T11:52:52+00:00'
+                    updated_at: '2026-08-07T11:52:52+00:00'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 37
+                      name:
+                        type: string
+                        example: et
+                      description:
+                        type: string
+                        example: 'Velit et fugiat sunt nihil accusantium.'
+                      price:
+                        type: string
+                        example: '1.80'
+                      category:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 62
+                          name:
+                            type: string
+                            example: 'Test Cat'
+                          slug:
+                            type: string
+                            example: autem-et-consequatur-aut-dolores-enim-non-facere-tempora
+                      name_translations:
+                        type: object
+                        properties:
+                          en:
+                            type: string
+                            example: et
+                          sk:
+                            type: string
+                            example: animi
+                      description_translations:
+                        type: object
+                        properties:
+                          en:
+                            type: string
+                            example: 'Velit et fugiat sunt nihil accusantium.'
+                          sk:
+                            type: string
+                            example: 'Mollitia modi deserunt aut ab provident perspiciatis quo.'
+                      is_active:
+                        type: integer
+                        example: 1
+                      is_deleted:
+                        type: boolean
+                        example: false
+                      deleted_at:
+                        type: string
+                        example: null
+                        nullable: true
+                      created_at:
+                        type: string
+                        example: '2026-08-07T11:52:52+00:00'
+                      updated_at:
+                        type: string
+                        example: '2026-08-07T11:52:52+00:00'
+        401:
+          description: 'A valid access token is required.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: unauthenticated
+                    message: 'Authentication is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: unauthenticated
+                      message:
+                        type: string
+                        example: 'Authentication is required.'
+        403:
+          description: 'Administrator access is required.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: forbidden
+                    message: 'You are not authorized to perform this action.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: forbidden
+                      message:
+                        type: string
+                        example: 'You are not authorized to perform this action.'
+        404:
+          description: 'The product was not found.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: resource_not_found
+                    message: 'The requested resource was not found.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: resource_not_found
+                      message:
+                        type: string
+                        example: 'The requested resource was not found.'
+        422:
+          description: 'The product data is invalid.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: validation_failed
+                    message: 'The request data is invalid.'
+                    details:
+                      field:
+                        - 'The field is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: validation_failed
+                      message:
+                        type: string
+                        example: 'The request data is invalid.'
+                      details:
+                        type: object
+                        properties:
+                          field:
+                            type: array
+                            example:
+                              - 'The field is required.'
+                            items:
+                              type: string
       tags:
         - 'Admin Management'
       requestBody:
@@ -527,7 +2254,74 @@ paths:
       operationId: deleteApiV1AdminProductsProduct_id
       description: ''
       parameters: []
-      responses: {}
+      responses:
+        204:
+          description: 'Product deleted.'
+          content:
+            application/json:
+              schema:
+                type: object
+                nullable: true
+        401:
+          description: 'A valid access token is required.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: unauthenticated
+                    message: 'Authentication is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: unauthenticated
+                      message:
+                        type: string
+                        example: 'Authentication is required.'
+        403:
+          description: 'Administrator access is required.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: forbidden
+                    message: 'You are not authorized to perform this action.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: forbidden
+                      message:
+                        type: string
+                        example: 'You are not authorized to perform this action.'
+        404:
+          description: 'The product was not found.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: resource_not_found
+                    message: 'The requested resource was not found.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: resource_not_found
+                      message:
+                        type: string
+                        example: 'The requested resource was not found.'
       tags:
         - 'Admin Management'
     parameters:
@@ -545,7 +2339,176 @@ paths:
       operationId: restoreADeletedProduct
       description: ''
       parameters: []
-      responses: {}
+      responses:
+        200:
+          description: 'Product restored.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 38
+                    name: aut
+                    description: 'Nostrum qui commodi incidunt iure.'
+                    price: '44.13'
+                    category:
+                      id: 63
+                      name: 'Test Cat'
+                      slug: et-consequatur-aut-dolores-enim
+                    name_translations:
+                      en: aut
+                      sk: adipisci
+                    description_translations:
+                      en: 'Nostrum qui commodi incidunt iure.'
+                      sk: 'Et et modi ipsum nostrum.'
+                    is_active: 1
+                    is_deleted: false
+                    deleted_at: null
+                    created_at: '2026-08-07T11:52:52+00:00'
+                    updated_at: '2026-08-07T11:52:52+00:00'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 38
+                      name:
+                        type: string
+                        example: aut
+                      description:
+                        type: string
+                        example: 'Nostrum qui commodi incidunt iure.'
+                      price:
+                        type: string
+                        example: '44.13'
+                      category:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 63
+                          name:
+                            type: string
+                            example: 'Test Cat'
+                          slug:
+                            type: string
+                            example: et-consequatur-aut-dolores-enim
+                      name_translations:
+                        type: object
+                        properties:
+                          en:
+                            type: string
+                            example: aut
+                          sk:
+                            type: string
+                            example: adipisci
+                      description_translations:
+                        type: object
+                        properties:
+                          en:
+                            type: string
+                            example: 'Nostrum qui commodi incidunt iure.'
+                          sk:
+                            type: string
+                            example: 'Et et modi ipsum nostrum.'
+                      is_active:
+                        type: integer
+                        example: 1
+                      is_deleted:
+                        type: boolean
+                        example: false
+                      deleted_at:
+                        type: string
+                        example: null
+                        nullable: true
+                      created_at:
+                        type: string
+                        example: '2026-08-07T11:52:52+00:00'
+                      updated_at:
+                        type: string
+                        example: '2026-08-07T11:52:52+00:00'
+        401:
+          description: 'A valid access token is required.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: unauthenticated
+                    message: 'Authentication is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: unauthenticated
+                      message:
+                        type: string
+                        example: 'Authentication is required.'
+        403:
+          description: 'Administrator access is required.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: forbidden
+                    message: 'You are not authorized to perform this action.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: forbidden
+                      message:
+                        type: string
+                        example: 'You are not authorized to perform this action.'
+        404:
+          description: 'The product was not found.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: resource_not_found
+                    message: 'The requested resource was not found.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: resource_not_found
+                      message:
+                        type: string
+                        example: 'The requested resource was not found.'
+        409:
+          description: 'The product is already active.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: resource_not_deleted
+                    message: 'Product is not deleted.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: resource_not_deleted
+                      message:
+                        type: string
+                        example: 'Product is not deleted.'
       tags:
         - 'Admin Management'
     parameters:
@@ -563,7 +2526,59 @@ paths:
       operationId: registerANewUser
       description: 'Creates a new customer account and returns an access token.'
       parameters: []
-      responses: {}
+      responses:
+        201:
+          description: 'Customer registered and access token created.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    access_token: 1|example-token
+                    token_type: Bearer
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      access_token:
+                        type: string
+                        example: 1|example-token
+                      token_type:
+                        type: string
+                        example: Bearer
+        422:
+          description: 'The registration data is invalid.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: validation_failed
+                    message: 'The request data is invalid.'
+                    details:
+                      field:
+                        - 'The field is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: validation_failed
+                      message:
+                        type: string
+                        example: 'The request data is invalid.'
+                      details:
+                        type: object
+                        properties:
+                          field:
+                            type: array
+                            example:
+                              - 'The field is required.'
+                            items:
+                              type: string
       tags:
         - Authentication
       requestBody:
@@ -601,7 +2616,79 @@ paths:
       operationId: login
       description: 'Authenticates a user and returns an access token.'
       parameters: []
-      responses: {}
+      responses:
+        200:
+          description: 'Credentials accepted and access token created.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    access_token: 1|example-token
+                    token_type: Bearer
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      access_token:
+                        type: string
+                        example: 1|example-token
+                      token_type:
+                        type: string
+                        example: Bearer
+        401:
+          description: 'The credentials are invalid.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: invalid_credentials
+                    message: 'The provided credentials are invalid.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_credentials
+                      message:
+                        type: string
+                        example: 'The provided credentials are invalid.'
+        422:
+          description: 'The login data is invalid.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: validation_failed
+                    message: 'The request data is invalid.'
+                    details:
+                      field:
+                        - 'The field is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: validation_failed
+                      message:
+                        type: string
+                        example: 'The request data is invalid.'
+                      details:
+                        type: object
+                        properties:
+                          field:
+                            type: array
+                            example:
+                              - 'The field is required.'
+                            items:
+                              type: string
       tags:
         - Authentication
       requestBody:
@@ -629,10 +2716,36 @@ paths:
       operationId: logout
       description: 'Revokes the current access token.'
       parameters: []
-      responses: {}
+      responses:
+        204:
+          description: 'The current access token was revoked.'
+          content:
+            application/json:
+              schema:
+                type: object
+                nullable: true
+        401:
+          description: 'A valid access token is required.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: unauthenticated
+                    message: 'Authentication is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: unauthenticated
+                      message:
+                        type: string
+                        example: 'Authentication is required.'
       tags:
         - Authentication
-      security: []
   /api/v1/categories:
     get:
       summary: 'List all categories'
@@ -678,7 +2791,7 @@ paths:
             type: string
       responses:
         200:
-          description: ''
+          description: 'Categories retrieved.'
           content:
             application/json:
               schema:
@@ -686,12 +2799,16 @@ paths:
                 example:
                   data:
                     -
-                      id: 1
-                      name: Notebooks
-                      slug: notebooks
+                      id: 49
+                      name: 'Test Cat'
+                      slug: eius-et-animi-quos-velit-et
+                    -
+                      id: 50
+                      name: 'Test Cat'
+                      slug: sunt-nihil-accusantium-harum-mollitia
                   links:
-                    first: 'http://localhost/api/v1/categories?page=1'
-                    last: 'http://localhost/api/v1/categories?page=1'
+                    first: '/?page=1'
+                    last: '/?page=1'
                     prev: null
                     next: null
                   meta:
@@ -705,7 +2822,7 @@ paths:
                         page: null
                         active: false
                       -
-                        url: 'http://localhost/api/v1/categories?page=1'
+                        url: '/?page=1'
                         label: '1'
                         page: 1
                         active: true
@@ -714,38 +2831,41 @@ paths:
                         label: 'Next &raquo;'
                         page: null
                         active: false
-                    path: 'http://localhost/api/v1/categories'
+                    path: /
                     per_page: 10
-                    to: 1
-                    total: 1
+                    to: 2
+                    total: 2
                 properties:
                   data:
                     type: array
                     example:
-                      - id: 1
-                        name: Notebooks
-                        slug: notebooks
+                      - id: 49
+                        name: 'Test Cat'
+                        slug: eius-et-animi-quos-velit-et
+                      - id: 50
+                        name: 'Test Cat'
+                        slug: sunt-nihil-accusantium-harum-mollitia
                     items:
                       type: object
                       properties:
                         id:
                           type: integer
-                          example: 1
+                          example: 49
                         name:
                           type: string
-                          example: Notebooks
+                          example: 'Test Cat'
                         slug:
                           type: string
-                          example: notebooks
+                          example: eius-et-animi-quos-velit-et
                   links:
                     type: object
                     properties:
                       first:
                         type: string
-                        example: 'http://localhost/api/v1/categories?page=1'
+                        example: '/?page=1'
                       last:
                         type: string
-                        example: 'http://localhost/api/v1/categories?page=1'
+                        example: '/?page=1'
                       prev:
                         type: string
                         example: null
@@ -773,7 +2893,7 @@ paths:
                             label: '&laquo; Previous'
                             page: null
                             active: false
-                          - url: 'http://localhost/api/v1/categories?page=1'
+                          - url: '/?page=1'
                             label: '1'
                             page: 1
                             active: true
@@ -800,16 +2920,48 @@ paths:
                               example: false
                       path:
                         type: string
-                        example: 'http://localhost/api/v1/categories'
+                        example: /
                       per_page:
                         type: integer
                         example: 10
                       to:
                         type: integer
-                        example: 1
+                        example: 2
                       total:
                         type: integer
-                        example: 1
+                        example: 2
+        422:
+          description: 'The query parameters are invalid.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: validation_failed
+                    message: 'The request data is invalid.'
+                    details:
+                      field:
+                        - 'The field is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: validation_failed
+                      message:
+                        type: string
+                        example: 'The request data is invalid.'
+                      details:
+                        type: object
+                        properties:
+                          field:
+                            type: array
+                            example:
+                              - 'The field is required.'
+                            items:
+                              type: string
       tags:
         - 'Products & Categories (Public)'
       security: []
@@ -868,21 +3020,39 @@ paths:
             type: string
       responses:
         200:
-          description: ''
+          description: 'Products retrieved.'
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  data: []
+                  data:
+                    -
+                      id: 31
+                      name: architecto
+                      description: 'Animi quos velit et fugiat.'
+                      price: '56.32'
+                      category:
+                        id: 51
+                        name: 'Test Cat'
+                        slug: provident-perspiciatis-quo-omnis-nostrum-aut-adipisci-quidem
+                    -
+                      id: 32
+                      name: nostrum
+                      description: 'Incidunt iure odit et et modi ipsum.'
+                      price: '35.67'
+                      category:
+                        id: 52
+                        name: 'Test Cat'
+                        slug: enim-non-facere-tempora-ex-voluptatem-laboriosam-praesentium
                   links:
-                    first: 'http://localhost/api/v1/products?page=1'
-                    last: 'http://localhost/api/v1/products?page=1'
+                    first: '/?page=1'
+                    last: '/?page=1'
                     prev: null
                     next: null
                   meta:
                     current_page: 1
-                    from: null
+                    from: 1
                     last_page: 1
                     links:
                       -
@@ -891,7 +3061,7 @@ paths:
                         page: null
                         active: false
                       -
-                        url: 'http://localhost/api/v1/products?page=1'
+                        url: '/?page=1'
                         label: '1'
                         page: 1
                         active: true
@@ -900,23 +3070,68 @@ paths:
                         label: 'Next &raquo;'
                         page: null
                         active: false
-                    path: 'http://localhost/api/v1/products'
+                    path: /
                     per_page: 10
-                    to: null
-                    total: 0
+                    to: 2
+                    total: 2
                 properties:
                   data:
                     type: array
-                    example: []
+                    example:
+                      -
+                        id: 31
+                        name: architecto
+                        description: 'Animi quos velit et fugiat.'
+                        price: '56.32'
+                        category:
+                          id: 51
+                          name: 'Test Cat'
+                          slug: provident-perspiciatis-quo-omnis-nostrum-aut-adipisci-quidem
+                      -
+                        id: 32
+                        name: nostrum
+                        description: 'Incidunt iure odit et et modi ipsum.'
+                        price: '35.67'
+                        category:
+                          id: 52
+                          name: 'Test Cat'
+                          slug: enim-non-facere-tempora-ex-voluptatem-laboriosam-praesentium
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 31
+                        name:
+                          type: string
+                          example: architecto
+                        description:
+                          type: string
+                          example: 'Animi quos velit et fugiat.'
+                        price:
+                          type: string
+                          example: '56.32'
+                        category:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 51
+                            name:
+                              type: string
+                              example: 'Test Cat'
+                            slug:
+                              type: string
+                              example: provident-perspiciatis-quo-omnis-nostrum-aut-adipisci-quidem
                   links:
                     type: object
                     properties:
                       first:
                         type: string
-                        example: 'http://localhost/api/v1/products?page=1'
+                        example: '/?page=1'
                       last:
                         type: string
-                        example: 'http://localhost/api/v1/products?page=1'
+                        example: '/?page=1'
                       prev:
                         type: string
                         example: null
@@ -932,9 +3147,8 @@ paths:
                         type: integer
                         example: 1
                       from:
-                        type: string
-                        example: null
-                        nullable: true
+                        type: integer
+                        example: 1
                       last_page:
                         type: integer
                         example: 1
@@ -945,7 +3159,7 @@ paths:
                             label: '&laquo; Previous'
                             page: null
                             active: false
-                          - url: 'http://localhost/api/v1/products?page=1'
+                          - url: '/?page=1'
                             label: '1'
                             page: 1
                             active: true
@@ -972,17 +3186,48 @@ paths:
                               example: false
                       path:
                         type: string
-                        example: 'http://localhost/api/v1/products'
+                        example: /
                       per_page:
                         type: integer
                         example: 10
                       to:
-                        type: string
-                        example: null
-                        nullable: true
+                        type: integer
+                        example: 2
                       total:
                         type: integer
-                        example: 0
+                        example: 2
+        422:
+          description: 'The query parameters are invalid.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: validation_failed
+                    message: 'The request data is invalid.'
+                    details:
+                      field:
+                        - 'The field is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: validation_failed
+                      message:
+                        type: string
+                        example: 'The request data is invalid.'
+                      details:
+                        type: object
+                        properties:
+                          field:
+                            type: array
+                            example:
+                              - 'The field is required.'
+                            items:
+                              type: string
       tags:
         - 'Products & Categories (Public)'
       security: []
@@ -1001,49 +3246,69 @@ paths:
             type: string
       responses:
         200:
-          description: ''
+          description: 'Product retrieved.'
           content:
             application/json:
               schema:
                 type: object
                 example:
                   data:
-                    id: 1
-                    name: 'Leather Journal'
-                    description: 'Premium A5 notebook.'
-                    price: '24.99'
+                    id: 33
+                    name: quis
+                    description: 'Fugit deleniti distinctio eum doloremque id aut libero.'
+                    price: '79.41'
                     category:
-                      id: 1
-                      name: Notebooks
-                      slug: notebooks
+                      id: 53
+                      name: 'Test Cat'
+                      slug: odit-quia-officia-est-dignissimos-neque-blanditiis-odio
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: integer
-                        example: 1
+                        example: 33
                       name:
                         type: string
-                        example: 'Leather Journal'
+                        example: quis
                       description:
                         type: string
-                        example: 'Premium A5 notebook.'
+                        example: 'Fugit deleniti distinctio eum doloremque id aut libero.'
                       price:
                         type: string
-                        example: '24.99'
+                        example: '79.41'
                       category:
                         type: object
                         properties:
                           id:
                             type: integer
-                            example: 1
+                            example: 53
                           name:
                             type: string
-                            example: Notebooks
+                            example: 'Test Cat'
                           slug:
                             type: string
-                            example: notebooks
+                            example: odit-quia-officia-est-dignissimos-neque-blanditiis-odio
+        404:
+          description: 'The product was not found.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: resource_not_found
+                    message: 'The requested resource was not found.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: resource_not_found
+                      message:
+                        type: string
+                        example: 'The requested resource was not found.'
       tags:
         - 'Products & Categories (Public)'
       security: []
@@ -1083,8 +3348,143 @@ paths:
             description: 'Items per page (maximum 50). Must be between 1 and 50.'
             example: 10
       responses:
+        200:
+          description: 'Customer orders retrieved.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      status: Pending
+                      status_code: pending
+                      total_price: '25.00'
+                      created_at: '2026-08-07T12:00:00+00:00'
+                      items:
+                        -
+                          product_id: 1
+                          name: Notebook
+                          quantity: 2
+                          unit_price: '12.50'
+                          total: '25.00'
+                  links:
+                    first: 'http://localhost/api/v1/orders?page=1'
+                    last: 'http://localhost/api/v1/orders?page=1'
+                    prev: null
+                    next: null
+                  meta:
+                    current_page: 1
+                    from: 1
+                    last_page: 1
+                    path: 'http://localhost/api/v1/orders'
+                    per_page: 10
+                    to: 1
+                    total: 1
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        status: Pending
+                        status_code: pending
+                        total_price: '25.00'
+                        created_at: '2026-08-07T12:00:00+00:00'
+                        items:
+                          - product_id: 1
+                            name: Notebook
+                            quantity: 2
+                            unit_price: '12.50'
+                            total: '25.00'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        status:
+                          type: string
+                          example: Pending
+                        status_code:
+                          type: string
+                          example: pending
+                        total_price:
+                          type: string
+                          example: '25.00'
+                        created_at:
+                          type: string
+                          example: '2026-08-07T12:00:00+00:00'
+                        items:
+                          type: array
+                          example:
+                            - product_id: 1
+                              name: Notebook
+                              quantity: 2
+                              unit_price: '12.50'
+                              total: '25.00'
+                          items:
+                            type: object
+                            properties:
+                              product_id:
+                                type: integer
+                                example: 1
+                              name:
+                                type: string
+                                example: Notebook
+                              quantity:
+                                type: integer
+                                example: 2
+                              unit_price:
+                                type: string
+                                example: '12.50'
+                              total:
+                                type: string
+                                example: '25.00'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: 'http://localhost/api/v1/orders?page=1'
+                      last:
+                        type: string
+                        example: 'http://localhost/api/v1/orders?page=1'
+                      prev:
+                        type: string
+                        example: null
+                        nullable: true
+                      next:
+                        type: string
+                        example: null
+                        nullable: true
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      from:
+                        type: integer
+                        example: 1
+                      last_page:
+                        type: integer
+                        example: 1
+                      path:
+                        type: string
+                        example: 'http://localhost/api/v1/orders'
+                      per_page:
+                        type: integer
+                        example: 10
+                      to:
+                        type: integer
+                        example: 1
+                      total:
+                        type: integer
+                        example: 1
         401:
-          description: ''
+          description: 'A valid access token is required.'
           content:
             application/json:
               schema:
@@ -1103,6 +3503,38 @@ paths:
                       message:
                         type: string
                         example: 'Authentication is required.'
+        422:
+          description: 'The query parameters are invalid.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: validation_failed
+                    message: 'The request data is invalid.'
+                    details:
+                      field:
+                        - 'The field is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: validation_failed
+                      message:
+                        type: string
+                        example: 'The request data is invalid.'
+                      details:
+                        type: object
+                        properties:
+                          field:
+                            type: array
+                            example:
+                              - 'The field is required.'
+                            items:
+                              type: string
       tags:
         - 'User Orders'
     post:
@@ -1110,7 +3542,124 @@ paths:
       operationId: createANewOrderCheckout
       description: 'Validates products, calculates totals on the server, and creates the order.'
       parameters: []
-      responses: {}
+      responses:
+        201:
+          description: 'Order created.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 1
+                    status: Pending
+                    status_code: pending
+                    total_price: '25.00'
+                    created_at: '2026-08-07T12:00:00+00:00'
+                    items:
+                      -
+                        product_id: 1
+                        name: Notebook
+                        quantity: 2
+                        unit_price: '12.50'
+                        total: '25.00'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      status:
+                        type: string
+                        example: Pending
+                      status_code:
+                        type: string
+                        example: pending
+                      total_price:
+                        type: string
+                        example: '25.00'
+                      created_at:
+                        type: string
+                        example: '2026-08-07T12:00:00+00:00'
+                      items:
+                        type: array
+                        example:
+                          - product_id: 1
+                            name: Notebook
+                            quantity: 2
+                            unit_price: '12.50'
+                            total: '25.00'
+                        items:
+                          type: object
+                          properties:
+                            product_id:
+                              type: integer
+                              example: 1
+                            name:
+                              type: string
+                              example: Notebook
+                            quantity:
+                              type: integer
+                              example: 2
+                            unit_price:
+                              type: string
+                              example: '12.50'
+                            total:
+                              type: string
+                              example: '25.00'
+        401:
+          description: 'A valid access token is required.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: unauthenticated
+                    message: 'Authentication is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: unauthenticated
+                      message:
+                        type: string
+                        example: 'Authentication is required.'
+        422:
+          description: 'The checkout data is invalid.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    code: validation_failed
+                    message: 'The request data is invalid.'
+                    details:
+                      field:
+                        - 'The field is required.'
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: validation_failed
+                      message:
+                        type: string
+                        example: 'The request data is invalid.'
+                      details:
+                        type: object
+                        properties:
+                          field:
+                            type: array
+                            example:
+                              - 'The field is required.'
+                            items:
+                              type: string
       tags:
         - 'User Orders'
       requestBody:

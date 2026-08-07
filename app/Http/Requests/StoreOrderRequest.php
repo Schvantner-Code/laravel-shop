@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Requests\Traits\HasScribeBodyParameters;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Knuckles\Scribe\Attributes\BodyParam;
@@ -10,6 +11,8 @@ use Knuckles\Scribe\Attributes\BodyParam;
 #[BodyParam('items', 'array', 'Array of products to purchase.', example: [['product_id' => 1, 'quantity' => 2]])]
 class StoreOrderRequest extends FormRequest
 {
+    use HasScribeBodyParameters;
+
     public function authorize(): bool
     {
         return true;

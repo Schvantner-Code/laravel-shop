@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin\Category;
 
+use App\Http\Requests\Traits\HasScribeBodyParameters;
 use Illuminate\Foundation\Http\FormRequest;
 use Knuckles\Scribe\Attributes\BodyParam;
 
@@ -9,6 +10,8 @@ use Knuckles\Scribe\Attributes\BodyParam;
 #[BodyParam('slug', 'string', 'Unique URL identifier.', example: 'notebooks')]
 class StoreCategoryRequest extends FormRequest
 {
+    use HasScribeBodyParameters;
+
     public function authorize(): bool
     {
         return true;

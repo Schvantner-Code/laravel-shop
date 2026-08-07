@@ -174,7 +174,11 @@
 <aside>
     <strong>Base URL</strong>: <code>http://localhost</code>
 </aside>
-<pre><code>This documentation aims to provide all the information you need to work with our API.
+<pre><code>This documentation describes the versioned Laravel Shop JSON API. Application endpoints use the &lt;code&gt;/api/v1&lt;/code&gt; prefix.
+
+Successful single-resource responses use a top-level &lt;code&gt;data&lt;/code&gt; object. Paginated responses contain &lt;code&gt;data&lt;/code&gt;, &lt;code&gt;links&lt;/code&gt;, and &lt;code&gt;meta&lt;/code&gt;. Successful creation returns HTTP 201; successful requests without a response body return HTTP 204.
+
+Errors use a stable envelope containing &lt;code&gt;error.code&lt;/code&gt; and &lt;code&gt;error.message&lt;/code&gt;. Validation errors also include field-specific messages in &lt;code&gt;error.details&lt;/code&gt;.
 
 &lt;aside&gt;As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile).
 You can switch the language used with the tabs at the top right (or from the nav menu at the top left on mobile).&lt;/aside&gt;</code></pre>
@@ -182,7 +186,9 @@ You can switch the language used with the tabs at the top right (or from the nav
         <h1 id="authenticating-requests">Authenticating requests</h1>
 <p>To authenticate requests, include an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer {YOUR_AUTH_TOKEN}"</code></strong>.</p>
 <p>All authenticated endpoints are marked with a <code>requires authentication</code> badge in the documentation below.</p>
-<p>You can retrieve your token by using the Login endpoint.</p>
+<pre><code>You can retrieve a token from the registration or login endpoint. The token is returned as `data.access_token`.
+
+The logout endpoint revokes only the token used for the current request and returns HTTP 204.</code></pre>
 
         <h1 id="admin-management">Admin Management</h1>
 
@@ -240,21 +246,84 @@ fetch(url, {
 
 <span id="example-responses-GETapi-v1-admin-orders">
             <blockquote>
-            <p>Example response (401):</p>
+            <p>Example response (200, Orders retrieved for administration.):</p>
         </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
- </code></pre></details>         <pre>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;status&quot;: &quot;Pending&quot;,
+            &quot;status_code&quot;: &quot;pending&quot;,
+            &quot;total_price&quot;: &quot;25.00&quot;,
+            &quot;created_at&quot;: &quot;2026-08-07T12:00:00+00:00&quot;,
+            &quot;items&quot;: [
+                {
+                    &quot;product_id&quot;: 1,
+                    &quot;name&quot;: &quot;Notebook&quot;,
+                    &quot;quantity&quot;: 2,
+                    &quot;unit_price&quot;: &quot;12.50&quot;,
+                    &quot;total&quot;: &quot;25.00&quot;
+                }
+            ]
+        }
+    ],
+    &quot;links&quot;: {
+        &quot;first&quot;: &quot;http://localhost/api/v1/admin/orders?page=1&quot;,
+        &quot;last&quot;: &quot;http://localhost/api/v1/admin/orders?page=1&quot;,
+        &quot;prev&quot;: null,
+        &quot;next&quot;: null
+    },
+    &quot;meta&quot;: {
+        &quot;current_page&quot;: 1,
+        &quot;from&quot;: 1,
+        &quot;last_page&quot;: 1,
+        &quot;path&quot;: &quot;http://localhost/api/v1/admin/orders&quot;,
+        &quot;per_page&quot;: 20,
+        &quot;to&quot;: 1,
+        &quot;total&quot;: 1
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, A valid access token is required.):</p>
+        </blockquote>
+                <pre>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;error&quot;: {
         &quot;code&quot;: &quot;unauthenticated&quot;,
         &quot;message&quot;: &quot;Authentication is required.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Administrator access is required.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;forbidden&quot;,
+        &quot;message&quot;: &quot;You are not authorized to perform this action.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, The query parameters are invalid.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;validation_failed&quot;,
+        &quot;message&quot;: &quot;The request data is invalid.&quot;,
+        &quot;details&quot;: {
+            &quot;field&quot;: [
+                &quot;The field is required.&quot;
+            ]
+        }
     }
 }</code>
  </pre>
@@ -469,7 +538,96 @@ fetch(url, {
 </span>
 
 <span id="example-responses-PATCHapi-v1-admin-orders--order_id--status">
-</span>
+            <blockquote>
+            <p>Example response (200, Order status updated.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;status&quot;: &quot;Pending&quot;,
+        &quot;status_code&quot;: &quot;pending&quot;,
+        &quot;total_price&quot;: &quot;25.00&quot;,
+        &quot;created_at&quot;: &quot;2026-08-07T12:00:00+00:00&quot;,
+        &quot;items&quot;: [
+            {
+                &quot;product_id&quot;: 1,
+                &quot;name&quot;: &quot;Notebook&quot;,
+                &quot;quantity&quot;: 2,
+                &quot;unit_price&quot;: &quot;12.50&quot;,
+                &quot;total&quot;: &quot;25.00&quot;
+            }
+        ]
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, A valid access token is required.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;unauthenticated&quot;,
+        &quot;message&quot;: &quot;Authentication is required.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Administrator access is required.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;forbidden&quot;,
+        &quot;message&quot;: &quot;You are not authorized to perform this action.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, The order was not found.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;resource_not_found&quot;,
+        &quot;message&quot;: &quot;The requested resource was not found.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (409, The requested status transition is not allowed.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;invalid_order_transition&quot;,
+        &quot;message&quot;: &quot;Invalid transition from pending to paid for this payment method.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, The status value is invalid.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;validation_failed&quot;,
+        &quot;message&quot;: &quot;The request data is invalid.&quot;,
+        &quot;details&quot;: {
+            &quot;field&quot;: [
+                &quot;The field is required.&quot;
+            ]
+        }
+    }
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-PATCHapi-v1-admin-orders--order_id--status" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-PATCHapi-v1-admin-orders--order_id--status"></span>:
@@ -630,21 +788,114 @@ fetch(url, {
 
 <span id="example-responses-GETapi-v1-admin-categories">
             <blockquote>
-            <p>Example response (401):</p>
+            <p>Example response (200, Categories retrieved for administration.):</p>
         </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
- </code></pre></details>         <pre>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 54,
+            &quot;name&quot;: &quot;Test Cat&quot;,
+            &quot;slug&quot;: &quot;deserunt-aut-ab-provident-perspiciatis-quo-omnis-nostrum&quot;,
+            &quot;name_translations&quot;: {
+                &quot;en&quot;: &quot;Test Cat&quot;,
+                &quot;sk&quot;: &quot;Test Kat&quot;
+            },
+            &quot;is_deleted&quot;: false,
+            &quot;deleted_at&quot;: null,
+            &quot;created_at&quot;: &quot;2026-08-07T11:52:52+00:00&quot;,
+            &quot;updated_at&quot;: &quot;2026-08-07T11:52:52+00:00&quot;
+        },
+        {
+            &quot;id&quot;: 55,
+            &quot;name&quot;: &quot;Test Cat&quot;,
+            &quot;slug&quot;: &quot;adipisci-quidem-nostrum-qui-commodi-incidunt-iure&quot;,
+            &quot;name_translations&quot;: {
+                &quot;en&quot;: &quot;Test Cat&quot;,
+                &quot;sk&quot;: &quot;Test Kat&quot;
+            },
+            &quot;is_deleted&quot;: false,
+            &quot;deleted_at&quot;: null,
+            &quot;created_at&quot;: &quot;2026-08-07T11:52:52+00:00&quot;,
+            &quot;updated_at&quot;: &quot;2026-08-07T11:52:52+00:00&quot;
+        }
+    ],
+    &quot;links&quot;: {
+        &quot;first&quot;: &quot;/?page=1&quot;,
+        &quot;last&quot;: &quot;/?page=1&quot;,
+        &quot;prev&quot;: null,
+        &quot;next&quot;: null
+    },
+    &quot;meta&quot;: {
+        &quot;current_page&quot;: 1,
+        &quot;from&quot;: 1,
+        &quot;last_page&quot;: 1,
+        &quot;links&quot;: [
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;&amp;laquo; Previous&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;/?page=1&quot;,
+                &quot;label&quot;: &quot;1&quot;,
+                &quot;page&quot;: 1,
+                &quot;active&quot;: true
+            },
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;Next &amp;raquo;&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            }
+        ],
+        &quot;path&quot;: &quot;/&quot;,
+        &quot;per_page&quot;: 10,
+        &quot;to&quot;: 2,
+        &quot;total&quot;: 2
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, A valid access token is required.):</p>
+        </blockquote>
+                <pre>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;error&quot;: {
         &quot;code&quot;: &quot;unauthenticated&quot;,
         &quot;message&quot;: &quot;Authentication is required.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Administrator access is required.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;forbidden&quot;,
+        &quot;message&quot;: &quot;You are not authorized to perform this action.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, The query parameters are invalid.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;validation_failed&quot;,
+        &quot;message&quot;: &quot;The request data is invalid.&quot;,
+        &quot;details&quot;: {
+            &quot;field&quot;: [
+                &quot;The field is required.&quot;
+            ]
+        }
     }
 }</code>
  </pre>
@@ -829,7 +1080,69 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-v1-admin-categories">
-</span>
+            <blockquote>
+            <p>Example response (201, Category created.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;id&quot;: 56,
+        &quot;name&quot;: &quot;Test Cat&quot;,
+        &quot;slug&quot;: &quot;quos-velit-et-fugiat-sunt-nihil-accusantium-harum&quot;,
+        &quot;name_translations&quot;: {
+            &quot;en&quot;: &quot;Test Cat&quot;,
+            &quot;sk&quot;: &quot;Test Kat&quot;
+        },
+        &quot;is_deleted&quot;: false,
+        &quot;deleted_at&quot;: null,
+        &quot;created_at&quot;: &quot;2026-08-07T11:52:52+00:00&quot;,
+        &quot;updated_at&quot;: &quot;2026-08-07T11:52:52+00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, A valid access token is required.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;unauthenticated&quot;,
+        &quot;message&quot;: &quot;Authentication is required.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Administrator access is required.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;forbidden&quot;,
+        &quot;message&quot;: &quot;You are not authorized to perform this action.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, The category data is invalid.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;validation_failed&quot;,
+        &quot;message&quot;: &quot;The request data is invalid.&quot;,
+        &quot;details&quot;: {
+            &quot;field&quot;: [
+                &quot;The field is required.&quot;
+            ]
+        }
+    }
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-v1-admin-categories" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-v1-admin-categories"></span>:
@@ -1018,7 +1331,81 @@ fetch(url, {
 </span>
 
 <span id="example-responses-PUTapi-v1-admin-categories--category_id-">
-</span>
+            <blockquote>
+            <p>Example response (200, Category updated.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;id&quot;: 57,
+        &quot;name&quot;: &quot;Test Cat&quot;,
+        &quot;slug&quot;: &quot;animi-quos-velit-et-fugiat&quot;,
+        &quot;name_translations&quot;: {
+            &quot;en&quot;: &quot;Test Cat&quot;,
+            &quot;sk&quot;: &quot;Test Kat&quot;
+        },
+        &quot;is_deleted&quot;: false,
+        &quot;deleted_at&quot;: null,
+        &quot;created_at&quot;: &quot;2026-08-07T11:52:52+00:00&quot;,
+        &quot;updated_at&quot;: &quot;2026-08-07T11:52:52+00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, A valid access token is required.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;unauthenticated&quot;,
+        &quot;message&quot;: &quot;Authentication is required.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Administrator access is required.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;forbidden&quot;,
+        &quot;message&quot;: &quot;You are not authorized to perform this action.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, The category was not found.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;resource_not_found&quot;,
+        &quot;message&quot;: &quot;The requested resource was not found.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, The category data is invalid.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;validation_failed&quot;,
+        &quot;message&quot;: &quot;The request data is invalid.&quot;,
+        &quot;details&quot;: {
+            &quot;field&quot;: [
+                &quot;The field is required.&quot;
+            ]
+        }
+    }
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-PUTapi-v1-admin-categories--category_id-" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-PUTapi-v1-admin-categories--category_id-"></span>:
@@ -1206,7 +1593,49 @@ fetch(url, {
 </span>
 
 <span id="example-responses-DELETEapi-v1-admin-categories--category_id-">
-</span>
+            <blockquote>
+            <p>Example response (204, Category deleted.):</p>
+        </blockquote>
+                <pre>
+<code>Empty response</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, A valid access token is required.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;unauthenticated&quot;,
+        &quot;message&quot;: &quot;Authentication is required.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Administrator access is required.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;forbidden&quot;,
+        &quot;message&quot;: &quot;You are not authorized to perform this action.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, The category was not found.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;resource_not_found&quot;,
+        &quot;message&quot;: &quot;The requested resource was not found.&quot;
+    }
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-DELETEapi-v1-admin-categories--category_id-" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-DELETEapi-v1-admin-categories--category_id-"></span>:
@@ -1345,7 +1774,76 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-v1-admin-categories--id--restore">
-</span>
+            <blockquote>
+            <p>Example response (200, Category restored.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;id&quot;: 58,
+        &quot;name&quot;: &quot;Test Cat&quot;,
+        &quot;slug&quot;: &quot;et-et-modi-ipsum-nostrum&quot;,
+        &quot;name_translations&quot;: {
+            &quot;en&quot;: &quot;Test Cat&quot;,
+            &quot;sk&quot;: &quot;Test Kat&quot;
+        },
+        &quot;is_deleted&quot;: false,
+        &quot;deleted_at&quot;: null,
+        &quot;created_at&quot;: &quot;2026-08-07T11:52:52+00:00&quot;,
+        &quot;updated_at&quot;: &quot;2026-08-07T11:52:52+00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, A valid access token is required.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;unauthenticated&quot;,
+        &quot;message&quot;: &quot;Authentication is required.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Administrator access is required.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;forbidden&quot;,
+        &quot;message&quot;: &quot;You are not authorized to perform this action.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, The category was not found.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;resource_not_found&quot;,
+        &quot;message&quot;: &quot;The requested resource was not found.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (409, The category is already active.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;resource_not_deleted&quot;,
+        &quot;message&quot;: &quot;Category is not deleted.&quot;
+    }
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-v1-admin-categories--id--restore" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-v1-admin-categories--id--restore"></span>:
@@ -1493,21 +1991,136 @@ fetch(url, {
 
 <span id="example-responses-GETapi-v1-admin-products">
             <blockquote>
-            <p>Example response (401):</p>
+            <p>Example response (200, Products retrieved for administration.):</p>
         </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
- </code></pre></details>         <pre>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 34,
+            &quot;name&quot;: &quot;eligendi&quot;,
+            &quot;description&quot;: &quot;Beatae ullam voluptatem reiciendis facere facilis.&quot;,
+            &quot;price&quot;: &quot;26.59&quot;,
+            &quot;category&quot;: {
+                &quot;id&quot;: 59,
+                &quot;name&quot;: &quot;Test Cat&quot;,
+                &quot;slug&quot;: &quot;et-et-nemo-dolores-voluptatem-dolores-asperiores&quot;
+            },
+            &quot;name_translations&quot;: {
+                &quot;en&quot;: &quot;eligendi&quot;,
+                &quot;sk&quot;: &quot;rem&quot;
+            },
+            &quot;description_translations&quot;: {
+                &quot;en&quot;: &quot;Beatae ullam voluptatem reiciendis facere facilis.&quot;,
+                &quot;sk&quot;: &quot;Molestiae excepturi omnis nulla rerum exercitationem sit.&quot;
+            },
+            &quot;is_active&quot;: 1,
+            &quot;is_deleted&quot;: false,
+            &quot;deleted_at&quot;: null,
+            &quot;created_at&quot;: &quot;2026-08-07T11:52:52+00:00&quot;,
+            &quot;updated_at&quot;: &quot;2026-08-07T11:52:52+00:00&quot;
+        },
+        {
+            &quot;id&quot;: 35,
+            &quot;name&quot;: &quot;vero&quot;,
+            &quot;description&quot;: &quot;Autem ex animi omnis esse sint.&quot;,
+            &quot;price&quot;: &quot;48.67&quot;,
+            &quot;category&quot;: {
+                &quot;id&quot;: 60,
+                &quot;name&quot;: &quot;Test Cat&quot;,
+                &quot;slug&quot;: &quot;et-occaecati-officiis-vel-delectus-nihil-quidem&quot;
+            },
+            &quot;name_translations&quot;: {
+                &quot;en&quot;: &quot;vero&quot;,
+                &quot;sk&quot;: &quot;fugit&quot;
+            },
+            &quot;description_translations&quot;: {
+                &quot;en&quot;: &quot;Autem ex animi omnis esse sint.&quot;,
+                &quot;sk&quot;: &quot;Tenetur nam ullam tenetur numquam voluptas nisi quibusdam.&quot;
+            },
+            &quot;is_active&quot;: 1,
+            &quot;is_deleted&quot;: false,
+            &quot;deleted_at&quot;: null,
+            &quot;created_at&quot;: &quot;2026-08-07T11:52:52+00:00&quot;,
+            &quot;updated_at&quot;: &quot;2026-08-07T11:52:52+00:00&quot;
+        }
+    ],
+    &quot;links&quot;: {
+        &quot;first&quot;: &quot;/?page=1&quot;,
+        &quot;last&quot;: &quot;/?page=1&quot;,
+        &quot;prev&quot;: null,
+        &quot;next&quot;: null
+    },
+    &quot;meta&quot;: {
+        &quot;current_page&quot;: 1,
+        &quot;from&quot;: 1,
+        &quot;last_page&quot;: 1,
+        &quot;links&quot;: [
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;&amp;laquo; Previous&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            },
+            {
+                &quot;url&quot;: &quot;/?page=1&quot;,
+                &quot;label&quot;: &quot;1&quot;,
+                &quot;page&quot;: 1,
+                &quot;active&quot;: true
+            },
+            {
+                &quot;url&quot;: null,
+                &quot;label&quot;: &quot;Next &amp;raquo;&quot;,
+                &quot;page&quot;: null,
+                &quot;active&quot;: false
+            }
+        ],
+        &quot;path&quot;: &quot;/&quot;,
+        &quot;per_page&quot;: 10,
+        &quot;to&quot;: 2,
+        &quot;total&quot;: 2
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, A valid access token is required.):</p>
+        </blockquote>
+                <pre>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;error&quot;: {
         &quot;code&quot;: &quot;unauthenticated&quot;,
         &quot;message&quot;: &quot;Authentication is required.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Administrator access is required.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;forbidden&quot;,
+        &quot;message&quot;: &quot;You are not authorized to perform this action.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, The query parameters are invalid.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;validation_failed&quot;,
+        &quot;message&quot;: &quot;The request data is invalid.&quot;,
+        &quot;details&quot;: {
+            &quot;field&quot;: [
+                &quot;The field is required.&quot;
+            ]
+        }
     }
 }</code>
  </pre>
@@ -1665,7 +2278,7 @@ Must be one of:
         \"sk\": \"architecto\"
     },
     \"price\": 1250,
-    \"is_active\": false
+    \"is_active\": true
 }"
 </code></pre></div>
 
@@ -1692,7 +2305,7 @@ let body = {
         "sk": "architecto"
     },
     "price": 1250,
-    "is_active": false
+    "is_active": true
 };
 
 fetch(url, {
@@ -1704,7 +2317,80 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-v1-admin-products">
-</span>
+            <blockquote>
+            <p>Example response (201, Product created.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;id&quot;: 36,
+        &quot;name&quot;: &quot;et&quot;,
+        &quot;description&quot;: &quot;Velit et fugiat sunt nihil accusantium.&quot;,
+        &quot;price&quot;: &quot;1.80&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 61,
+            &quot;name&quot;: &quot;Test Cat&quot;,
+            &quot;slug&quot;: &quot;aut-adipisci-quidem-nostrum-qui-commodi-incidunt-iure&quot;
+        },
+        &quot;name_translations&quot;: {
+            &quot;en&quot;: &quot;et&quot;,
+            &quot;sk&quot;: &quot;animi&quot;
+        },
+        &quot;description_translations&quot;: {
+            &quot;en&quot;: &quot;Velit et fugiat sunt nihil accusantium.&quot;,
+            &quot;sk&quot;: &quot;Mollitia modi deserunt aut ab provident perspiciatis quo.&quot;
+        },
+        &quot;is_active&quot;: 1,
+        &quot;is_deleted&quot;: false,
+        &quot;deleted_at&quot;: null,
+        &quot;created_at&quot;: &quot;2026-08-07T11:52:52+00:00&quot;,
+        &quot;updated_at&quot;: &quot;2026-08-07T11:52:52+00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, A valid access token is required.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;unauthenticated&quot;,
+        &quot;message&quot;: &quot;Authentication is required.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Administrator access is required.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;forbidden&quot;,
+        &quot;message&quot;: &quot;You are not authorized to perform this action.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, The product data is invalid.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;validation_failed&quot;,
+        &quot;message&quot;: &quot;The request data is invalid.&quot;,
+        &quot;details&quot;: {
+            &quot;field&quot;: [
+                &quot;The field is required.&quot;
+            ]
+        }
+    }
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-v1-admin-products" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-v1-admin-products"></span>:
@@ -1905,7 +2591,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
         </form>
 
@@ -1977,7 +2663,92 @@ fetch(url, {
 </span>
 
 <span id="example-responses-PUTapi-v1-admin-products--product_id-">
-</span>
+            <blockquote>
+            <p>Example response (200, Product updated.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;id&quot;: 37,
+        &quot;name&quot;: &quot;et&quot;,
+        &quot;description&quot;: &quot;Velit et fugiat sunt nihil accusantium.&quot;,
+        &quot;price&quot;: &quot;1.80&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 62,
+            &quot;name&quot;: &quot;Test Cat&quot;,
+            &quot;slug&quot;: &quot;autem-et-consequatur-aut-dolores-enim-non-facere-tempora&quot;
+        },
+        &quot;name_translations&quot;: {
+            &quot;en&quot;: &quot;et&quot;,
+            &quot;sk&quot;: &quot;animi&quot;
+        },
+        &quot;description_translations&quot;: {
+            &quot;en&quot;: &quot;Velit et fugiat sunt nihil accusantium.&quot;,
+            &quot;sk&quot;: &quot;Mollitia modi deserunt aut ab provident perspiciatis quo.&quot;
+        },
+        &quot;is_active&quot;: 1,
+        &quot;is_deleted&quot;: false,
+        &quot;deleted_at&quot;: null,
+        &quot;created_at&quot;: &quot;2026-08-07T11:52:52+00:00&quot;,
+        &quot;updated_at&quot;: &quot;2026-08-07T11:52:52+00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, A valid access token is required.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;unauthenticated&quot;,
+        &quot;message&quot;: &quot;Authentication is required.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Administrator access is required.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;forbidden&quot;,
+        &quot;message&quot;: &quot;You are not authorized to perform this action.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, The product was not found.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;resource_not_found&quot;,
+        &quot;message&quot;: &quot;The requested resource was not found.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, The product data is invalid.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;validation_failed&quot;,
+        &quot;message&quot;: &quot;The request data is invalid.&quot;,
+        &quot;details&quot;: {
+            &quot;field&quot;: [
+                &quot;The field is required.&quot;
+            ]
+        }
+    }
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-PUTapi-v1-admin-products--product_id-" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-PUTapi-v1-admin-products--product_id-"></span>:
@@ -2235,7 +3006,49 @@ fetch(url, {
 </span>
 
 <span id="example-responses-DELETEapi-v1-admin-products--product_id-">
-</span>
+            <blockquote>
+            <p>Example response (204, Product deleted.):</p>
+        </blockquote>
+                <pre>
+<code>Empty response</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, A valid access token is required.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;unauthenticated&quot;,
+        &quot;message&quot;: &quot;Authentication is required.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Administrator access is required.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;forbidden&quot;,
+        &quot;message&quot;: &quot;You are not authorized to perform this action.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, The product was not found.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;resource_not_found&quot;,
+        &quot;message&quot;: &quot;The requested resource was not found.&quot;
+    }
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-DELETEapi-v1-admin-products--product_id-" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-DELETEapi-v1-admin-products--product_id-"></span>:
@@ -2374,7 +3187,87 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-v1-admin-products--id--restore">
-</span>
+            <blockquote>
+            <p>Example response (200, Product restored.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;id&quot;: 38,
+        &quot;name&quot;: &quot;aut&quot;,
+        &quot;description&quot;: &quot;Nostrum qui commodi incidunt iure.&quot;,
+        &quot;price&quot;: &quot;44.13&quot;,
+        &quot;category&quot;: {
+            &quot;id&quot;: 63,
+            &quot;name&quot;: &quot;Test Cat&quot;,
+            &quot;slug&quot;: &quot;et-consequatur-aut-dolores-enim&quot;
+        },
+        &quot;name_translations&quot;: {
+            &quot;en&quot;: &quot;aut&quot;,
+            &quot;sk&quot;: &quot;adipisci&quot;
+        },
+        &quot;description_translations&quot;: {
+            &quot;en&quot;: &quot;Nostrum qui commodi incidunt iure.&quot;,
+            &quot;sk&quot;: &quot;Et et modi ipsum nostrum.&quot;
+        },
+        &quot;is_active&quot;: 1,
+        &quot;is_deleted&quot;: false,
+        &quot;deleted_at&quot;: null,
+        &quot;created_at&quot;: &quot;2026-08-07T11:52:52+00:00&quot;,
+        &quot;updated_at&quot;: &quot;2026-08-07T11:52:52+00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, A valid access token is required.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;unauthenticated&quot;,
+        &quot;message&quot;: &quot;Authentication is required.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Administrator access is required.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;forbidden&quot;,
+        &quot;message&quot;: &quot;You are not authorized to perform this action.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, The product was not found.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;resource_not_found&quot;,
+        &quot;message&quot;: &quot;The requested resource was not found.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (409, The product is already active.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;resource_not_deleted&quot;,
+        &quot;message&quot;: &quot;Product is not deleted.&quot;
+    }
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-v1-admin-products--id--restore" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-v1-admin-products--id--restore"></span>:
@@ -2528,7 +3421,36 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-v1-auth-register">
-</span>
+            <blockquote>
+            <p>Example response (201, Customer registered and access token created.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;access_token&quot;: &quot;1|example-token&quot;,
+        &quot;token_type&quot;: &quot;Bearer&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, The registration data is invalid.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;validation_failed&quot;,
+        &quot;message&quot;: &quot;The request data is invalid.&quot;,
+        &quot;details&quot;: {
+            &quot;field&quot;: [
+                &quot;The field is required.&quot;
+            ]
+        }
+    }
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-v1-auth-register" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-v1-auth-register"></span>:
@@ -2698,7 +3620,48 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-v1-auth-login">
-</span>
+            <blockquote>
+            <p>Example response (200, Credentials accepted and access token created.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;access_token&quot;: &quot;1|example-token&quot;,
+        &quot;token_type&quot;: &quot;Bearer&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, The credentials are invalid.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;invalid_credentials&quot;,
+        &quot;message&quot;: &quot;The provided credentials are invalid.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, The login data is invalid.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;validation_failed&quot;,
+        &quot;message&quot;: &quot;The request data is invalid.&quot;,
+        &quot;details&quot;: {
+            &quot;field&quot;: [
+                &quot;The field is required.&quot;
+            ]
+        }
+    }
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-v1-auth-login" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-v1-auth-login"></span>:
@@ -2800,6 +3763,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                     <h2 id="authentication-POSTapi-v1-auth-logout">Logout</h2>
 
 <p>
+<small class="badge badge-darkred">requires authentication</small>
 </p>
 
 <p>Revokes the current access token.</p>
@@ -2811,6 +3775,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
     "http://localhost/api/v1/auth/logout" \
+    --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
@@ -2821,6 +3786,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 );
 
 const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_TOKEN}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -2834,7 +3800,25 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-v1-auth-logout">
-</span>
+            <blockquote>
+            <p>Example response (204, The current access token was revoked.):</p>
+        </blockquote>
+                <pre>
+<code>Empty response</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, A valid access token is required.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;unauthenticated&quot;,
+        &quot;message&quot;: &quot;Authentication is required.&quot;
+    }
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-v1-auth-logout" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-v1-auth-logout"></span>:
@@ -2852,7 +3836,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 </span>
 <form id="form-POSTapi-v1-auth-logout" data-method="POST"
       data-path="api/v1/auth/logout"
-      data-authed="0"
+      data-authed="1"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
@@ -2882,6 +3866,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <b><code>api/v1/auth/logout</code></b>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-v1-auth-logout"
+               value="Bearer {YOUR_AUTH_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_TOKEN}</code></p>
+            </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
 &nbsp;
@@ -2960,28 +3956,26 @@ fetch(url, {
 
 <span id="example-responses-GETapi-v1-categories">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (200, Categories retrieved.):</p>
         </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
- </code></pre></details>         <pre>
+                <pre>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Notebooks&quot;,
-            &quot;slug&quot;: &quot;notebooks&quot;
+            &quot;id&quot;: 49,
+            &quot;name&quot;: &quot;Test Cat&quot;,
+            &quot;slug&quot;: &quot;eius-et-animi-quos-velit-et&quot;
+        },
+        {
+            &quot;id&quot;: 50,
+            &quot;name&quot;: &quot;Test Cat&quot;,
+            &quot;slug&quot;: &quot;sunt-nihil-accusantium-harum-mollitia&quot;
         }
     ],
     &quot;links&quot;: {
-        &quot;first&quot;: &quot;http://localhost/api/v1/categories?page=1&quot;,
-        &quot;last&quot;: &quot;http://localhost/api/v1/categories?page=1&quot;,
+        &quot;first&quot;: &quot;/?page=1&quot;,
+        &quot;last&quot;: &quot;/?page=1&quot;,
         &quot;prev&quot;: null,
         &quot;next&quot;: null
     },
@@ -2997,7 +3991,7 @@ access-control-allow-origin: *
                 &quot;active&quot;: false
             },
             {
-                &quot;url&quot;: &quot;http://localhost/api/v1/categories?page=1&quot;,
+                &quot;url&quot;: &quot;/?page=1&quot;,
                 &quot;label&quot;: &quot;1&quot;,
                 &quot;page&quot;: 1,
                 &quot;active&quot;: true
@@ -3009,10 +4003,27 @@ access-control-allow-origin: *
                 &quot;active&quot;: false
             }
         ],
-        &quot;path&quot;: &quot;http://localhost/api/v1/categories&quot;,
+        &quot;path&quot;: &quot;/&quot;,
         &quot;per_page&quot;: 10,
-        &quot;to&quot;: 1,
-        &quot;total&quot;: 1
+        &quot;to&quot;: 2,
+        &quot;total&quot;: 2
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, The query parameters are invalid.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;validation_failed&quot;,
+        &quot;message&quot;: &quot;The request data is invalid.&quot;,
+        &quot;details&quot;: {
+            &quot;field&quot;: [
+                &quot;The field is required.&quot;
+            ]
+        }
     }
 }</code>
  </pre>
@@ -3188,28 +4199,44 @@ fetch(url, {
 
 <span id="example-responses-GETapi-v1-products">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (200, Products retrieved.):</p>
         </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
- </code></pre></details>         <pre>
+                <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;data&quot;: [],
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 31,
+            &quot;name&quot;: &quot;architecto&quot;,
+            &quot;description&quot;: &quot;Animi quos velit et fugiat.&quot;,
+            &quot;price&quot;: &quot;56.32&quot;,
+            &quot;category&quot;: {
+                &quot;id&quot;: 51,
+                &quot;name&quot;: &quot;Test Cat&quot;,
+                &quot;slug&quot;: &quot;provident-perspiciatis-quo-omnis-nostrum-aut-adipisci-quidem&quot;
+            }
+        },
+        {
+            &quot;id&quot;: 32,
+            &quot;name&quot;: &quot;nostrum&quot;,
+            &quot;description&quot;: &quot;Incidunt iure odit et et modi ipsum.&quot;,
+            &quot;price&quot;: &quot;35.67&quot;,
+            &quot;category&quot;: {
+                &quot;id&quot;: 52,
+                &quot;name&quot;: &quot;Test Cat&quot;,
+                &quot;slug&quot;: &quot;enim-non-facere-tempora-ex-voluptatem-laboriosam-praesentium&quot;
+            }
+        }
+    ],
     &quot;links&quot;: {
-        &quot;first&quot;: &quot;http://localhost/api/v1/products?page=1&quot;,
-        &quot;last&quot;: &quot;http://localhost/api/v1/products?page=1&quot;,
+        &quot;first&quot;: &quot;/?page=1&quot;,
+        &quot;last&quot;: &quot;/?page=1&quot;,
         &quot;prev&quot;: null,
         &quot;next&quot;: null
     },
     &quot;meta&quot;: {
         &quot;current_page&quot;: 1,
-        &quot;from&quot;: null,
+        &quot;from&quot;: 1,
         &quot;last_page&quot;: 1,
         &quot;links&quot;: [
             {
@@ -3219,7 +4246,7 @@ access-control-allow-origin: *
                 &quot;active&quot;: false
             },
             {
-                &quot;url&quot;: &quot;http://localhost/api/v1/products?page=1&quot;,
+                &quot;url&quot;: &quot;/?page=1&quot;,
                 &quot;label&quot;: &quot;1&quot;,
                 &quot;page&quot;: 1,
                 &quot;active&quot;: true
@@ -3231,10 +4258,27 @@ access-control-allow-origin: *
                 &quot;active&quot;: false
             }
         ],
-        &quot;path&quot;: &quot;http://localhost/api/v1/products&quot;,
+        &quot;path&quot;: &quot;/&quot;,
         &quot;per_page&quot;: 10,
-        &quot;to&quot;: null,
-        &quot;total&quot;: 0
+        &quot;to&quot;: 2,
+        &quot;total&quot;: 2
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, The query parameters are invalid.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;validation_failed&quot;,
+        &quot;message&quot;: &quot;The request data is invalid.&quot;,
+        &quot;details&quot;: {
+            &quot;field&quot;: [
+                &quot;The field is required.&quot;
+            ]
+        }
     }
 }</code>
  </pre>
@@ -3413,28 +4457,33 @@ fetch(url, {
 
 <span id="example-responses-GETapi-v1-products--id-">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (200, Product retrieved.):</p>
         </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
- </code></pre></details>         <pre>
+                <pre>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 1,
-        &quot;name&quot;: &quot;Leather Journal&quot;,
-        &quot;description&quot;: &quot;Premium A5 notebook.&quot;,
-        &quot;price&quot;: &quot;24.99&quot;,
+        &quot;id&quot;: 33,
+        &quot;name&quot;: &quot;quis&quot;,
+        &quot;description&quot;: &quot;Fugit deleniti distinctio eum doloremque id aut libero.&quot;,
+        &quot;price&quot;: &quot;79.41&quot;,
         &quot;category&quot;: {
-            &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Notebooks&quot;,
-            &quot;slug&quot;: &quot;notebooks&quot;
+            &quot;id&quot;: 53,
+            &quot;name&quot;: &quot;Test Cat&quot;,
+            &quot;slug&quot;: &quot;odit-quia-officia-est-dignissimos-neque-blanditiis-odio&quot;
         }
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, The product was not found.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;resource_not_found&quot;,
+        &quot;message&quot;: &quot;The requested resource was not found.&quot;
     }
 }</code>
  </pre>
@@ -3589,21 +4638,72 @@ fetch(url, {
 
 <span id="example-responses-GETapi-v1-orders">
             <blockquote>
-            <p>Example response (401):</p>
+            <p>Example response (200, Customer orders retrieved.):</p>
         </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
- </code></pre></details>         <pre>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;status&quot;: &quot;Pending&quot;,
+            &quot;status_code&quot;: &quot;pending&quot;,
+            &quot;total_price&quot;: &quot;25.00&quot;,
+            &quot;created_at&quot;: &quot;2026-08-07T12:00:00+00:00&quot;,
+            &quot;items&quot;: [
+                {
+                    &quot;product_id&quot;: 1,
+                    &quot;name&quot;: &quot;Notebook&quot;,
+                    &quot;quantity&quot;: 2,
+                    &quot;unit_price&quot;: &quot;12.50&quot;,
+                    &quot;total&quot;: &quot;25.00&quot;
+                }
+            ]
+        }
+    ],
+    &quot;links&quot;: {
+        &quot;first&quot;: &quot;http://localhost/api/v1/orders?page=1&quot;,
+        &quot;last&quot;: &quot;http://localhost/api/v1/orders?page=1&quot;,
+        &quot;prev&quot;: null,
+        &quot;next&quot;: null
+    },
+    &quot;meta&quot;: {
+        &quot;current_page&quot;: 1,
+        &quot;from&quot;: 1,
+        &quot;last_page&quot;: 1,
+        &quot;path&quot;: &quot;http://localhost/api/v1/orders&quot;,
+        &quot;per_page&quot;: 10,
+        &quot;to&quot;: 1,
+        &quot;total&quot;: 1
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, A valid access token is required.):</p>
+        </blockquote>
+                <pre>
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;error&quot;: {
         &quot;code&quot;: &quot;unauthenticated&quot;,
         &quot;message&quot;: &quot;Authentication is required.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, The query parameters are invalid.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;validation_failed&quot;,
+        &quot;message&quot;: &quot;The request data is invalid.&quot;,
+        &quot;details&quot;: {
+            &quot;field&quot;: [
+                &quot;The field is required.&quot;
+            ]
+        }
     }
 }</code>
  </pre>
@@ -3778,7 +4878,60 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-v1-orders">
-</span>
+            <blockquote>
+            <p>Example response (201, Order created.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;status&quot;: &quot;Pending&quot;,
+        &quot;status_code&quot;: &quot;pending&quot;,
+        &quot;total_price&quot;: &quot;25.00&quot;,
+        &quot;created_at&quot;: &quot;2026-08-07T12:00:00+00:00&quot;,
+        &quot;items&quot;: [
+            {
+                &quot;product_id&quot;: 1,
+                &quot;name&quot;: &quot;Notebook&quot;,
+                &quot;quantity&quot;: 2,
+                &quot;unit_price&quot;: &quot;12.50&quot;,
+                &quot;total&quot;: &quot;25.00&quot;
+            }
+        ]
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, A valid access token is required.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;unauthenticated&quot;,
+        &quot;message&quot;: &quot;Authentication is required.&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, The checkout data is invalid.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: {
+        &quot;code&quot;: &quot;validation_failed&quot;,
+        &quot;message&quot;: &quot;The request data is invalid.&quot;,
+        &quot;details&quot;: {
+            &quot;field&quot;: [
+                &quot;The field is required.&quot;
+            ]
+        }
+    }
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-v1-orders" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-v1-orders"></span>:

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Http\Requests\Traits\HasScribeBodyParameters;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 use Knuckles\Scribe\Attributes\BodyParam;
@@ -12,6 +13,8 @@ use Knuckles\Scribe\Attributes\BodyParam;
 #[BodyParam('password_confirmation', 'string', 'Must match the password.', example: 'secret123')]
 class RegisterRequest extends FormRequest
 {
+    use HasScribeBodyParameters;
+
     public function authorize(): bool
     {
         return true;

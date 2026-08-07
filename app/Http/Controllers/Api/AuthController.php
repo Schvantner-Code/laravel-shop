@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
+use App\Http\Documentation\ApiResponseExamples;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
@@ -12,6 +13,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Knuckles\Scribe\Attributes\Authenticated;
+use Knuckles\Scribe\Attributes\Response as ScribeResponse;
 
 /**
  * @group Authentication
@@ -25,6 +28,8 @@ class AuthController extends Controller
      *
      * Creates a new customer account and returns an access token.
      */
+    #[ScribeResponse(ApiResponseExamples::TOKEN, 201, 'Customer registered and access token created.')]
+    #[ScribeResponse(ApiResponseExamples::VALIDATION_FAILED, 422, 'The registration data is invalid.')]
     public function register(RegisterRequest $request): JsonResponse
     {
         $user = User::create([
@@ -45,6 +50,9 @@ class AuthController extends Controller
      *
      * Authenticates a user and returns an access token.
      */
+    #[ScribeResponse(ApiResponseExamples::TOKEN, 200, 'Credentials accepted and access token created.')]
+    #[ScribeResponse(ApiResponseExamples::INVALID_CREDENTIALS, 401, 'The credentials are invalid.')]
+    #[ScribeResponse(ApiResponseExamples::VALIDATION_FAILED, 422, 'The login data is invalid.')]
     public function login(LoginRequest $request): JsonResponse
     {
         if (! Auth::attempt($request->only('email', 'password'))) {
@@ -62,6 +70,9 @@ class AuthController extends Controller
      *
      * Revokes the current access token.
      */
+    #[Authenticated]
+    #[ScribeResponse(status: 204, description: 'The current access token was revoked.')]
+    #[ScribeResponse(ApiResponseExamples::UNAUTHENTICATED, 401, 'A valid access token is required.')]
     public function logout(Request $request): Response
     {
         $request->user()->currentAccessToken()->delete();

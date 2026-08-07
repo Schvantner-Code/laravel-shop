@@ -17,7 +17,11 @@ return [
 
     // Text to place in the "Introduction" section, right after the `description`. Markdown and HTML are supported.
     'intro_text' => <<<'INTRO'
-        This documentation aims to provide all the information you need to work with our API.
+        This documentation describes the versioned Laravel Shop JSON API. Application endpoints use the <code>/api/v1</code> prefix.
+
+        Successful single-resource responses use a top-level <code>data</code> object. Paginated responses contain <code>data</code>, <code>links</code>, and <code>meta</code>. Successful creation returns HTTP 201; successful requests without a response body return HTTP 204.
+
+        Errors use a stable envelope containing <code>error.code</code> and <code>error.message</code>. Validation errors also include field-specific messages in <code>error.details</code>.
 
         <aside>As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile).
         You can switch the language used with the tabs at the top right (or from the nav menu at the top left on mobile).</aside>
@@ -109,7 +113,11 @@ return [
         'name' => 'Authorization',
         'use_value' => env('SCRIBE_AUTH_KEY'),
         'placeholder' => '{YOUR_AUTH_TOKEN}',
-        'extra_info' => 'You can retrieve your token by using the Login endpoint.',
+        'extra_info' => <<<'AUTH'
+            You can retrieve a token from the registration or login endpoint. The token is returned as `data.access_token`.
+
+            The logout endpoint revokes only the token used for the current request and returns HTTP 204.
+        AUTH,
     ],
 
     // Example requests for each endpoint will be shown in each of these languages.

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin\Product;
 
+use App\Http\Requests\Traits\HasScribeBodyParameters;
 use Illuminate\Foundation\Http\FormRequest;
 use Knuckles\Scribe\Attributes\BodyParam;
 
@@ -10,6 +11,8 @@ use Knuckles\Scribe\Attributes\BodyParam;
 #[BodyParam('price', 'integer', 'Price in cents.', example: 1250)]
 class StoreProductRequest extends FormRequest
 {
+    use HasScribeBodyParameters;
+
     public function authorize(): bool
     {
         return true;

@@ -2,12 +2,15 @@
 
 namespace App\Http\Requests\Admin\Category;
 
+use App\Http\Requests\Traits\HasScribeBodyParameters;
 use Illuminate\Foundation\Http\FormRequest;
 use Knuckles\Scribe\Attributes\BodyParam;
 
 #[BodyParam('name', 'object', 'Translatable name.', example: ['en' => 'Notebooks v2', 'sk' => 'Zošity v2'])]
 class UpdateCategoryRequest extends FormRequest
 {
+    use HasScribeBodyParameters;
+
     public function authorize(): bool
     {
         return true;

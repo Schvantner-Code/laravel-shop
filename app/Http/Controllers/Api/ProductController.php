@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Documentation\ApiResponseExamples;
 use App\Http\Requests\Api\ProductIndexRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Knuckles\Scribe\Attributes\Header;
+use Knuckles\Scribe\Attributes\Response as ScribeResponse;
+use Knuckles\Scribe\Attributes\ResponseFromApiResource;
 
 /**
  * @group Products & Categories (Public)
@@ -21,6 +24,8 @@ class ProductController extends Controller
      *
      * Returns a paginated list of products. Supports filtering by category and searching by text.
      */
+    #[ResponseFromApiResource(ProductResource::class, Product::class, collection: true, with: ['category'], paginate: 10, description: 'Products retrieved.')]
+    #[ScribeResponse(ApiResponseExamples::VALIDATION_FAILED, 422, 'The query parameters are invalid.')]
     public function index(ProductIndexRequest $request): AnonymousResourceCollection
     {
         $query = Product::with('category')->where('is_active', true);
@@ -50,6 +55,8 @@ class ProductController extends Controller
     /**
      * Get product details
      */
+    #[ResponseFromApiResource(ProductResource::class, Product::class, with: ['category'], description: 'Product retrieved.')]
+    #[ScribeResponse(ApiResponseExamples::NOT_FOUND, 404, 'The product was not found.')]
     public function show(string $id): ProductResource
     {
         $product = Product::with('category')->findOrFail($id);
