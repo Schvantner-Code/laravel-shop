@@ -77,4 +77,17 @@ final class ApiException extends RuntimeException
             ['product_ids' => $productIds],
         );
     }
+
+    /**
+     * @param  list<array{product_id: int, requested_quantity: int, available_stock: int}>  $items
+     */
+    public static function insufficientStock(array $items): self
+    {
+        return new self(
+            'insufficient_stock',
+            'One or more products do not have enough stock.',
+            409,
+            ['items' => $items],
+        );
+    }
 }

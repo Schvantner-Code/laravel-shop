@@ -6,6 +6,8 @@ use App\Models\PaymentMethod;
 use App\Models\Product;
 use App\Models\User;
 use Database\Seeders\RoleSeeder;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Event;
 use Mockery\MockInterface;
 
 beforeEach(function () {
@@ -69,8 +71,8 @@ test('checkout rejects duplicate products', function () {
 });
 
 test('checkout calculates and snapshots prices on the server', function () {
-    $firstProduct = Product::factory()->create(['price' => 1250]);
-    $secondProduct = Product::factory()->create(['price' => 300]);
+    $firstProduct = Product::factory()->create(['price' => 1250, 'stock' => 2]);
+    $secondProduct = Product::factory()->create(['price' => 300, 'stock' => 3]);
 
     $response = $this->actingAs($this->customer)
         ->postJson('/api/v1/orders', checkoutData($this->paymentMethod, [
@@ -92,6 +94,68 @@ test('checkout calculates and snapshots prices on the server', function () {
         'quantity' => 2,
         'unit_price' => 1250,
     ]);
+    $this->assertDatabaseHas('products', ['id' => $firstProduct->id, 'stock' => 0]);
+    $this->assertDatabaseHas('products', ['id' => $secondProduct->id, 'stock' => 0]);
+});
+
+test('checkout reports all insufficient items without changing stock', function () {
+    Event::fake([OrderPlaced::class]);
+
+    $firstProduct = Product::factory()->create(['stock' => 1]);
+    $secondProduct = Product::factory()->create(['stock' => 0]);
+
+    $this->actingAs($this->customer)
+        ->postJson('/api/v1/orders', checkoutData($this->paymentMethod, [
+            ['product_id' => $firstProduct->id, 'quantity' => 2],
+            ['product_id' => $secondProduct->id, 'quantity' => 3],
+        ]))
+        ->assertConflict()
+        ->assertExactJson([
+            'error' => [
+                'code' => 'insufficient_stock',
+                'message' => 'One or more products do not have enough stock.',
+                'details' => [
+                    'items' => [
+                        [
+                            'product_id' => $firstProduct->id,
+                            'requested_quantity' => 2,
+                            'available_stock' => 1,
+                        ],
+                        [
+                            'product_id' => $secondProduct->id,
+                            'requested_quantity' => 3,
+                            'available_stock' => 0,
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+
+    $this->assertDatabaseHas('products', ['id' => $firstProduct->id, 'stock' => 1]);
+    $this->assertDatabaseHas('products', ['id' => $secondProduct->id, 'stock' => 0]);
+    $this->assertDatabaseCount('orders', 0);
+    $this->assertDatabaseCount('order_product', 0);
+    Event::assertNotDispatched(OrderPlaced::class);
+});
+
+test('stock decrements roll back when order creation fails', function () {
+    Event::fake([OrderPlaced::class]);
+
+    $product = Product::factory()->create(['stock' => 5]);
+    $data = checkoutData($this->paymentMethod, [
+        ['product_id' => $product->id, 'quantity' => 2],
+    ]);
+
+    // Removing the authenticated user simulates a database failure after the
+    // stock decrement but before the order insert can satisfy its foreign key.
+    $this->customer->delete();
+
+    expect(fn () => app(CreateOrder::class)->execute($this->customer, $data))
+        ->toThrow(QueryException::class);
+
+    $this->assertDatabaseHas('products', ['id' => $product->id, 'stock' => 5]);
+    $this->assertDatabaseCount('orders', 0);
+    Event::assertNotDispatched(OrderPlaced::class);
 });
 
 test('order creation rechecks payment and product availability inside its transaction', function () {

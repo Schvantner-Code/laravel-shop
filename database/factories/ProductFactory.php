@@ -20,6 +20,7 @@ class ProductFactory extends Factory
                 'sk' => $this->faker->sentence,
             ],
             'price' => $this->faker->numberBetween(100, 10000),
+            'stock' => $this->faker->numberBetween(0, 100),
             'is_active' => true,
         ];
     }

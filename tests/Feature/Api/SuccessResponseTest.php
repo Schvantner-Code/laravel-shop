@@ -64,6 +64,7 @@ test('admin catalog creation returns created resources', function () {
         'category_id' => $categoryId,
         'name' => ['en' => 'Notebook', 'sk' => 'Zošit'],
         'price' => 1000,
+        'stock' => 20,
         'is_active' => true,
     ])->assertCreated()
         ->assertJsonPath('data.price', '10.00');
@@ -79,7 +80,7 @@ test('checkout returns a created order resource', function () {
         'slug' => 'cod',
         'is_active' => true,
     ]);
-    $product = Product::factory()->create(['price' => 1250]);
+    $product = Product::factory()->create(['price' => 1250, 'stock' => 2]);
 
     $this->actingAs($customer)->postJson('/api/v1/orders', [
         'payment_method_id' => $paymentMethod->id,

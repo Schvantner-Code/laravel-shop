@@ -40,11 +40,13 @@ class CreateOrder
                 throw ApiException::productsUnavailable($unavailableProductIds->all());
             }
 
+            $this->ensureStockIsAvailable($itemData, $products);
+
             $totalPrice = 0;
             $pivotData = [];
 
             foreach ($itemData as $item) {
-                $product = $products->find($item['product_id']);
+                $product = $products->get((int) $item['product_id']);
 
                 $quantity = (int) $item['quantity'];
                 $unitPrice = $product->price;
@@ -55,6 +57,11 @@ class CreateOrder
                     'quantity' => $quantity,
                     'unit_price' => $unitPrice,
                 ];
+
+                // Every quantity was checked before this loop. The product
+                // rows remain exclusively locked, so these decrements cannot
+                // race another checkout and will roll back with the order.
+                $product->decrement('stock', $quantity);
             }
 
             $order = Order::create([
@@ -98,7 +105,7 @@ class CreateOrder
      *
      * Request validation gives useful client errors, but product availability
      * can change before this action runs. These locks keep eligibility stable
-     * until the order is written and will also protect later stock updates.
+     * and protect the stock checks and decrements performed below.
      *
      * @param  Collection<int, int>  $productIds
      * @return Collection<int, Product>
@@ -112,5 +119,40 @@ class CreateOrder
             ->lockForUpdate()
             ->get()
             ->keyBy('id');
+    }
+
+    /**
+     * Validate every item before decrementing any product.
+     *
+     * Reporting the complete set lets clients repair the checkout in one
+     * response. Because the product rows are already locked, these stock
+     * values cannot change between this check and the later decrements.
+     *
+     * @param  Collection<int, array{product_id: int, quantity: int}>  $itemData
+     * @param  Collection<int, Product>  $products
+     */
+    private function ensureStockIsAvailable(Collection $itemData, Collection $products): void
+    {
+        $insufficientItems = $itemData
+            ->map(function (array $item) use ($products): ?array {
+                $product = $products->get((int) $item['product_id']);
+                $requestedQuantity = (int) $item['quantity'];
+
+                if ($requestedQuantity <= $product->stock) {
+                    return null;
+                }
+
+                return [
+                    'product_id' => $product->id,
+                    'requested_quantity' => $requestedQuantity,
+                    'available_stock' => $product->stock,
+                ];
+            })
+            ->filter()
+            ->values();
+
+        if ($insufficientItems->isNotEmpty()) {
+            throw ApiException::insufficientStock($insufficientItems->all());
+        }
     }
 }

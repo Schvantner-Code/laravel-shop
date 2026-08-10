@@ -13,13 +13,25 @@ class Product extends Model
 
     public $translatable = ['name', 'description'];
 
+    protected $attributes = [
+        'stock' => 0,
+    ];
+
     protected $fillable = [
         'category_id',
         'name',
         'description',
         'price',
+        'stock',
         'is_active',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'stock' => 'integer',
+        ];
+    }
 
     public function category()
     {

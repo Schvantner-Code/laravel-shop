@@ -43,6 +43,7 @@ test('admin can create products', function () {
         'category_id' => Category::factory()->create()->id,
         'name' => ['en' => 'New Prod', 'sk' => 'Novy Prod'],
         'price' => 1000,
+        'stock' => 20,
         'is_active' => true,
     ];
 
@@ -52,6 +53,7 @@ test('admin can create products', function () {
     $response->assertStatus(201);
     $this->assertDatabaseHas('products', [
         'price' => 1000,
+        'stock' => 20,
     ]);
 });
 
@@ -66,6 +68,7 @@ test('customer cannot create products', function () {
             'category_id' => $category->id,
             'name' => ['en' => 'Hacker Product', 'sk' => 'Hacker'],
             'price' => 500,
+            'stock' => 10,
             'is_active' => true,
         ]);
 

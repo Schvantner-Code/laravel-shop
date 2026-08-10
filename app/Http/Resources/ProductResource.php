@@ -20,6 +20,7 @@ class ProductResource extends JsonResource
             'description' => $this->getTranslation('description', app()->getLocale()),
             // Convert cents to standard currency format (1000 -> 10.00)
             'price' => number_format($this->price / 100, 2, '.', ''),
+            'in_stock' => $this->is_active && $this->stock > 0,
             'category' => new CategoryResource($this->whenLoaded('category')),
         ];
     }

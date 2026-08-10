@@ -127,12 +127,18 @@ final class ApiResponseExamples
         ],
     ];
 
-    public const PRODUCTS_UNAVAILABLE = [
+    public const CHECKOUT_CONFLICT = [
         'error' => [
-            'code' => 'products_unavailable',
-            'message' => 'One or more selected products are no longer available.',
+            'code' => 'insufficient_stock',
+            'message' => 'One or more products do not have enough stock.',
             'details' => [
-                'product_ids' => [12, 31],
+                'items' => [
+                    [
+                        'product_id' => 12,
+                        'requested_quantity' => 3,
+                        'available_stock' => 1,
+                    ],
+                ],
             ],
         ],
     ];

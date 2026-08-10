@@ -564,7 +564,7 @@ paths:
                 example:
                   data:
                     -
-                      id: 99
+                      id: 144
                       name: 'Test Cat'
                       slug: deserunt-aut-ab-provident-perspiciatis-quo-omnis-nostrum
                       name_translations:
@@ -572,10 +572,10 @@ paths:
                         sk: 'Test Kat'
                       is_deleted: false
                       deleted_at: null
-                      created_at: '2026-08-07T12:49:42+00:00'
-                      updated_at: '2026-08-07T12:49:42+00:00'
+                      created_at: '2026-08-10T11:55:11+00:00'
+                      updated_at: '2026-08-10T11:55:11+00:00'
                     -
-                      id: 100
+                      id: 145
                       name: 'Test Cat'
                       slug: adipisci-quidem-nostrum-qui-commodi-incidunt-iure
                       name_translations:
@@ -583,8 +583,8 @@ paths:
                         sk: 'Test Kat'
                       is_deleted: false
                       deleted_at: null
-                      created_at: '2026-08-07T12:49:42+00:00'
-                      updated_at: '2026-08-07T12:49:42+00:00'
+                      created_at: '2026-08-10T11:55:11+00:00'
+                      updated_at: '2026-08-10T11:55:11+00:00'
                   links:
                     first: '/?page=1'
                     last: '/?page=1'
@@ -619,7 +619,7 @@ paths:
                     type: array
                     example:
                       -
-                        id: 99
+                        id: 144
                         name: 'Test Cat'
                         slug: deserunt-aut-ab-provident-perspiciatis-quo-omnis-nostrum
                         name_translations:
@@ -627,10 +627,10 @@ paths:
                           sk: 'Test Kat'
                         is_deleted: false
                         deleted_at: null
-                        created_at: '2026-08-07T12:49:42+00:00'
-                        updated_at: '2026-08-07T12:49:42+00:00'
+                        created_at: '2026-08-10T11:55:11+00:00'
+                        updated_at: '2026-08-10T11:55:11+00:00'
                       -
-                        id: 100
+                        id: 145
                         name: 'Test Cat'
                         slug: adipisci-quidem-nostrum-qui-commodi-incidunt-iure
                         name_translations:
@@ -638,14 +638,14 @@ paths:
                           sk: 'Test Kat'
                         is_deleted: false
                         deleted_at: null
-                        created_at: '2026-08-07T12:49:42+00:00'
-                        updated_at: '2026-08-07T12:49:42+00:00'
+                        created_at: '2026-08-10T11:55:11+00:00'
+                        updated_at: '2026-08-10T11:55:11+00:00'
                     items:
                       type: object
                       properties:
                         id:
                           type: integer
-                          example: 99
+                          example: 144
                         name:
                           type: string
                           example: 'Test Cat'
@@ -670,10 +670,10 @@ paths:
                           nullable: true
                         created_at:
                           type: string
-                          example: '2026-08-07T12:49:42+00:00'
+                          example: '2026-08-10T11:55:11+00:00'
                         updated_at:
                           type: string
-                          example: '2026-08-07T12:49:42+00:00'
+                          example: '2026-08-10T11:55:11+00:00'
                   links:
                     type: object
                     properties:
@@ -835,7 +835,7 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 101
+                    id: 146
                     name: 'Test Cat'
                     slug: quos-velit-et-fugiat-sunt-nihil-accusantium-harum
                     name_translations:
@@ -843,15 +843,15 @@ paths:
                       sk: 'Test Kat'
                     is_deleted: false
                     deleted_at: null
-                    created_at: '2026-08-07T12:49:42+00:00'
-                    updated_at: '2026-08-07T12:49:42+00:00'
+                    created_at: '2026-08-10T11:55:11+00:00'
+                    updated_at: '2026-08-10T11:55:11+00:00'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: integer
-                        example: 101
+                        example: 146
                       name:
                         type: string
                         example: 'Test Cat'
@@ -876,10 +876,10 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-08-07T12:49:42+00:00'
+                        example: '2026-08-10T11:55:11+00:00'
                       updated_at:
                         type: string
-                        example: '2026-08-07T12:49:42+00:00'
+                        example: '2026-08-10T11:55:11+00:00'
         401:
           description: 'A valid access token is required.'
           content:
@@ -1001,7 +1001,7 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 102
+                    id: 147
                     name: 'Test Cat'
                     slug: animi-quos-velit-et-fugiat
                     name_translations:
@@ -1009,15 +1009,15 @@ paths:
                       sk: 'Test Kat'
                     is_deleted: false
                     deleted_at: null
-                    created_at: '2026-08-07T12:49:42+00:00'
-                    updated_at: '2026-08-07T12:49:42+00:00'
+                    created_at: '2026-08-10T11:55:11+00:00'
+                    updated_at: '2026-08-10T11:55:11+00:00'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: integer
-                        example: 102
+                        example: 147
                       name:
                         type: string
                         example: 'Test Cat'
@@ -1042,10 +1042,10 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-08-07T12:49:42+00:00'
+                        example: '2026-08-10T11:55:11+00:00'
                       updated_at:
                         type: string
-                        example: '2026-08-07T12:49:42+00:00'
+                        example: '2026-08-10T11:55:11+00:00'
         401:
           description: 'A valid access token is required.'
           content:
@@ -1270,7 +1270,7 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 103
+                    id: 148
                     name: 'Test Cat'
                     slug: et-et-modi-ipsum-nostrum
                     name_translations:
@@ -1278,15 +1278,15 @@ paths:
                       sk: 'Test Kat'
                     is_deleted: false
                     deleted_at: null
-                    created_at: '2026-08-07T12:49:42+00:00'
-                    updated_at: '2026-08-07T12:49:42+00:00'
+                    created_at: '2026-08-10T11:55:11+00:00'
+                    updated_at: '2026-08-10T11:55:11+00:00'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: integer
-                        example: 103
+                        example: 148
                       name:
                         type: string
                         example: 'Test Cat'
@@ -1311,10 +1311,10 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-08-07T12:49:42+00:00'
+                        example: '2026-08-10T11:55:11+00:00'
                       updated_at:
                         type: string
-                        example: '2026-08-07T12:49:42+00:00'
+                        example: '2026-08-10T11:55:11+00:00'
         401:
           description: 'A valid access token is required.'
           content:
@@ -1456,45 +1456,49 @@ paths:
                 example:
                   data:
                     -
-                      id: 58
-                      name: praesentium
-                      description: 'Et ratione assumenda aliquid praesentium.'
-                      price: '21.76'
+                      id: 82
+                      name: laudantium
+                      description: 'Molestiae cupiditate voluptatem ut fugiat.'
+                      price: '40.04'
+                      in_stock: true
                       category:
-                        id: 104
+                        id: 149
                         name: 'Test Cat'
-                        slug: omnis-ducimus-nostrum-sequi-dolores-blanditiis-molestiae
+                        slug: ut-magnam-in-hic-omnis
                       name_translations:
-                        en: praesentium
-                        sk: sit
+                        en: laudantium
+                        sk: rerum
                       description_translations:
-                        en: 'Et ratione assumenda aliquid praesentium.'
-                        sk: 'Suscipit vel minima earum omnis.'
+                        en: 'Molestiae cupiditate voluptatem ut fugiat.'
+                        sk: 'Autem ipsam molestiae omnis perferendis adipisci tenetur nam.'
+                      stock: 16
                       is_active: 1
                       is_deleted: false
                       deleted_at: null
-                      created_at: '2026-08-07T12:49:42+00:00'
-                      updated_at: '2026-08-07T12:49:42+00:00'
+                      created_at: '2026-08-10T11:55:11+00:00'
+                      updated_at: '2026-08-10T11:55:11+00:00'
                     -
-                      id: 59
-                      name: sit
-                      description: 'Rerum mollitia et consequatur rerum.'
-                      price: '11.21'
+                      id: 83
+                      name: est
+                      description: 'Voluptatem nulla ullam perspiciatis adipisci qui odio maxime.'
+                      price: '14.99'
+                      in_stock: true
                       category:
-                        id: 105
+                        id: 150
                         name: 'Test Cat'
-                        slug: distinctio-fuga-voluptatibus-quod-dolores
+                        slug: deleniti-libero-et-fuga-iure-et-amet
                       name_translations:
-                        en: sit
-                        sk: quas
+                        en: est
+                        sk: est
                       description_translations:
-                        en: 'Rerum mollitia et consequatur rerum.'
-                        sk: 'Et perferendis ad nam.'
+                        en: 'Voluptatem nulla ullam perspiciatis adipisci qui odio maxime.'
+                        sk: 'Dolorem dolor perspiciatis ea minima.'
+                      stock: 9
                       is_active: 1
                       is_deleted: false
                       deleted_at: null
-                      created_at: '2026-08-07T12:49:42+00:00'
-                      updated_at: '2026-08-07T12:49:42+00:00'
+                      created_at: '2026-08-10T11:55:11+00:00'
+                      updated_at: '2026-08-10T11:55:11+00:00'
                   links:
                     first: '/?page=1'
                     last: '/?page=1'
@@ -1529,90 +1533,100 @@ paths:
                     type: array
                     example:
                       -
-                        id: 58
-                        name: praesentium
-                        description: 'Et ratione assumenda aliquid praesentium.'
-                        price: '21.76'
+                        id: 82
+                        name: laudantium
+                        description: 'Molestiae cupiditate voluptatem ut fugiat.'
+                        price: '40.04'
+                        in_stock: true
                         category:
-                          id: 104
+                          id: 149
                           name: 'Test Cat'
-                          slug: omnis-ducimus-nostrum-sequi-dolores-blanditiis-molestiae
+                          slug: ut-magnam-in-hic-omnis
                         name_translations:
-                          en: praesentium
-                          sk: sit
+                          en: laudantium
+                          sk: rerum
                         description_translations:
-                          en: 'Et ratione assumenda aliquid praesentium.'
-                          sk: 'Suscipit vel minima earum omnis.'
+                          en: 'Molestiae cupiditate voluptatem ut fugiat.'
+                          sk: 'Autem ipsam molestiae omnis perferendis adipisci tenetur nam.'
+                        stock: 16
                         is_active: 1
                         is_deleted: false
                         deleted_at: null
-                        created_at: '2026-08-07T12:49:42+00:00'
-                        updated_at: '2026-08-07T12:49:42+00:00'
+                        created_at: '2026-08-10T11:55:11+00:00'
+                        updated_at: '2026-08-10T11:55:11+00:00'
                       -
-                        id: 59
-                        name: sit
-                        description: 'Rerum mollitia et consequatur rerum.'
-                        price: '11.21'
+                        id: 83
+                        name: est
+                        description: 'Voluptatem nulla ullam perspiciatis adipisci qui odio maxime.'
+                        price: '14.99'
+                        in_stock: true
                         category:
-                          id: 105
+                          id: 150
                           name: 'Test Cat'
-                          slug: distinctio-fuga-voluptatibus-quod-dolores
+                          slug: deleniti-libero-et-fuga-iure-et-amet
                         name_translations:
-                          en: sit
-                          sk: quas
+                          en: est
+                          sk: est
                         description_translations:
-                          en: 'Rerum mollitia et consequatur rerum.'
-                          sk: 'Et perferendis ad nam.'
+                          en: 'Voluptatem nulla ullam perspiciatis adipisci qui odio maxime.'
+                          sk: 'Dolorem dolor perspiciatis ea minima.'
+                        stock: 9
                         is_active: 1
                         is_deleted: false
                         deleted_at: null
-                        created_at: '2026-08-07T12:49:42+00:00'
-                        updated_at: '2026-08-07T12:49:42+00:00'
+                        created_at: '2026-08-10T11:55:11+00:00'
+                        updated_at: '2026-08-10T11:55:11+00:00'
                     items:
                       type: object
                       properties:
                         id:
                           type: integer
-                          example: 58
+                          example: 82
                         name:
                           type: string
-                          example: praesentium
+                          example: laudantium
                         description:
                           type: string
-                          example: 'Et ratione assumenda aliquid praesentium.'
+                          example: 'Molestiae cupiditate voluptatem ut fugiat.'
                         price:
                           type: string
-                          example: '21.76'
+                          example: '40.04'
+                        in_stock:
+                          type: boolean
+                          example: true
                         category:
                           type: object
                           properties:
                             id:
                               type: integer
-                              example: 104
+                              example: 149
                             name:
                               type: string
                               example: 'Test Cat'
                             slug:
                               type: string
-                              example: omnis-ducimus-nostrum-sequi-dolores-blanditiis-molestiae
+                              example: ut-magnam-in-hic-omnis
                         name_translations:
                           type: object
                           properties:
                             en:
                               type: string
-                              example: praesentium
+                              example: laudantium
                             sk:
                               type: string
-                              example: sit
+                              example: rerum
                         description_translations:
                           type: object
                           properties:
                             en:
                               type: string
-                              example: 'Et ratione assumenda aliquid praesentium.'
+                              example: 'Molestiae cupiditate voluptatem ut fugiat.'
                             sk:
                               type: string
-                              example: 'Suscipit vel minima earum omnis.'
+                              example: 'Autem ipsam molestiae omnis perferendis adipisci tenetur nam.'
+                        stock:
+                          type: integer
+                          example: 16
                         is_active:
                           type: integer
                           example: 1
@@ -1625,10 +1639,10 @@ paths:
                           nullable: true
                         created_at:
                           type: string
-                          example: '2026-08-07T12:49:42+00:00'
+                          example: '2026-08-10T11:55:11+00:00'
                         updated_at:
                           type: string
-                          example: '2026-08-07T12:49:42+00:00'
+                          example: '2026-08-10T11:55:11+00:00'
                   links:
                     type: object
                     properties:
@@ -1790,71 +1804,79 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 60
-                    name: et
-                    description: 'Velit et fugiat sunt nihil accusantium.'
+                    id: 84
+                    name: animi
+                    description: 'Et fugiat sunt nihil accusantium.'
                     price: '1.80'
+                    in_stock: true
                     category:
-                      id: 106
+                      id: 151
                       name: 'Test Cat'
-                      slug: aut-adipisci-quidem-nostrum-qui-commodi-incidunt-iure
+                      slug: autem-et-consequatur-aut-dolores-enim-non-facere-tempora
                     name_translations:
-                      en: et
-                      sk: animi
+                      en: animi
+                      sk: quos
                     description_translations:
-                      en: 'Velit et fugiat sunt nihil accusantium.'
+                      en: 'Et fugiat sunt nihil accusantium.'
                       sk: 'Mollitia modi deserunt aut ab provident perspiciatis quo.'
+                    stock: 47
                     is_active: 1
                     is_deleted: false
                     deleted_at: null
-                    created_at: '2026-08-07T12:49:42+00:00'
-                    updated_at: '2026-08-07T12:49:42+00:00'
+                    created_at: '2026-08-10T11:55:11+00:00'
+                    updated_at: '2026-08-10T11:55:11+00:00'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: integer
-                        example: 60
+                        example: 84
                       name:
                         type: string
-                        example: et
+                        example: animi
                       description:
                         type: string
-                        example: 'Velit et fugiat sunt nihil accusantium.'
+                        example: 'Et fugiat sunt nihil accusantium.'
                       price:
                         type: string
                         example: '1.80'
+                      in_stock:
+                        type: boolean
+                        example: true
                       category:
                         type: object
                         properties:
                           id:
                             type: integer
-                            example: 106
+                            example: 151
                           name:
                             type: string
                             example: 'Test Cat'
                           slug:
                             type: string
-                            example: aut-adipisci-quidem-nostrum-qui-commodi-incidunt-iure
+                            example: autem-et-consequatur-aut-dolores-enim-non-facere-tempora
                       name_translations:
                         type: object
                         properties:
                           en:
                             type: string
-                            example: et
+                            example: animi
                           sk:
                             type: string
-                            example: animi
+                            example: quos
                       description_translations:
                         type: object
                         properties:
                           en:
                             type: string
-                            example: 'Velit et fugiat sunt nihil accusantium.'
+                            example: 'Et fugiat sunt nihil accusantium.'
                           sk:
                             type: string
                             example: 'Mollitia modi deserunt aut ab provident perspiciatis quo.'
+                      stock:
+                        type: integer
+                        example: 47
                       is_active:
                         type: integer
                         example: 1
@@ -1867,10 +1889,10 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-08-07T12:49:42+00:00'
+                        example: '2026-08-10T11:55:11+00:00'
                       updated_at:
                         type: string
-                        example: '2026-08-07T12:49:42+00:00'
+                        example: '2026-08-10T11:55:11+00:00'
         401:
           description: 'A valid access token is required.'
           content:
@@ -1994,10 +2016,14 @@ paths:
                   type: integer
                   description: 'Price in cents.'
                   example: 1250
+                stock:
+                  type: integer
+                  description: 'Available inventory units. Defaults to 0 when omitted.'
+                  example: 25
                 is_active:
                   type: boolean
                   description: ''
-                  example: false
+                  example: true
               required:
                 - category_id
                 - name
@@ -2017,71 +2043,79 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 61
-                    name: et
-                    description: 'Velit et fugiat sunt nihil accusantium.'
+                    id: 85
+                    name: animi
+                    description: 'Et fugiat sunt nihil accusantium.'
                     price: '1.80'
+                    in_stock: true
                     category:
-                      id: 107
+                      id: 152
                       name: 'Test Cat'
-                      slug: autem-et-consequatur-aut-dolores-enim-non-facere-tempora
+                      slug: voluptatem-laboriosam-praesentium-quis-adipisci
                     name_translations:
-                      en: et
-                      sk: animi
+                      en: animi
+                      sk: quos
                     description_translations:
-                      en: 'Velit et fugiat sunt nihil accusantium.'
+                      en: 'Et fugiat sunt nihil accusantium.'
                       sk: 'Mollitia modi deserunt aut ab provident perspiciatis quo.'
+                    stock: 47
                     is_active: 1
                     is_deleted: false
                     deleted_at: null
-                    created_at: '2026-08-07T12:49:42+00:00'
-                    updated_at: '2026-08-07T12:49:42+00:00'
+                    created_at: '2026-08-10T11:55:11+00:00'
+                    updated_at: '2026-08-10T11:55:11+00:00'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: integer
-                        example: 61
+                        example: 85
                       name:
                         type: string
-                        example: et
+                        example: animi
                       description:
                         type: string
-                        example: 'Velit et fugiat sunt nihil accusantium.'
+                        example: 'Et fugiat sunt nihil accusantium.'
                       price:
                         type: string
                         example: '1.80'
+                      in_stock:
+                        type: boolean
+                        example: true
                       category:
                         type: object
                         properties:
                           id:
                             type: integer
-                            example: 107
+                            example: 152
                           name:
                             type: string
                             example: 'Test Cat'
                           slug:
                             type: string
-                            example: autem-et-consequatur-aut-dolores-enim-non-facere-tempora
+                            example: voluptatem-laboriosam-praesentium-quis-adipisci
                       name_translations:
                         type: object
                         properties:
                           en:
                             type: string
-                            example: et
+                            example: animi
                           sk:
                             type: string
-                            example: animi
+                            example: quos
                       description_translations:
                         type: object
                         properties:
                           en:
                             type: string
-                            example: 'Velit et fugiat sunt nihil accusantium.'
+                            example: 'Et fugiat sunt nihil accusantium.'
                           sk:
                             type: string
                             example: 'Mollitia modi deserunt aut ab provident perspiciatis quo.'
+                      stock:
+                        type: integer
+                        example: 47
                       is_active:
                         type: integer
                         example: 1
@@ -2094,10 +2128,10 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-08-07T12:49:42+00:00'
+                        example: '2026-08-10T11:55:11+00:00'
                       updated_at:
                         type: string
-                        example: '2026-08-07T12:49:42+00:00'
+                        example: '2026-08-10T11:55:11+00:00'
         401:
           description: 'A valid access token is required.'
           content:
@@ -2241,6 +2275,10 @@ paths:
                   type: integer
                   description: 'Price in cents.'
                   example: 1250
+                stock:
+                  type: integer
+                  description: 'Available inventory units.'
+                  example: 25
                 is_active:
                   type: boolean
                   description: ''
@@ -2249,6 +2287,7 @@ paths:
                 - category_id
                 - name
                 - price
+                - stock
     delete:
       summary: ''
       operationId: deleteApiV1AdminProductsProduct_id
@@ -2348,32 +2387,34 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 62
+                    id: 86
                     name: aut
                     description: 'Nostrum qui commodi incidunt iure.'
                     price: '44.13'
+                    in_stock: true
                     category:
-                      id: 108
+                      id: 153
                       name: 'Test Cat'
-                      slug: et-consequatur-aut-dolores-enim
+                      slug: consequatur-aut-dolores-enim-non-facere-tempora
                     name_translations:
                       en: aut
                       sk: adipisci
                     description_translations:
                       en: 'Nostrum qui commodi incidunt iure.'
                       sk: 'Et et modi ipsum nostrum.'
+                    stock: 41
                     is_active: 1
                     is_deleted: false
                     deleted_at: null
-                    created_at: '2026-08-07T12:49:42+00:00'
-                    updated_at: '2026-08-07T12:49:42+00:00'
+                    created_at: '2026-08-10T11:55:11+00:00'
+                    updated_at: '2026-08-10T11:55:11+00:00'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: integer
-                        example: 62
+                        example: 86
                       name:
                         type: string
                         example: aut
@@ -2383,18 +2424,21 @@ paths:
                       price:
                         type: string
                         example: '44.13'
+                      in_stock:
+                        type: boolean
+                        example: true
                       category:
                         type: object
                         properties:
                           id:
                             type: integer
-                            example: 108
+                            example: 153
                           name:
                             type: string
                             example: 'Test Cat'
                           slug:
                             type: string
-                            example: et-consequatur-aut-dolores-enim
+                            example: consequatur-aut-dolores-enim-non-facere-tempora
                       name_translations:
                         type: object
                         properties:
@@ -2413,6 +2457,9 @@ paths:
                           sk:
                             type: string
                             example: 'Et et modi ipsum nostrum.'
+                      stock:
+                        type: integer
+                        example: 41
                       is_active:
                         type: integer
                         example: 1
@@ -2425,10 +2472,10 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-08-07T12:49:42+00:00'
+                        example: '2026-08-10T11:55:11+00:00'
                       updated_at:
                         type: string
-                        example: '2026-08-07T12:49:42+00:00'
+                        example: '2026-08-10T11:55:11+00:00'
         401:
           description: 'A valid access token is required.'
           content:
@@ -2799,11 +2846,11 @@ paths:
                 example:
                   data:
                     -
-                      id: 94
+                      id: 139
                       name: 'Test Cat'
                       slug: eius-et-animi-quos-velit-et
                     -
-                      id: 95
+                      id: 140
                       name: 'Test Cat'
                       slug: sunt-nihil-accusantium-harum-mollitia
                   links:
@@ -2839,10 +2886,10 @@ paths:
                   data:
                     type: array
                     example:
-                      - id: 94
+                      - id: 139
                         name: 'Test Cat'
                         slug: eius-et-animi-quos-velit-et
-                      - id: 95
+                      - id: 140
                         name: 'Test Cat'
                         slug: sunt-nihil-accusantium-harum-mollitia
                     items:
@@ -2850,7 +2897,7 @@ paths:
                       properties:
                         id:
                           type: integer
-                          example: 94
+                          example: 139
                         name:
                           type: string
                           example: 'Test Cat'
@@ -3028,23 +3075,25 @@ paths:
                 example:
                   data:
                     -
-                      id: 55
+                      id: 79
                       name: architecto
                       description: 'Animi quos velit et fugiat.'
                       price: '56.32'
+                      in_stock: true
                       category:
-                        id: 96
+                        id: 141
                         name: 'Test Cat'
-                        slug: provident-perspiciatis-quo-omnis-nostrum-aut-adipisci-quidem
+                        slug: perspiciatis-quo-omnis-nostrum-aut-adipisci-quidem-nostrum-qui
                     -
-                      id: 56
-                      name: nostrum
-                      description: 'Incidunt iure odit et et modi ipsum.'
-                      price: '35.67'
+                      id: 80
+                      name: commodi
+                      description: 'Odit et et modi.'
+                      price: '35.53'
+                      in_stock: true
                       category:
-                        id: 97
+                        id: 142
                         name: 'Test Cat'
-                        slug: enim-non-facere-tempora-ex-voluptatem-laboriosam-praesentium
+                        slug: facere-tempora-ex-voluptatem-laboriosam
                   links:
                     first: '/?page=1'
                     last: '/?page=1'
@@ -3079,29 +3128,31 @@ paths:
                     type: array
                     example:
                       -
-                        id: 55
+                        id: 79
                         name: architecto
                         description: 'Animi quos velit et fugiat.'
                         price: '56.32'
+                        in_stock: true
                         category:
-                          id: 96
+                          id: 141
                           name: 'Test Cat'
-                          slug: provident-perspiciatis-quo-omnis-nostrum-aut-adipisci-quidem
+                          slug: perspiciatis-quo-omnis-nostrum-aut-adipisci-quidem-nostrum-qui
                       -
-                        id: 56
-                        name: nostrum
-                        description: 'Incidunt iure odit et et modi ipsum.'
-                        price: '35.67'
+                        id: 80
+                        name: commodi
+                        description: 'Odit et et modi.'
+                        price: '35.53'
+                        in_stock: true
                         category:
-                          id: 97
+                          id: 142
                           name: 'Test Cat'
-                          slug: enim-non-facere-tempora-ex-voluptatem-laboriosam-praesentium
+                          slug: facere-tempora-ex-voluptatem-laboriosam
                     items:
                       type: object
                       properties:
                         id:
                           type: integer
-                          example: 55
+                          example: 79
                         name:
                           type: string
                           example: architecto
@@ -3111,18 +3162,21 @@ paths:
                         price:
                           type: string
                           example: '56.32'
+                        in_stock:
+                          type: boolean
+                          example: true
                         category:
                           type: object
                           properties:
                             id:
                               type: integer
-                              example: 96
+                              example: 141
                             name:
                               type: string
                               example: 'Test Cat'
                             slug:
                               type: string
-                              example: provident-perspiciatis-quo-omnis-nostrum-aut-adipisci-quidem
+                              example: perspiciatis-quo-omnis-nostrum-aut-adipisci-quidem-nostrum-qui
                   links:
                     type: object
                     properties:
@@ -3253,42 +3307,46 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 57
-                    name: quis
-                    description: 'Fugit deleniti distinctio eum doloremque id aut libero.'
-                    price: '79.41'
+                    id: 81
+                    name: praesentium
+                    description: 'Molestias fugit deleniti distinctio eum doloremque id.'
+                    price: '48.67'
+                    in_stock: true
                     category:
-                      id: 98
+                      id: 143
                       name: 'Test Cat'
-                      slug: odit-quia-officia-est-dignissimos-neque-blanditiis-odio
+                      slug: officia-est-dignissimos-neque-blanditiis-odio-veritatis-excepturi
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: integer
-                        example: 57
+                        example: 81
                       name:
                         type: string
-                        example: quis
+                        example: praesentium
                       description:
                         type: string
-                        example: 'Fugit deleniti distinctio eum doloremque id aut libero.'
+                        example: 'Molestias fugit deleniti distinctio eum doloremque id.'
                       price:
                         type: string
-                        example: '79.41'
+                        example: '48.67'
+                      in_stock:
+                        type: boolean
+                        example: true
                       category:
                         type: object
                         properties:
                           id:
                             type: integer
-                            example: 98
+                            example: 143
                           name:
                             type: string
                             example: 'Test Cat'
                           slug:
                             type: string
-                            example: odit-quia-officia-est-dignissimos-neque-blanditiis-odio
+                            example: officia-est-dignissimos-neque-blanditiis-odio-veritatis-excepturi
         404:
           description: 'The product was not found.'
           content:
@@ -3629,39 +3687,52 @@ paths:
                         type: string
                         example: 'Authentication is required.'
         409:
-          description: 'Products or the payment method changed after validation. The error code identifies which selection is unavailable.'
+          description: 'Checkout state conflict. The error code identifies insufficient stock, unavailable products, or an unavailable payment method.'
           content:
             application/json:
               schema:
                 type: object
                 example:
                   error:
-                    code: products_unavailable
-                    message: 'One or more selected products are no longer available.'
+                    code: insufficient_stock
+                    message: 'One or more products do not have enough stock.'
                     details:
-                      product_ids:
-                        - 12
-                        - 31
+                      items:
+                        -
+                          product_id: 12
+                          requested_quantity: 3
+                          available_stock: 1
                 properties:
                   error:
                     type: object
                     properties:
                       code:
                         type: string
-                        example: products_unavailable
+                        example: insufficient_stock
                       message:
                         type: string
-                        example: 'One or more selected products are no longer available.'
+                        example: 'One or more products do not have enough stock.'
                       details:
                         type: object
                         properties:
-                          product_ids:
+                          items:
                             type: array
                             example:
-                              - 12
-                              - 31
+                              - product_id: 12
+                                requested_quantity: 3
+                                available_stock: 1
                             items:
-                              type: integer
+                              type: object
+                              properties:
+                                product_id:
+                                  type: integer
+                                  example: 12
+                                requested_quantity:
+                                  type: integer
+                                  example: 3
+                                available_stock:
+                                  type: integer
+                                  example: 1
         422:
           description: 'The checkout data is invalid.'
           content:

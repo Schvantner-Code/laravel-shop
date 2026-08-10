@@ -49,7 +49,7 @@ class OrderController extends Controller
      * Validates products, calculates totals on the server, and creates the order.
      */
     #[ScribeResponse(ApiResponseExamples::ORDER, 201, 'Order created.')]
-    #[ScribeResponse(ApiResponseExamples::PRODUCTS_UNAVAILABLE, 409, 'Products or the payment method changed after validation. The error code identifies which selection is unavailable.')]
+    #[ScribeResponse(ApiResponseExamples::CHECKOUT_CONFLICT, 409, 'Checkout state conflict. The error code identifies insufficient stock, unavailable products, or an unavailable payment method.')]
     #[ScribeResponse(ApiResponseExamples::VALIDATION_FAILED, 422, 'The checkout data is invalid.')]
     public function store(StoreOrderRequest $request, CreateOrder $createOrder): JsonResponse
     {

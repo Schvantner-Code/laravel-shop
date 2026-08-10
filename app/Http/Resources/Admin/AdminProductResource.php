@@ -16,6 +16,7 @@ class AdminProductResource extends ProductResource
             'name_translations' => $this->getTranslations('name'),
             'description_translations' => $this->getTranslations('description'),
 
+            'stock' => $this->stock,
             'is_active' => $this->is_active,
             'is_deleted' => $this->trashed(),
             'deleted_at' => $this->deleted_at?->toIso8601String(),
