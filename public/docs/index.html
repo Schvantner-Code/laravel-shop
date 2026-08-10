@@ -83,8 +83,8 @@
                                                                                 <li class="tocify-item level-2" data-unique="admin-management-POSTapi-v1-admin-categories">
                                 <a href="#admin-management-POSTapi-v1-admin-categories">POST api/v1/admin/categories</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="admin-management-PUTapi-v1-admin-categories--category_id-">
-                                <a href="#admin-management-PUTapi-v1-admin-categories--category_id-">PUT api/v1/admin/categories/{category_id}</a>
+                                                                                <li class="tocify-item level-2" data-unique="admin-management-PATCHapi-v1-admin-categories--category_id-">
+                                <a href="#admin-management-PATCHapi-v1-admin-categories--category_id-">PATCH api/v1/admin/categories/{category_id}</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="admin-management-DELETEapi-v1-admin-categories--category_id-">
                                 <a href="#admin-management-DELETEapi-v1-admin-categories--category_id-">DELETE api/v1/admin/categories/{category_id}</a>
@@ -98,8 +98,8 @@
                                                                                 <li class="tocify-item level-2" data-unique="admin-management-POSTapi-v1-admin-products">
                                 <a href="#admin-management-POSTapi-v1-admin-products">POST api/v1/admin/products</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="admin-management-PUTapi-v1-admin-products--product_id-">
-                                <a href="#admin-management-PUTapi-v1-admin-products--product_id-">PUT api/v1/admin/products/{product_id}</a>
+                                                                                <li class="tocify-item level-2" data-unique="admin-management-PATCHapi-v1-admin-products--product_id-">
+                                <a href="#admin-management-PATCHapi-v1-admin-products--product_id-">PATCH api/v1/admin/products/{product_id}</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="admin-management-DELETEapi-v1-admin-products--product_id-">
                                 <a href="#admin-management-DELETEapi-v1-admin-products--product_id-">DELETE api/v1/admin/products/{product_id}</a>
@@ -795,7 +795,7 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 144,
+            &quot;id&quot;: 174,
             &quot;name&quot;: &quot;Test Cat&quot;,
             &quot;slug&quot;: &quot;deserunt-aut-ab-provident-perspiciatis-quo-omnis-nostrum&quot;,
             &quot;name_translations&quot;: {
@@ -804,11 +804,11 @@ fetch(url, {
             },
             &quot;is_deleted&quot;: false,
             &quot;deleted_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-08-10T11:55:11+00:00&quot;,
-            &quot;updated_at&quot;: &quot;2026-08-10T11:55:11+00:00&quot;
+            &quot;created_at&quot;: &quot;2026-08-10T14:12:16+00:00&quot;,
+            &quot;updated_at&quot;: &quot;2026-08-10T14:12:16+00:00&quot;
         },
         {
-            &quot;id&quot;: 145,
+            &quot;id&quot;: 175,
             &quot;name&quot;: &quot;Test Cat&quot;,
             &quot;slug&quot;: &quot;adipisci-quidem-nostrum-qui-commodi-incidunt-iure&quot;,
             &quot;name_translations&quot;: {
@@ -817,8 +817,8 @@ fetch(url, {
             },
             &quot;is_deleted&quot;: false,
             &quot;deleted_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-08-10T11:55:11+00:00&quot;,
-            &quot;updated_at&quot;: &quot;2026-08-10T11:55:11+00:00&quot;
+            &quot;created_at&quot;: &quot;2026-08-10T14:12:16+00:00&quot;,
+            &quot;updated_at&quot;: &quot;2026-08-10T14:12:16+00:00&quot;
         }
     ],
     &quot;links&quot;: {
@@ -1087,7 +1087,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 146,
+        &quot;id&quot;: 176,
         &quot;name&quot;: &quot;Test Cat&quot;,
         &quot;slug&quot;: &quot;quos-velit-et-fugiat-sunt-nihil-accusantium-harum&quot;,
         &quot;name_translations&quot;: {
@@ -1096,8 +1096,8 @@ fetch(url, {
         },
         &quot;is_deleted&quot;: false,
         &quot;deleted_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-08-10T11:55:11+00:00&quot;,
-        &quot;updated_at&quot;: &quot;2026-08-10T11:55:11+00:00&quot;
+        &quot;created_at&quot;: &quot;2026-08-10T14:12:16+00:00&quot;,
+        &quot;updated_at&quot;: &quot;2026-08-10T14:12:16+00:00&quot;
     }
 }</code>
  </pre>
@@ -1277,7 +1277,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
         </div>
         </form>
 
-                    <h2 id="admin-management-PUTapi-v1-admin-categories--category_id-">PUT api/v1/admin/categories/{category_id}</h2>
+                    <h2 id="admin-management-PATCHapi-v1-admin-categories--category_id-">PATCH api/v1/admin/categories/{category_id}</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -1285,12 +1285,12 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 
 
-<span id="example-requests-PUTapi-v1-admin-categories--category_id-">
+<span id="example-requests-PATCHapi-v1-admin-categories--category_id-">
 <blockquote>Example request:</blockquote>
 
 
 <div class="bash-example">
-    <pre><code class="language-bash">curl --request PUT \
+    <pre><code class="language-bash">curl --request PATCH \
     "http://localhost/api/v1/admin/categories/1" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
@@ -1323,14 +1323,14 @@ let body = {
 };
 
 fetch(url, {
-    method: "PUT",
+    method: "PATCH",
     headers,
     body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
 
-<span id="example-responses-PUTapi-v1-admin-categories--category_id-">
+<span id="example-responses-PATCHapi-v1-admin-categories--category_id-">
             <blockquote>
             <p>Example response (200, Category updated.):</p>
         </blockquote>
@@ -1338,7 +1338,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 147,
+        &quot;id&quot;: 177,
         &quot;name&quot;: &quot;Test Cat&quot;,
         &quot;slug&quot;: &quot;animi-quos-velit-et-fugiat&quot;,
         &quot;name_translations&quot;: {
@@ -1347,8 +1347,8 @@ fetch(url, {
         },
         &quot;is_deleted&quot;: false,
         &quot;deleted_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-08-10T11:55:11+00:00&quot;,
-        &quot;updated_at&quot;: &quot;2026-08-10T11:55:11+00:00&quot;
+        &quot;created_at&quot;: &quot;2026-08-10T14:12:16+00:00&quot;,
+        &quot;updated_at&quot;: &quot;2026-08-10T14:12:16+00:00&quot;
     }
 }</code>
  </pre>
@@ -1406,50 +1406,50 @@ fetch(url, {
 }</code>
  </pre>
     </span>
-<span id="execution-results-PUTapi-v1-admin-categories--category_id-" hidden>
+<span id="execution-results-PATCHapi-v1-admin-categories--category_id-" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-PUTapi-v1-admin-categories--category_id-"></span>:
+                id="execution-response-status-PATCHapi-v1-admin-categories--category_id-"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-PUTapi-v1-admin-categories--category_id-"
+    <pre class="json"><code id="execution-response-content-PATCHapi-v1-admin-categories--category_id-"
       data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
 </span>
-<span id="execution-error-PUTapi-v1-admin-categories--category_id-" hidden>
+<span id="execution-error-PATCHapi-v1-admin-categories--category_id-" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-PUTapi-v1-admin-categories--category_id-">
+    <pre><code id="execution-error-message-PATCHapi-v1-admin-categories--category_id-">
 
 Tip: Check that you&#039;re properly connected to the network.
 If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
 You can check the Dev Tools console for debugging information.</code></pre>
 </span>
-<form id="form-PUTapi-v1-admin-categories--category_id-" data-method="PUT"
+<form id="form-PATCHapi-v1-admin-categories--category_id-" data-method="PATCH"
       data-path="api/v1/admin/categories/{category_id}"
       data-authed="1"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('PUTapi-v1-admin-categories--category_id-', this);">
+      onsubmit="event.preventDefault(); executeTryOut('PATCHapi-v1-admin-categories--category_id-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
                     <button type="button"
                     style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-PUTapi-v1-admin-categories--category_id-"
-                    onclick="tryItOut('PUTapi-v1-admin-categories--category_id-');">Try it out ⚡
+                    id="btn-tryout-PATCHapi-v1-admin-categories--category_id-"
+                    onclick="tryItOut('PATCHapi-v1-admin-categories--category_id-');">Try it out ⚡
             </button>
             <button type="button"
                     style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-PUTapi-v1-admin-categories--category_id-"
-                    onclick="cancelTryOut('PUTapi-v1-admin-categories--category_id-');" hidden>Cancel 🛑
+                    id="btn-canceltryout-PATCHapi-v1-admin-categories--category_id-"
+                    onclick="cancelTryOut('PATCHapi-v1-admin-categories--category_id-');" hidden>Cancel 🛑
             </button>&nbsp;&nbsp;
             <button type="submit"
                     style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-PUTapi-v1-admin-categories--category_id-"
+                    id="btn-executetryout-PATCHapi-v1-admin-categories--category_id-"
                     data-initial-text="Send Request 💥"
                     data-loading-text="⏱ Sending..."
                     hidden>Send Request 💥
             </button>
             </h3>
             <p>
-            <small class="badge badge-darkblue">PUT</small>
+            <small class="badge badge-purple">PATCH</small>
             <b><code>api/v1/admin/categories/{category_id}</code></b>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
@@ -1459,7 +1459,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Authorization" class="auth-value"               data-endpoint="PUTapi-v1-admin-categories--category_id-"
+                              name="Authorization" class="auth-value"               data-endpoint="PATCHapi-v1-admin-categories--category_id-"
                value="Bearer {YOUR_AUTH_TOKEN}"
                data-component="header">
     <br>
@@ -1471,7 +1471,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="PUTapi-v1-admin-categories--category_id-"
+                              name="Content-Type"                data-endpoint="PATCHapi-v1-admin-categories--category_id-"
                value="application/json"
                data-component="header">
     <br>
@@ -1483,7 +1483,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="PUTapi-v1-admin-categories--category_id-"
+                              name="Accept"                data-endpoint="PATCHapi-v1-admin-categories--category_id-"
                value="application/json"
                data-component="header">
     <br>
@@ -1496,7 +1496,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="category_id"                data-endpoint="PUTapi-v1-admin-categories--category_id-"
+               step="any"               name="category_id"                data-endpoint="PATCHapi-v1-admin-categories--category_id-"
                value="1"
                data-component="url">
     <br>
@@ -1508,18 +1508,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <summary style="padding-bottom: 10px;">
                 <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
 <small>object</small>&nbsp;
- &nbsp;
+<i>optional</i> &nbsp;
  &nbsp;
 <br>
-<p>Translatable name.</p>
+<p>Translatable name. When supplied, the English translation is required.</p>
             </summary>
                                                 <div style="margin-left: 14px; clear: unset;">
                         <b style="line-height: 2;"><code>en</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
- &nbsp;
+<i>optional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="name.en"                data-endpoint="PUTapi-v1-admin-categories--category_id-"
+                              name="name.en"                data-endpoint="PATCHapi-v1-admin-categories--category_id-"
                value="b"
                data-component="body">
     <br>
@@ -1531,7 +1531,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="name.sk"                data-endpoint="PUTapi-v1-admin-categories--category_id-"
+                              name="name.sk"                data-endpoint="PATCHapi-v1-admin-categories--category_id-"
                value="n"
                data-component="body">
     <br>
@@ -1545,7 +1545,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="slug"                data-endpoint="PUTapi-v1-admin-categories--category_id-"
+                              name="slug"                data-endpoint="PATCHapi-v1-admin-categories--category_id-"
                value=""
                data-component="body">
     <br>
@@ -1781,7 +1781,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 148,
+        &quot;id&quot;: 178,
         &quot;name&quot;: &quot;Test Cat&quot;,
         &quot;slug&quot;: &quot;et-et-modi-ipsum-nostrum&quot;,
         &quot;name_translations&quot;: {
@@ -1790,8 +1790,8 @@ fetch(url, {
         },
         &quot;is_deleted&quot;: false,
         &quot;deleted_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-08-10T11:55:11+00:00&quot;,
-        &quot;updated_at&quot;: &quot;2026-08-10T11:55:11+00:00&quot;
+        &quot;created_at&quot;: &quot;2026-08-10T14:12:16+00:00&quot;,
+        &quot;updated_at&quot;: &quot;2026-08-10T14:12:16+00:00&quot;
     }
 }</code>
  </pre>
@@ -1998,56 +1998,56 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 82,
-            &quot;name&quot;: &quot;laudantium&quot;,
-            &quot;description&quot;: &quot;Molestiae cupiditate voluptatem ut fugiat.&quot;,
-            &quot;price&quot;: &quot;40.04&quot;,
+            &quot;id&quot;: 98,
+            &quot;name&quot;: &quot;impedit&quot;,
+            &quot;description&quot;: &quot;Tenetur et explicabo maxime consequatur officiis corporis.&quot;,
+            &quot;price&quot;: &quot;17.48&quot;,
             &quot;in_stock&quot;: true,
             &quot;category&quot;: {
-                &quot;id&quot;: 149,
+                &quot;id&quot;: 179,
                 &quot;name&quot;: &quot;Test Cat&quot;,
-                &quot;slug&quot;: &quot;ut-magnam-in-hic-omnis&quot;
+                &quot;slug&quot;: &quot;placeat-doloremque-magnam-exercitationem-quibusdam-quasi-molestiae-corrupti-cupiditate&quot;
             },
             &quot;name_translations&quot;: {
-                &quot;en&quot;: &quot;laudantium&quot;,
-                &quot;sk&quot;: &quot;rerum&quot;
+                &quot;en&quot;: &quot;impedit&quot;,
+                &quot;sk&quot;: &quot;quibusdam&quot;
             },
             &quot;description_translations&quot;: {
-                &quot;en&quot;: &quot;Molestiae cupiditate voluptatem ut fugiat.&quot;,
-                &quot;sk&quot;: &quot;Autem ipsam molestiae omnis perferendis adipisci tenetur nam.&quot;
+                &quot;en&quot;: &quot;Tenetur et explicabo maxime consequatur officiis corporis.&quot;,
+                &quot;sk&quot;: &quot;Laboriosam sequi eum ea laboriosam dolor necessitatibus asperiores.&quot;
             },
-            &quot;stock&quot;: 16,
+            &quot;stock&quot;: 8,
             &quot;is_active&quot;: 1,
             &quot;is_deleted&quot;: false,
             &quot;deleted_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-08-10T11:55:11+00:00&quot;,
-            &quot;updated_at&quot;: &quot;2026-08-10T11:55:11+00:00&quot;
+            &quot;created_at&quot;: &quot;2026-08-10T14:12:16+00:00&quot;,
+            &quot;updated_at&quot;: &quot;2026-08-10T14:12:16+00:00&quot;
         },
         {
-            &quot;id&quot;: 83,
-            &quot;name&quot;: &quot;est&quot;,
-            &quot;description&quot;: &quot;Voluptatem nulla ullam perspiciatis adipisci qui odio maxime.&quot;,
-            &quot;price&quot;: &quot;14.99&quot;,
+            &quot;id&quot;: 99,
+            &quot;name&quot;: &quot;suscipit&quot;,
+            &quot;description&quot;: &quot;Molestiae architecto voluptatem nobis iste.&quot;,
+            &quot;price&quot;: &quot;58.76&quot;,
             &quot;in_stock&quot;: true,
             &quot;category&quot;: {
-                &quot;id&quot;: 150,
+                &quot;id&quot;: 180,
                 &quot;name&quot;: &quot;Test Cat&quot;,
-                &quot;slug&quot;: &quot;deleniti-libero-et-fuga-iure-et-amet&quot;
+                &quot;slug&quot;: &quot;odio-deleniti-alias-alias-at-ut-temporibus-molestiae&quot;
             },
             &quot;name_translations&quot;: {
-                &quot;en&quot;: &quot;est&quot;,
-                &quot;sk&quot;: &quot;est&quot;
+                &quot;en&quot;: &quot;suscipit&quot;,
+                &quot;sk&quot;: &quot;ipsam&quot;
             },
             &quot;description_translations&quot;: {
-                &quot;en&quot;: &quot;Voluptatem nulla ullam perspiciatis adipisci qui odio maxime.&quot;,
-                &quot;sk&quot;: &quot;Dolorem dolor perspiciatis ea minima.&quot;
+                &quot;en&quot;: &quot;Molestiae architecto voluptatem nobis iste.&quot;,
+                &quot;sk&quot;: &quot;Illo assumenda voluptatibus consequatur est qui dolor suscipit.&quot;
             },
-            &quot;stock&quot;: 9,
+            &quot;stock&quot;: 46,
             &quot;is_active&quot;: 1,
             &quot;is_deleted&quot;: false,
             &quot;deleted_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-08-10T11:55:11+00:00&quot;,
-            &quot;updated_at&quot;: &quot;2026-08-10T11:55:11+00:00&quot;
+            &quot;created_at&quot;: &quot;2026-08-10T14:12:16+00:00&quot;,
+            &quot;updated_at&quot;: &quot;2026-08-10T14:12:16+00:00&quot;
         }
     ],
     &quot;links&quot;: {
@@ -2330,13 +2330,13 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 84,
+        &quot;id&quot;: 100,
         &quot;name&quot;: &quot;animi&quot;,
         &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;,
         &quot;price&quot;: &quot;1.80&quot;,
         &quot;in_stock&quot;: true,
         &quot;category&quot;: {
-            &quot;id&quot;: 151,
+            &quot;id&quot;: 181,
             &quot;name&quot;: &quot;Test Cat&quot;,
             &quot;slug&quot;: &quot;autem-et-consequatur-aut-dolores-enim-non-facere-tempora&quot;
         },
@@ -2352,8 +2352,8 @@ fetch(url, {
         &quot;is_active&quot;: 1,
         &quot;is_deleted&quot;: false,
         &quot;deleted_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-08-10T11:55:11+00:00&quot;,
-        &quot;updated_at&quot;: &quot;2026-08-10T11:55:11+00:00&quot;
+        &quot;created_at&quot;: &quot;2026-08-10T14:12:16+00:00&quot;,
+        &quot;updated_at&quot;: &quot;2026-08-10T14:12:16+00:00&quot;
     }
 }</code>
  </pre>
@@ -2615,7 +2615,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
         </div>
         </form>
 
-                    <h2 id="admin-management-PUTapi-v1-admin-products--product_id-">PUT api/v1/admin/products/{product_id}</h2>
+                    <h2 id="admin-management-PATCHapi-v1-admin-products--product_id-">PATCH api/v1/admin/products/{product_id}</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -2623,12 +2623,12 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 
 
-<span id="example-requests-PUTapi-v1-admin-products--product_id-">
+<span id="example-requests-PATCHapi-v1-admin-products--product_id-">
 <blockquote>Example request:</blockquote>
 
 
 <div class="bash-example">
-    <pre><code class="language-bash">curl --request PUT \
+    <pre><code class="language-bash">curl --request PATCH \
     "http://localhost/api/v1/admin/products/1" \
     --header "Authorization: Bearer {YOUR_AUTH_TOKEN}" \
     --header "Content-Type: application/json" \
@@ -2645,7 +2645,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     },
     \"price\": 1250,
     \"stock\": 25,
-    \"is_active\": false
+    \"is_active\": true
 }"
 </code></pre></div>
 
@@ -2673,18 +2673,18 @@ let body = {
     },
     "price": 1250,
     "stock": 25,
-    "is_active": false
+    "is_active": true
 };
 
 fetch(url, {
-    method: "PUT",
+    method: "PATCH",
     headers,
     body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
 
-<span id="example-responses-PUTapi-v1-admin-products--product_id-">
+<span id="example-responses-PATCHapi-v1-admin-products--product_id-">
             <blockquote>
             <p>Example response (200, Product updated.):</p>
         </blockquote>
@@ -2692,13 +2692,13 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 85,
+        &quot;id&quot;: 101,
         &quot;name&quot;: &quot;animi&quot;,
         &quot;description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;,
         &quot;price&quot;: &quot;1.80&quot;,
         &quot;in_stock&quot;: true,
         &quot;category&quot;: {
-            &quot;id&quot;: 152,
+            &quot;id&quot;: 182,
             &quot;name&quot;: &quot;Test Cat&quot;,
             &quot;slug&quot;: &quot;voluptatem-laboriosam-praesentium-quis-adipisci&quot;
         },
@@ -2714,8 +2714,8 @@ fetch(url, {
         &quot;is_active&quot;: 1,
         &quot;is_deleted&quot;: false,
         &quot;deleted_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-08-10T11:55:11+00:00&quot;,
-        &quot;updated_at&quot;: &quot;2026-08-10T11:55:11+00:00&quot;
+        &quot;created_at&quot;: &quot;2026-08-10T14:12:16+00:00&quot;,
+        &quot;updated_at&quot;: &quot;2026-08-10T14:12:16+00:00&quot;
     }
 }</code>
  </pre>
@@ -2773,50 +2773,50 @@ fetch(url, {
 }</code>
  </pre>
     </span>
-<span id="execution-results-PUTapi-v1-admin-products--product_id-" hidden>
+<span id="execution-results-PATCHapi-v1-admin-products--product_id-" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-PUTapi-v1-admin-products--product_id-"></span>:
+                id="execution-response-status-PATCHapi-v1-admin-products--product_id-"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-PUTapi-v1-admin-products--product_id-"
+    <pre class="json"><code id="execution-response-content-PATCHapi-v1-admin-products--product_id-"
       data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
 </span>
-<span id="execution-error-PUTapi-v1-admin-products--product_id-" hidden>
+<span id="execution-error-PATCHapi-v1-admin-products--product_id-" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-PUTapi-v1-admin-products--product_id-">
+    <pre><code id="execution-error-message-PATCHapi-v1-admin-products--product_id-">
 
 Tip: Check that you&#039;re properly connected to the network.
 If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
 You can check the Dev Tools console for debugging information.</code></pre>
 </span>
-<form id="form-PUTapi-v1-admin-products--product_id-" data-method="PUT"
+<form id="form-PATCHapi-v1-admin-products--product_id-" data-method="PATCH"
       data-path="api/v1/admin/products/{product_id}"
       data-authed="1"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('PUTapi-v1-admin-products--product_id-', this);">
+      onsubmit="event.preventDefault(); executeTryOut('PATCHapi-v1-admin-products--product_id-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
                     <button type="button"
                     style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-PUTapi-v1-admin-products--product_id-"
-                    onclick="tryItOut('PUTapi-v1-admin-products--product_id-');">Try it out ⚡
+                    id="btn-tryout-PATCHapi-v1-admin-products--product_id-"
+                    onclick="tryItOut('PATCHapi-v1-admin-products--product_id-');">Try it out ⚡
             </button>
             <button type="button"
                     style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-PUTapi-v1-admin-products--product_id-"
-                    onclick="cancelTryOut('PUTapi-v1-admin-products--product_id-');" hidden>Cancel 🛑
+                    id="btn-canceltryout-PATCHapi-v1-admin-products--product_id-"
+                    onclick="cancelTryOut('PATCHapi-v1-admin-products--product_id-');" hidden>Cancel 🛑
             </button>&nbsp;&nbsp;
             <button type="submit"
                     style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-PUTapi-v1-admin-products--product_id-"
+                    id="btn-executetryout-PATCHapi-v1-admin-products--product_id-"
                     data-initial-text="Send Request 💥"
                     data-loading-text="⏱ Sending..."
                     hidden>Send Request 💥
             </button>
             </h3>
             <p>
-            <small class="badge badge-darkblue">PUT</small>
+            <small class="badge badge-purple">PATCH</small>
             <b><code>api/v1/admin/products/{product_id}</code></b>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
@@ -2826,7 +2826,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Authorization" class="auth-value"               data-endpoint="PUTapi-v1-admin-products--product_id-"
+                              name="Authorization" class="auth-value"               data-endpoint="PATCHapi-v1-admin-products--product_id-"
                value="Bearer {YOUR_AUTH_TOKEN}"
                data-component="header">
     <br>
@@ -2838,7 +2838,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="PUTapi-v1-admin-products--product_id-"
+                              name="Content-Type"                data-endpoint="PATCHapi-v1-admin-products--product_id-"
                value="application/json"
                data-component="header">
     <br>
@@ -2850,7 +2850,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="PUTapi-v1-admin-products--product_id-"
+                              name="Accept"                data-endpoint="PATCHapi-v1-admin-products--product_id-"
                value="application/json"
                data-component="header">
     <br>
@@ -2863,7 +2863,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="product_id"                data-endpoint="PUTapi-v1-admin-products--product_id-"
+               step="any"               name="product_id"                data-endpoint="PATCHapi-v1-admin-products--product_id-"
                value="1"
                data-component="url">
     <br>
@@ -2873,10 +2873,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
         <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>category_id</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
- &nbsp;
+<i>optional</i> &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="category_id"                data-endpoint="PUTapi-v1-admin-products--product_id-"
+               step="any"               name="category_id"                data-endpoint="PATCHapi-v1-admin-products--product_id-"
                value="1"
                data-component="body">
     <br>
@@ -2887,18 +2887,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <summary style="padding-bottom: 10px;">
                 <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
 <small>object</small>&nbsp;
- &nbsp;
+<i>optional</i> &nbsp;
  &nbsp;
 <br>
-
+<p>When supplied, the English translation is required.</p>
             </summary>
                                                 <div style="margin-left: 14px; clear: unset;">
                         <b style="line-height: 2;"><code>en</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
- &nbsp;
+<i>optional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="name.en"                data-endpoint="PUTapi-v1-admin-products--product_id-"
+                              name="name.en"                data-endpoint="PATCHapi-v1-admin-products--product_id-"
                value="b"
                data-component="body">
     <br>
@@ -2910,7 +2910,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="name.sk"                data-endpoint="PUTapi-v1-admin-products--product_id-"
+                              name="name.sk"                data-endpoint="PATCHapi-v1-admin-products--product_id-"
                value="n"
                data-component="body">
     <br>
@@ -2934,7 +2934,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="description.en"                data-endpoint="PUTapi-v1-admin-products--product_id-"
+                              name="description.en"                data-endpoint="PATCHapi-v1-admin-products--product_id-"
                value="architecto"
                data-component="body">
     <br>
@@ -2946,7 +2946,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="description.sk"                data-endpoint="PUTapi-v1-admin-products--product_id-"
+                              name="description.sk"                data-endpoint="PATCHapi-v1-admin-products--product_id-"
                value="architecto"
                data-component="body">
     <br>
@@ -2957,10 +2957,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>price</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
- &nbsp;
+<i>optional</i> &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="price"                data-endpoint="PUTapi-v1-admin-products--product_id-"
+               step="any"               name="price"                data-endpoint="PATCHapi-v1-admin-products--product_id-"
                value="1250"
                data-component="body">
     <br>
@@ -2969,10 +2969,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>stock</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
- &nbsp;
+<i>optional</i> &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="stock"                data-endpoint="PUTapi-v1-admin-products--product_id-"
+               step="any"               name="stock"                data-endpoint="PATCHapi-v1-admin-products--product_id-"
                value="25"
                data-component="body">
     <br>
@@ -2983,22 +2983,22 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small>boolean</small>&nbsp;
 <i>optional</i> &nbsp;
  &nbsp;
-                <label data-endpoint="PUTapi-v1-admin-products--product_id-" style="display: none">
+                <label data-endpoint="PATCHapi-v1-admin-products--product_id-" style="display: none">
             <input type="radio" name="is_active"
                    value="true"
-                   data-endpoint="PUTapi-v1-admin-products--product_id-"
+                   data-endpoint="PATCHapi-v1-admin-products--product_id-"
                    data-component="body"             >
             <code>true</code>
         </label>
-        <label data-endpoint="PUTapi-v1-admin-products--product_id-" style="display: none">
+        <label data-endpoint="PATCHapi-v1-admin-products--product_id-" style="display: none">
             <input type="radio" name="is_active"
                    value="false"
-                   data-endpoint="PUTapi-v1-admin-products--product_id-"
+                   data-endpoint="PATCHapi-v1-admin-products--product_id-"
                    data-component="body"             >
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
         </form>
 
@@ -3230,13 +3230,13 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 86,
+        &quot;id&quot;: 102,
         &quot;name&quot;: &quot;aut&quot;,
         &quot;description&quot;: &quot;Nostrum qui commodi incidunt iure.&quot;,
         &quot;price&quot;: &quot;44.13&quot;,
         &quot;in_stock&quot;: true,
         &quot;category&quot;: {
-            &quot;id&quot;: 153,
+            &quot;id&quot;: 183,
             &quot;name&quot;: &quot;Test Cat&quot;,
             &quot;slug&quot;: &quot;consequatur-aut-dolores-enim-non-facere-tempora&quot;
         },
@@ -3252,8 +3252,8 @@ fetch(url, {
         &quot;is_active&quot;: 1,
         &quot;is_deleted&quot;: false,
         &quot;deleted_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-08-10T11:55:11+00:00&quot;,
-        &quot;updated_at&quot;: &quot;2026-08-10T11:55:11+00:00&quot;
+        &quot;created_at&quot;: &quot;2026-08-10T14:12:16+00:00&quot;,
+        &quot;updated_at&quot;: &quot;2026-08-10T14:12:16+00:00&quot;
     }
 }</code>
  </pre>
@@ -4001,12 +4001,12 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 139,
+            &quot;id&quot;: 169,
             &quot;name&quot;: &quot;Test Cat&quot;,
             &quot;slug&quot;: &quot;eius-et-animi-quos-velit-et&quot;
         },
         {
-            &quot;id&quot;: 140,
+            &quot;id&quot;: 170,
             &quot;name&quot;: &quot;Test Cat&quot;,
             &quot;slug&quot;: &quot;sunt-nihil-accusantium-harum-mollitia&quot;
         }
@@ -4244,25 +4244,25 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 79,
+            &quot;id&quot;: 95,
             &quot;name&quot;: &quot;architecto&quot;,
             &quot;description&quot;: &quot;Animi quos velit et fugiat.&quot;,
             &quot;price&quot;: &quot;56.32&quot;,
             &quot;in_stock&quot;: true,
             &quot;category&quot;: {
-                &quot;id&quot;: 141,
+                &quot;id&quot;: 171,
                 &quot;name&quot;: &quot;Test Cat&quot;,
                 &quot;slug&quot;: &quot;perspiciatis-quo-omnis-nostrum-aut-adipisci-quidem-nostrum-qui&quot;
             }
         },
         {
-            &quot;id&quot;: 80,
+            &quot;id&quot;: 96,
             &quot;name&quot;: &quot;commodi&quot;,
             &quot;description&quot;: &quot;Odit et et modi.&quot;,
             &quot;price&quot;: &quot;35.53&quot;,
             &quot;in_stock&quot;: true,
             &quot;category&quot;: {
-                &quot;id&quot;: 142,
+                &quot;id&quot;: 172,
                 &quot;name&quot;: &quot;Test Cat&quot;,
                 &quot;slug&quot;: &quot;facere-tempora-ex-voluptatem-laboriosam&quot;
             }
@@ -4503,13 +4503,13 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 81,
+        &quot;id&quot;: 97,
         &quot;name&quot;: &quot;praesentium&quot;,
         &quot;description&quot;: &quot;Molestias fugit deleniti distinctio eum doloremque id.&quot;,
         &quot;price&quot;: &quot;48.67&quot;,
         &quot;in_stock&quot;: true,
         &quot;category&quot;: {
-            &quot;id&quot;: 143,
+            &quot;id&quot;: 173,
             &quot;name&quot;: &quot;Test Cat&quot;,
             &quot;slug&quot;: &quot;officia-est-dignissimos-neque-blanditiis-odio-veritatis-excepturi&quot;
         }

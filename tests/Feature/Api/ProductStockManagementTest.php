@@ -64,6 +64,11 @@ test('product stock cannot be negative and must be an integer', function () {
         ->assertJsonValidationErrors('stock', 'error.details');
 
     $this->actingAs($this->admin)
+        ->postJson('/api/v1/admin/products', productPayload($this->category, 2.5))
+        ->assertUnprocessable()
+        ->assertJsonValidationErrors('stock', 'error.details');
+
+    $this->actingAs($this->admin)
         ->postJson('/api/v1/admin/products', productPayload($this->category, 'many'))
         ->assertUnprocessable()
         ->assertJsonValidationErrors('stock', 'error.details');
@@ -72,25 +77,31 @@ test('product stock cannot be negative and must be an integer', function () {
 test('admins can update exact product stock', function () {
     $product = Product::factory()->create([
         'category_id' => $this->category->id,
+        'price' => 2500,
         'stock' => 10,
     ]);
 
     $this->actingAs($this->admin)
-        ->putJson("/api/v1/admin/products/{$product->id}", productPayload($this->category, 0))
+        ->patchJson("/api/v1/admin/products/{$product->id}", ['stock' => 0])
         ->assertOk()
         ->assertJsonPath('data.stock', 0)
         ->assertJsonPath('data.in_stock', false);
 
     $this->assertDatabaseHas('products', [
         'id' => $product->id,
+        'category_id' => $this->category->id,
+        'price' => 2500,
         'stock' => 0,
     ]);
 });
 
 /**
- * @return array{category_id: int, name: array{en: string, sk: string}, price: int, stock: int|string, is_active: bool}
+ * Invalid scalar types are accepted deliberately so request-validation tests can
+ * send them unchanged instead of PHP coercing them before the request is built.
+ *
+ * @return array{category_id: int, name: array{en: string, sk: string}, price: int, stock: int|float|string, is_active: bool}
  */
-function productPayload(Category $category, int|string $stock): array
+function productPayload(Category $category, int|float|string $stock): array
 {
     return [
         'category_id' => $category->id,

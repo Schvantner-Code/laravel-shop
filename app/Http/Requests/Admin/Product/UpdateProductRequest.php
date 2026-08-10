@@ -6,10 +6,10 @@ use App\Http\Requests\Traits\HasScribeBodyParameters;
 use Illuminate\Foundation\Http\FormRequest;
 use Knuckles\Scribe\Attributes\BodyParam;
 
-#[BodyParam('category_id', 'integer', example: 1)]
-#[BodyParam('name', 'object', example: ['en' => 'Pro Pen', 'sk' => 'Pro Pero'])]
-#[BodyParam('price', 'integer', 'Price in cents.', example: 1250)]
-#[BodyParam('stock', 'integer', 'Available inventory units.', example: 25)]
+#[BodyParam('category_id', 'integer', required: false, example: 1)]
+#[BodyParam('name', 'object', 'When supplied, the English translation is required.', required: false, example: ['en' => 'Pro Pen', 'sk' => 'Pro Pero'])]
+#[BodyParam('price', 'integer', 'Price in cents.', required: false, example: 1250)]
+#[BodyParam('stock', 'integer', 'Available inventory units.', required: false, example: 25)]
 class UpdateProductRequest extends FormRequest
 {
     use HasScribeBodyParameters;
@@ -22,19 +22,19 @@ class UpdateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category_id' => ['required', 'exists:categories,id'],
+            'category_id' => ['sometimes', 'exists:categories,id'],
 
-            'name' => ['required', 'array'],
-            'name.en' => ['required', 'string', 'max:255'],
+            'name' => ['sometimes', 'array', 'required_array_keys:en'],
+            'name.en' => ['string', 'max:255'],
             'name.sk' => ['nullable', 'string', 'max:255'],
 
-            'description' => ['nullable', 'array'],
+            'description' => ['sometimes', 'nullable', 'array'],
             'description.en' => ['nullable', 'string'],
             'description.sk' => ['nullable', 'string'],
 
-            'price' => ['required', 'integer', 'min:0'],
-            'stock' => ['required', 'integer', 'min:0'],
-            'is_active' => ['boolean'],
+            'price' => ['sometimes', 'integer', 'min:0'],
+            'stock' => ['sometimes', 'integer', 'min:0'],
+            'is_active' => ['sometimes', 'boolean'],
         ];
     }
 }

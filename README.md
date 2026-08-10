@@ -1,13 +1,15 @@
 
 # Laravel E-Commerce API Showcase
 
-A headless e-commerce API developed as a technical portfolio showcase. This repository demonstrates modern Laravel 13 architecture, strict type safety, and enterprise-grade patterns including Domain-Driven Design (Actions), Event-Driven Architecture, and Automated Testing.
+A headless e-commerce API developed as a technical portfolio showcase. This repository demonstrates modern Laravel 13 architecture, versioned REST contracts, transaction-safe checkout, event-driven workflows, and automated testing.
 
 ## Key Features & Architecture
 
 *   **Multi-Language Support**: Full database-level localization (English/Slovak) for Products and Categories using JSON columns.
 *   **Role-Based Access Control (RBAC)**: Distinct permissions for Administrators and Customers using Policies and Sanctum.
 *   **Strict State Management**: Order status logic enforced via PHP Enums and a centralized State Machine (handling COD vs. Standard payment flows).
+*   **Inventory-Safe Checkout**: Server-calculated totals, product availability checks, row locking, atomic stock decrementing, and rollback-safe order creation.
+*   **Versioned API Contracts**: A `/api/v1` API with consistent success and error envelopes, validated query parameters, and partial `PATCH` updates.
 *   **Event-Driven Architecture**: Decoupled email notifications using Observers, Events, Listeners, and Queued Jobs.
 *   **Clean Code Patterns**: Usage of the Action Pattern for complex business logic, API Resources for response transformation, and FormRequests for validation.
 *   **Soft Deletes**: Implementation of restoration logic for Catalog management.

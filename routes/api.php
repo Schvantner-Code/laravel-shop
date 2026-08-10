@@ -28,14 +28,14 @@ Route::prefix('v1')->group(function () {
             // Categories
             Route::get('/categories', [AdminCategoryController::class, 'index']);
             Route::post('/categories', [AdminCategoryController::class, 'store']);
-            Route::put('/categories/{category}', [AdminCategoryController::class, 'update']);
+            Route::patch('/categories/{category}', [AdminCategoryController::class, 'update']);
             Route::delete('/categories/{category}', [AdminCategoryController::class, 'destroy']);
             Route::post('/categories/{id}/restore', [AdminCategoryController::class, 'restore']);
 
             // Products
             Route::get('/products', [AdminProductController::class, 'index']);
             Route::post('/products', [AdminProductController::class, 'store']);
-            Route::put('/products/{product}', [AdminProductController::class, 'update']);
+            Route::patch('/products/{product}', [AdminProductController::class, 'update']);
             Route::delete('/products/{product}', [AdminProductController::class, 'destroy']);
             Route::post('/products/{id}/restore', [AdminProductController::class, 'restore']);
         });
