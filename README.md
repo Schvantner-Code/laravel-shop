@@ -118,6 +118,13 @@ The repository includes a GitHub Actions workflow that automatically runs tests 
 ./vendor/bin/sail test
 ```
 
+The same code-quality checks enforced by CI can be run locally:
+
+```bash
+./vendor/bin/sail composer format:test
+./vendor/bin/sail composer analyse
+```
+
 ## Development Workflow
 
 Enable the repository's versioned Git hooks once after cloning:

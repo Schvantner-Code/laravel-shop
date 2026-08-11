@@ -1,0 +1,14 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/nesbot/carbon/extension.neon
+
+parameters:
+    paths:
+        - app
+
+    level: 5
+
+    # This project uses Laravel's casts() methods instead of legacy $casts
+    # properties. Larastan leaves method-body parsing disabled by default, so
+    # enabling it is required for enum and integer casts to be analysed.
+    parseModelCastsMethod: true

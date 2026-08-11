@@ -46,6 +46,12 @@ jobs:
     - name: Generate Key
       run: php artisan key:generate
 
+    - name: Check Code Style
+      run: vendor/bin/pint --test
+
+    - name: Run Static Analysis
+      run: vendor/bin/phpstan analyse --no-progress --memory-limit=1G
+
     - name: Directory Permissions
       run: chmod -R ug+rwX storage bootstrap/cache
 
