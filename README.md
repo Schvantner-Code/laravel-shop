@@ -21,7 +21,7 @@ A headless e-commerce API developed as a technical portfolio showcase. This repo
 *   **Framework**: Laravel 13
 *   **Language**: PHP 8.5
 *   **Database**: MySQL 8.4
-*   **Cache/Queue**: Redis
+*   **Queue/Cache**: Database-backed by default; Redis available
 *   **Testing**: Pest PHP
 *   **Documentation**: Scribe (OpenAPI/Swagger)
 *   **Environment**: Docker (Laravel Sail)
