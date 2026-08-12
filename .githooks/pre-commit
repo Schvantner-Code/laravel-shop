@@ -6,9 +6,20 @@ documentation_inputs_changed=false
 
 while IFS= read -r path; do
     case "$path" in
-        app/Http/*|routes/*|config/scribe.php|composer.json|composer.lock)
+        # Only API routes affect Scribe. Including every route caused harmless
+        # web-only changes to regenerate random response IDs, timestamps, and
+        # Faker examples in all tracked documentation formats.
+        app/Http/*|routes/api.php|config/scribe.php)
             documentation_inputs_changed=true
             break
+            ;;
+        composer.lock)
+            # Regenerate for an actual Scribe upgrade, not for unrelated
+            # dependency or root-package metadata changes.
+            if git diff --cached -- composer.lock | grep -q '\"name\": \"knuckleswtf/scribe\"'; then
+                documentation_inputs_changed=true
+                break
+            fi
             ;;
     esac
 done < <(git diff --cached --name-only --diff-filter=ACMR)

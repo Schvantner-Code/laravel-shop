@@ -1,5 +1,6 @@
-
 # Laravel E-Commerce API Showcase
+
+[![Tests](https://github.com/Schvantner-Code/laravel-shop/actions/workflows/tests.yml/badge.svg)](https://github.com/Schvantner-Code/laravel-shop/actions/workflows/tests.yml)
 
 A headless e-commerce API developed as a technical portfolio showcase. This repository demonstrates modern Laravel 13 architecture, versioned REST contracts, transaction-safe checkout, event-driven workflows, and automated testing.
 
@@ -65,6 +66,17 @@ Prerequisites: Docker Desktop with WSL integration, or Docker Engine on Linux, m
    ./vendor/bin/sail artisan migrate --seed
    ```
 
+6. **Start the queue worker**
+
+   In a separate terminal, run:
+
+   ```bash
+   ./vendor/bin/sail artisan queue:work
+   ```
+
+   Checkout and order-status emails are queued. API requests work without a
+   worker, but email jobs remain pending until one is running.
+
 The seeders create two demonstration accounts:
 
 | Role | Email | Password |
@@ -103,12 +115,31 @@ This project uses **Scribe** to generate interactive API documentation.
 
 *   **View Docs**: Navigate to `http://localhost/docs` in your browser.
 *   **Interactive Testing**: You can send requests directly from the documentation page using the "Try It Out" button.
-*   **Postman Collection & OpenAPI spec**: Automatically generated and available via the docs interface.
+*   **Inspect without running the project**: View the tracked [OpenAPI specification](public/docs/openapi.yaml) or [Postman collection](public/docs/collection.json).
+*   **View captured emails**: Open Mailpit at `http://localhost:8025` while Sail and the queue worker are running.
 
 ### Important Headers
 To test the localization features, use the `Accept-Language` header in your requests:
 *   `Accept-Language: en` (Default)
 *   `Accept-Language: sk` (Slovak)
+
+## Architecture Walkthrough
+
+API requests enter through the versioned routes in `routes/api.php`. Form
+Requests validate and normalize input, Policies enforce authorization, and API
+Resources provide consistent response contracts. Exceptions are converted to a
+shared JSON error envelope in `bootstrap/app.php`.
+
+Checkout delegates its business rules to `CreateOrder`. Inside one database
+transaction it rechecks the payment method, locks products in a stable order,
+validates every requested quantity, decrements inventory, snapshots unit prices
+on the order-product rows, and creates the order. Any failure rolls back the
+entire operation.
+
+After the transaction commits, `OrderPlaced` dispatches the queued confirmation
+listener. Later status changes are observed after commit and queue their own
+customer email. This keeps SMTP work out of API response time and prevents
+rolled-back changes from publishing notifications.
 
 ## Testing & CI
 
@@ -133,4 +164,4 @@ Enable the repository's versioned Git hooks once after cloning:
 git config core.hooksPath .githooks
 ```
 
-When staged API routes, controllers, requests, Scribe configuration, or Composer dependencies change, the pre-commit hook regenerates and stages the Scribe files in `public/docs`. This keeps API documentation in the same commit as the related change without modifying docs during unrelated commits. Sail must be running for those commits; the commit is stopped if documentation generation fails.
+When staged API routes, controllers, requests, Scribe configuration, or the Scribe dependency change, the pre-commit hook regenerates and stages the Scribe files in `public/docs`. This keeps API documentation in the same commit as the related change without modifying docs during unrelated commits. Sail must be running for those commits; the commit is stopped if documentation generation fails.
